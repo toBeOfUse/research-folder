@@ -1,25 +1,27 @@
-import { Entity, Fields } from 'remult';
+import { Entity, Fields } from "remult";
 
-@Entity('papers', {
-    allowApiCrud: true,
+@Entity("papers", {
+  allowApiCrud: true,
 })
-
 export class Paper {
-    @Fields.uuid()
-    id!: string;
+  @Fields.uuid()
+  id!: string;
 
-    @Fields.string()
-    title = '';
+  @Fields.string()
+  title = "";
 
-    @Fields.object()
-    authors: string[] = [];
+  @Fields.object()
+  authors: string[] = [];
 
-    @Fields.object()
-    tags: string[] = [];
+  @Fields.object()
+  tags: string[] = [];
 
-    @Fields.string()
-    notes = "";
+  @Fields.string()
+  importance = "";
 
-    @Fields.dateOnly()
-    published = new Date(1970);
+  @Fields.string()
+  notes = "";
+
+  @Fields.dateOnly()
+  published = new Date(1970);
 }

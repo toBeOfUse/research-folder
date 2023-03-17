@@ -6,22 +6,45 @@ import { Paper } from "../../data/entities";
 const papersRepo = remult.repo(Paper);
 
 const papers: Ref<Partial<Paper>[]> = ref([]);
-onMounted(async function(){
+onMounted(async function() {
   papers.value = await papersRepo.find();
 });
-
-const paper = ref("");
-async function addPaper() {
-  const newPaper = {title: paper.value};
-  paper.value = "";
-  papers.value.push(newPaper);
-  await papersRepo.insert(newPaper);
-}
 </script>
 
 <template>
-  <h1>Hello</h1>
-  <p v-for="p in papers">{{ p.title }}</p>
-  <input type="text" v-model="paper">
-  <button @click="addPaper">add</button>
+  <VTable :data="papers">
+    <template #head>
+      <tr>
+        <th>Title</th>
+        <th>Authors</th>
+        <th>Year</th>
+        <th>Importance</th>
+        <th>Tags</th>
+      </tr>
+    </template>
+    <template #body="{rows}">
+      <tr v-for="row in rows" :key="row.id">
+        <td>{{ row.title }}</td>
+        <td>{{ row.authors.join(", ") }}</td>
+        <td>{{ row.published.getFullYear() }}</td>
+        <td>{{ row.importance }}</td>
+        <td>{{ row.tags.join(", ") }}</td>
+      </tr>
+    </template>
+  </VTable>
 </template>
+
+<style>
+table {
+  text-align: left;
+}
+td:nth-child(2n) {
+  background-color: lightyellow;
+}
+td:nth-child(2n+1) {
+  background-color: white;
+}
+td, th {
+  border: 1px solid white;
+}
+</style>

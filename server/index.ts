@@ -13,7 +13,7 @@ import { Paper } from "../data/entities";
     root: cwd(),
     server: {
       port: 3000,
-      proxy: { "/api": "http://localhost:3001" }
+      proxy: { "/api": "http://localhost:3001" },
     },
   });
   await viteServer.listen();
@@ -26,9 +26,9 @@ const fastify = fastifyCreate({ logger: true });
   try {
     await fastify.register(
       remultFastify({
-        entities: [Paper]
+        entities: [Paper],
       })
-    )
+    );
     await fastify.listen({ port: 3001 });
   } catch (err) {
     fastify.log.error(err);
