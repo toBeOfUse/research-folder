@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "fastify": "^4.14.1",
-    "vue": "^3.2.47"
+    "remult": "^0.18.0",
+    "vue": "^3.2.47",
   },
   "devDependencies": {
     "@types/node": "^18.15.3",
