@@ -1,18 +1,21 @@
 {
   "name": "research-folder",
-  "private": true,
+  "license": "MIT",
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "ts-node ./server/index.ts",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "fastify": "^4.14.1",
     "vue": "^3.2.47"
   },
   "devDependencies": {
+    "@types/node": "^18.15.3",
     "@vitejs/plugin-vue": "^4.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2",
     "vite": "^4.2.0"
   }
 }
