@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { remult } from "remult"
 import { onMounted, ref, Ref } from "vue";
-import { Paper } from "../../data/entities";
+import { Paper, AuthorName } from "../../data/entities";
 
 const papersRepo = remult.repo(Paper);
 
@@ -18,16 +18,16 @@ onMounted(async function() {
         <th>Title</th>
         <th>Authors</th>
         <th>Year</th>
-        <th>Importance</th>
+        <th>Summary</th>
         <th>Tags</th>
       </tr>
     </template>
     <template #body="{rows}">
       <tr v-for="row in rows" :key="row.id">
-        <td>{{ row.title }}</td>
-        <td>{{ row.authors.join(", ") }}</td>
+        <td><a :href="row.link" target="_blank">{{ row.title }}</a></td>
+        <td>{{ row.authors.map((a: AuthorName)=>a.lastName).join(", ") }}</td>
         <td>{{ row.published.getFullYear() }}</td>
-        <td>{{ row.importance }}</td>
+        <td>{{ row.summary }}</td>
         <td>{{ row.tags.join(", ") }}</td>
       </tr>
     </template>
@@ -38,13 +38,18 @@ onMounted(async function() {
 table {
   text-align: left;
 }
-td:nth-child(2n) {
+tbody tr:nth-child(2n+1) {
   background-color: lightyellow;
 }
-td:nth-child(2n+1) {
+tbody tr:nth-child(2n) {
   background-color: white;
 }
 td, th {
   border: 1px solid white;
+}
+
+/* hack to get rid of faded-out sort direction indicators */
+path[opacity="0.4"] {
+  display: none;
 }
 </style>

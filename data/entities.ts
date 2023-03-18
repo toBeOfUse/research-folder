@@ -1,8 +1,15 @@
 import { Entity, Fields } from "remult";
 
-@Entity("papers", {
-  allowApiCrud: true,
-})
+export interface AuthorName {
+  // first name and maybe middle name or initial; not always displayed
+  prefix: string;
+  // last name, displayed always
+  lastName: string;
+  // Jr., Sr., etc
+  suffix: string;
+}
+
+@Entity("papers", { allowApiCrud: true })
 export class Paper {
   @Fields.uuid()
   id!: string;
@@ -11,17 +18,23 @@ export class Paper {
   title = "";
 
   @Fields.object()
-  authors: string[] = [];
+  authors: AuthorName[] = [];
 
   @Fields.object()
   tags: string[] = [];
 
   @Fields.string()
-  importance = "";
+  summary = "";
+
+  @Fields.string()
+  link = "";
 
   @Fields.string()
   notes = "";
 
   @Fields.dateOnly()
   published = new Date(1970);
+
+  @Fields.boolean()
+  read = false;
 }

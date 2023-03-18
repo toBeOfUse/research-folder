@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
+import PapersTable from "./components/PapersTable.vue";
 import "normalize.css";
 </script>
 
 <template>
-  <HelloWorld />
+  <PapersTable />
 </template>
