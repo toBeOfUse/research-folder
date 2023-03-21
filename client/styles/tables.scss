@@ -1,14 +1,12 @@
 table {
   text-align: left;
+  vertical-align: top;
 }
 tbody tr:nth-child(2n + 1) {
   background-color: lightyellow;
 }
 tbody tr:nth-child(2n) {
   background-color: white;
-}
-td:first-child {
-  width: 150px;
 }
 td {
   border: 1px solid white;
@@ -19,6 +17,17 @@ th {
   padding-left: 10px;
   padding-right: 15px;
 }
-td.button {
+.button {
   cursor: pointer;
+}
+td.parent {
+  padding: 0;
+}
+td.parent {
+  border-top: none;
+  border-bottom: none;
+  background-color: white;
+}
+table {
+  border-collapse: collapse;
 }

@@ -21,7 +21,7 @@ const db = remultFastify({
         tags: ["fundamentals", "BFT", "Algorithms"],
         notes: "",
         published: new Date(1972, 6, 1), // July 1972 (months are 0-indexed)
-        summary: "Inconsistent communiqués make consensus very difficult.",
+        summary: "Inconsistent senders make consensus very difficult.",
         link: "https://lamport.azurewebsites.net/pubs/byz.pdf",
         read: true,
       });
