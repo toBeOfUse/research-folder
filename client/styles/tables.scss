@@ -17,13 +17,19 @@ th {
   padding-left: 10px;
   padding-right: 15px;
 }
-.button {
+td.button {
+  padding: 0 7px;
+}
+button {
+  background-color: transparent;
+  border: none;
   cursor: pointer;
 }
-td.parent {
+td {
   padding: 0;
 }
 td.parent {
+  padding: 0;
   border-top: none;
   border-bottom: none;
   background-color: white;

@@ -15,7 +15,7 @@ defineEmits(['edit']);
         <td>{{ row.authors.map((a: AuthorName) => a.lastName).join(", ") }}</td>
         <td>{{ row.summary }}</td>
         <td>{{ row.tags.join(", ") }}</td>
-        <td class="button" @click="$emit('edit')">📝</td>
+        <td><button @click="$emit('edit')">📝</button></td>
     </tr>
 </template>
 

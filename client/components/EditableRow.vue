@@ -1,24 +1,33 @@
 <script setup lang="ts">
-import { AuthorName, Paper } from '../../data/entities';
+import { Paper } from '../../data/entities';
 import ContentEditable from "vue-contenteditable";
 import DatePicker from 'vue-datepicker-next';
 import 'vue-datepicker-next/index.css';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 const CEOpts = { 'no-nl': true, 'no-html': true };
 
 const props = defineProps<{ row: Paper }>();
 
 const rowsNeeded = computed(() => {
-    return Math.max(props.row.authors.length, props.row.tags.length);
+    // we need at least two for the title & url in the same column
+    return Math.max(props.row.authors.length, props.row.tags.length, 2);
 });
 
 const addAuthor = () => {
     props.row.authors.push({ prefix: "", lastName: "", suffix: "" });
 };
 
+const addTag = () => {
+    props.row.tags.push("");
+};
+
 const showAuthorButton = computed(() => {
     return props.row.authors[props.row.authors.length - 1].lastName.trim().length > 0;
+});
+
+const showTagButton = computed(() => {
+    return props.row.tags[props.row.tags.length - 1].trim().length > 0;
 });
 
 defineEmits(["save", "cancel", "edit"]);
@@ -29,7 +38,7 @@ defineEmits(["save", "cancel", "edit"]);
         <td class="parent">
             <table style="width: 165px">
                 <tr v-for="r in rowsNeeded" :key="r">
-                    <td>
+                    <td style="padding: 0">
                         <DatePicker v-if="r == 1" v-model:value="row.published" type="month" format="MMMM YYYY"
                             :clearable="false" />
                     </td>
@@ -38,21 +47,33 @@ defineEmits(["save", "cancel", "edit"]);
         </td>
         <td class="parent">
             <table>
-                <tr v-for="r in rowsNeeded" :key="r">
-                    <td>
-                        <ContentEditable v-if="r == 1" v-model="row.title" tag="span" v-bind="CEOpts" />
-                    </td>
-                </tr>
+                <template v-for="r in rowsNeeded" :key="r">
+                    <tr v-if="r == 1">
+                        <td>
+                            <ContentEditable v-model="row.title" tag="span" v-bind="CEOpts" />
+                        </td>
+                    </tr>
+                    <tr v-else-if="r == 2">
+                        <td>
+                            <input style="width:100%" v-model="row.link" type="text" placeholder="URL..." />
+                        </td>
+                    </tr>
+                    <tr v-else>
+                        <td />
+                    </tr>
+                </template>
             </table>
         </td>
         <td class="parent">
             <table>
-                <tr v-for="author, i in row.authors.length">
+                <tr v-for="i in rowsNeeded">
                     <td>
-                        <ContentEditable tag="span" v-model="row.authors[i].prefix" v-bind="CEOpts" />
-                        <ContentEditable tag="span" v-model="row.authors[i].lastName" v-bind="CEOpts" />
-                        <ContentEditable tag="span" v-model="row.authors[i].suffix" v-bind="CEOpts" />
-                        <button v-if="showAuthorButton && i == row.authors.length - 1" @click="addAuthor">➕</button>
+                        <template v-if="i - 1 < row.authors.length">
+                            <ContentEditable tag="span" v-model="row.authors[i - 1].prefix" v-bind="CEOpts" />
+                            <ContentEditable tag="span" v-model="row.authors[i - 1].lastName" v-bind="CEOpts" />
+                            <ContentEditable tag="span" v-model="row.authors[i - 1].suffix" v-bind="CEOpts" />
+                            <button v-if="showAuthorButton && i == row.authors.length" @click="addAuthor">➕</button>
+                        </template>
                     </td>
                 </tr>
             </table>
@@ -72,6 +93,7 @@ defineEmits(["save", "cancel", "edit"]);
                     <td>
                         <ContentEditable v-if="i - 1 < row.tags.length" v-model="row.tags[i - 1]" tag="span"
                             v-bind="CEOpts" />
+                        <button v-if="showTagButton && i == row.tags.length" @click="addTag">➕</button>
                     </td>
                 </tr>
             </table>
@@ -79,8 +101,8 @@ defineEmits(["save", "cancel", "edit"]);
         <td class="parent">
             <table>
                 <tr v-for="i in rowsNeeded">
-                    <td>
-                        <div v-if="i == 1" class="button" @click="$emit('save')">💾</div>
+                    <td class="button">
+                        <button v-if="i == 1" @click="$emit('save')">💾</button>
                     </td>
                 </tr>
             </table>
@@ -88,8 +110,8 @@ defineEmits(["save", "cancel", "edit"]);
         <td class="parent">
             <table>
                 <tr v-for="i in rowsNeeded">
-                    <td>
-                        <div v-if="i == 1" class="button" @click="$emit('cancel')">❌</div>
+                    <td class="button">
+                        <button v-if="i == 1" @click="$emit('cancel')">❌</button>
                     </td>
                 </tr>
             </table>
@@ -129,12 +151,6 @@ span[contenteditable="true"]:empty:before {
 </style>
 
 <style>
-/* overriding 10px left, 15px right padding on normal cells */
-.mx-datepicker {
-    width: calc(100% + 25px);
-    transform: translateX(-10px);
-}
-
 .mx-input {
     padding: none;
     font-size: initial;
