@@ -6,3 +6,9 @@ import "normalize.css";
 <template>
   <PapersTable />
 </template>
+
+<style>
+#app {
+  width: max-content;
+}
+</style>
