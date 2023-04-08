@@ -20,6 +20,8 @@ th {
 }
 td.button {
   padding: 0 7px;
+  text-align: center;
+  width: 40px;
 }
 button {
   background-color: transparent;
@@ -35,6 +37,9 @@ td.parent {
   border-top: none;
   border-bottom: none;
   background-color: white;
+}
+td.parent table {
+  width: 100%;
 }
 table {
   border-collapse: collapse;

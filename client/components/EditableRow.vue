@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 import { AuthorName, Paper } from '../../data/entities';
 
@@ -17,13 +17,24 @@ const rowsNeeded = computed(() => {
     return Math.max(props.row.authors.length, props.row.tags.length, 2);
 });
 
+const getBlankAuthor = () => ({ prefix: "", lastName: "", suffix: "" });
+
 const addAuthor = () => {
-    props.row.authors.push({ prefix: "", lastName: "", suffix: "" });
+    props.row.authors.push(getBlankAuthor());
 };
 
 const removeAuthor = (index: number) => {
     props.row.authors.splice(index, 1);
 }
+
+const ensureAuthor = () => {
+    if (props.row.authors.length == 0) {
+        props.row.authors.push(getBlankAuthor());
+    }
+}
+
+watch(props.row.authors, ensureAuthor);
+onMounted(ensureAuthor);
 
 const addTag = () => {
     props.row.tags.push("");
@@ -32,6 +43,15 @@ const addTag = () => {
 const removeTag = (index: number) => {
     props.row.tags.splice(index, 1);
 };
+
+const ensureTag = () => {
+    if (props.row.tags.length == 0) {
+        props.row.tags.push("");
+    }
+}
+
+watch(props.row.tags, ensureTag);
+onMounted(ensureTag);
 
 const showAuthorButton = computed(() => {
     return props.row.authors[props.row.authors.length - 1].lastName.trim().length > 0;
@@ -63,7 +83,7 @@ defineEmits(["save", "cancel", "edit"]);
                 <template v-for="r in rowsNeeded" :key="r">
                     <tr v-if="r == 1">
                         <td>
-                            <ContentEditable v-model="row.title" tag="span" v-bind="CEOpts" />
+                            <ContentEditable data-ph="title" v-model="row.title" tag="span" v-bind="CEOpts" />
                         </td>
                     </tr>
                     <tr v-else-if="r == 2">
@@ -79,14 +99,14 @@ defineEmits(["save", "cancel", "edit"]);
         </td>
         <td class="parent">
             <table>
-                <draggable v-model="row.authors" group="authors" @start="drag = true" @end="drag = false" handle=".handle"
-                    :item-key="(author: AuthorName) => row.authors.indexOf(author)">
+                <draggable tag="tbody" v-model="row.authors" group="authors" @start="drag = true" @end="drag = false"
+                    handle=".handle" :item-key="(author: AuthorName) => row.authors.indexOf(author)">
                     <template #item="{ element, index }">
                         <tr>
                             <td>
-                                <ContentEditable tag="span" v-model="element.prefix" v-bind="CEOpts" />
-                                <ContentEditable tag="span" v-model="element.lastName" v-bind="CEOpts" />
-                                <ContentEditable tag="span" v-model="element.suffix" v-bind="CEOpts" />
+                                <ContentEditable data-ph="first" tag="span" v-model="element.prefix" v-bind="CEOpts" />
+                                <ContentEditable data-ph="last" tag="span" v-model="element.lastName" v-bind="CEOpts" />
+                                <ContentEditable data-ph="jr/sr" tag="span" v-model="element.suffix" v-bind="CEOpts" />
                                 <div style="display: inline; float: right;">
                                     <button v-if="showAuthorButton && index == row.authors.length - 1"
                                         @click="addAuthor">➕</button>
@@ -106,19 +126,19 @@ defineEmits(["save", "cancel", "edit"]);
             <table>
                 <tr v-for="r in rowsNeeded" :key="r">
                     <td>
-                        <ContentEditable v-if="r == 1" tag="span" v-model="row.summary" v-bind="CEOpts" />
+                        <ContentEditable data-ph="summary" v-if="r == 1" tag="span" v-model="row.summary" v-bind="CEOpts" />
                     </td>
                 </tr>
             </table>
         </td>
         <td class="parent">
             <table>
-                <draggable v-model="row.tags" @start="drag = true" @end="drag = false" handle=".handle"
-                    :item-key="(tag: string) => tag">
+                <draggable tag="tbody" v-model="row.tags" @start="drag = true" @end="drag = false" handle=".handle"
+                    :item-key="(tag: string) => row.tags.indexOf(tag)">
                     <template #item="{ element, index }">
                         <tr>
                             <td>
-                                <ContentEditable tag="span" v-model="row.tags[index]" v-bind="CEOpts" />
+                                <ContentEditable data-ph="new tag" tag="span" v-model="row.tags[index]" v-bind="CEOpts" />
                                 <div style="display: inline; float: right;">
                                     <button v-if="showTagButton && index == row.tags.length - 1" @click="addTag">➕</button>
                                     <button @click="removeTag(index)">❌</button>
@@ -179,7 +199,8 @@ span[contenteditable="true"] {
 
 span[contenteditable="true"]:empty:before {
     /* fixes firefox span vpos bug: https://stackoverflow.com/a/48260743 */
-    content: "     ";
+    content: attr(data-ph);
+    color: gray;
     white-space: pre;
     cursor: text;
 }

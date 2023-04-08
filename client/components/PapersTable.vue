@@ -4,6 +4,7 @@ import { onMounted, reactive } from "vue";
 import { AuthorName, Paper } from "../../data/entities";
 import StaticRow from "./StaticRow.vue";
 import EditableRow from "./EditableRow.vue";
+import AddRow from "./AddRow.vue";
 
 const papersRepo = remult.repo(Paper);
 
@@ -55,40 +56,49 @@ const cleanAuthors = (authors: AuthorName[]) => {
   }
   return authors;
 }
-const save = async (row: Paper) => {
+const save = async (row: Paper, insert: boolean = false) => {
   cleanAuthors(row.authors);
+  // TODO: more validation? on tags?
   if (row.authors.length == 0) {
     return;
   }
-  await papersRepo.save(row);
-  wip.delete(row.id);
-  for (let i = 0; i < papers.length; ++i) {
-    if (papers[i].id == row.id) {
-      papers[i] = row;
-      break;
+  if (insert) {
+    row = await papersRepo.insert(row);
+    papers.push(row);
+  } else {
+    row = await papersRepo.save(row);
+    for (let i = 0; i < papers.length; ++i) {
+      if (papers[i].id == row.id) {
+        papers[i] = row;
+        break;
+      }
     }
   }
+  wip.delete(row.id);
 }
 </script>
 
 <template>
-  <VTable :data="Object.values(papersIndex)">
-    <template #head>
-      <tr>
-        <th>Published</th>
-        <th>Title</th>
-        <th>Authors</th>
-        <th>Summary</th>
-        <th>Tags</th>
-        <th />
-        <th />
-      </tr>
-    </template>
-    <template #body="{ rows }">
-      <component :is="editing(row) ? EditableRow : StaticRow" v-for="row in rows" :key="row.id" :row="row"
-        @edit="edit(row)" @save="save(row)" @cancel="cancel(row)" />
-    </template>
-  </VTable>
+  <div style="display: flex; flex-direction: column; align-items:end; width: fit-content">
+    <VTable :data="Object.values(papersIndex)">
+      <template #head>
+        <tr>
+          <th>Published</th>
+          <th>Title</th>
+          <th>Authors</th>
+          <th>Summary</th>
+          <th>Tags</th>
+          <th />
+          <th />
+        </tr>
+      </template>
+      <template #body="{ rows }">
+        <component :is="editing(row) ? EditableRow : StaticRow" v-for="row in rows" :key="row.id" :row="row"
+          @edit="edit(row)" @save="save(row)" @cancel="cancel(row)" />
+        <AddRow @add-row="row => save(row, true)" />
+      </template>
+    </VTable>
+  </div>
 </template>
 
 <style lang="scss">
