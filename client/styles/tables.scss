@@ -16,6 +16,7 @@ td:not(.button),
 th {
   padding-left: 10px;
   padding-right: 15px;
+  vertical-align: middle;
 }
 td.button {
   padding: 0 7px;
@@ -24,6 +25,7 @@ button {
   background-color: transparent;
   border: none;
   cursor: pointer;
+  width: 25px;
 }
 td {
   padding: 0;

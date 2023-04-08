@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { Paper } from '../../data/entities';
+import { computed, ref } from 'vue';
+
+import { AuthorName, Paper } from '../../data/entities';
+
 import ContentEditable from "vue-contenteditable";
 import DatePicker from 'vue-datepicker-next';
 import 'vue-datepicker-next/index.css';
-import { computed } from 'vue';
+import draggable from 'vuedraggable'
 
 const CEOpts = { 'no-nl': true, 'no-html': true };
 
@@ -18,8 +21,16 @@ const addAuthor = () => {
     props.row.authors.push({ prefix: "", lastName: "", suffix: "" });
 };
 
+const removeAuthor = (index: number) => {
+    props.row.authors.splice(index, 1);
+}
+
 const addTag = () => {
     props.row.tags.push("");
+};
+
+const removeTag = (index: number) => {
+    props.row.tags.splice(index, 1);
 };
 
 const showAuthorButton = computed(() => {
@@ -29,6 +40,8 @@ const showAuthorButton = computed(() => {
 const showTagButton = computed(() => {
     return props.row.tags[props.row.tags.length - 1].trim().length > 0;
 });
+
+const drag = ref(false);
 
 defineEmits(["save", "cancel", "edit"]);
 </script>
@@ -66,15 +79,26 @@ defineEmits(["save", "cancel", "edit"]);
         </td>
         <td class="parent">
             <table>
-                <tr v-for="i in rowsNeeded">
-                    <td>
-                        <template v-if="i - 1 < row.authors.length">
-                            <ContentEditable tag="span" v-model="row.authors[i - 1].prefix" v-bind="CEOpts" />
-                            <ContentEditable tag="span" v-model="row.authors[i - 1].lastName" v-bind="CEOpts" />
-                            <ContentEditable tag="span" v-model="row.authors[i - 1].suffix" v-bind="CEOpts" />
-                            <button v-if="showAuthorButton && i == row.authors.length" @click="addAuthor">➕</button>
-                        </template>
-                    </td>
+                <draggable v-model="row.authors" group="authors" @start="drag = true" @end="drag = false" handle=".handle"
+                    :item-key="(author: AuthorName) => row.authors.indexOf(author)">
+                    <template #item="{ element, index }">
+                        <tr>
+                            <td>
+                                <ContentEditable tag="span" v-model="element.prefix" v-bind="CEOpts" />
+                                <ContentEditable tag="span" v-model="element.lastName" v-bind="CEOpts" />
+                                <ContentEditable tag="span" v-model="element.suffix" v-bind="CEOpts" />
+                                <div style="display: inline; float: right;">
+                                    <button v-if="showAuthorButton && index == row.authors.length - 1"
+                                        @click="addAuthor">➕</button>
+                                    <button @click="removeAuthor(index)">❌</button>
+                                    <button class="handle" style="cursor:grab">⇳</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </draggable>
+                <tr v-for="i in rowsNeeded - row.authors.length">
+                    <td :key="i"></td>
                 </tr>
             </table>
         </td>
@@ -89,12 +113,23 @@ defineEmits(["save", "cancel", "edit"]);
         </td>
         <td class="parent">
             <table>
-                <tr v-for="i in rowsNeeded">
-                    <td>
-                        <ContentEditable v-if="i - 1 < row.tags.length" v-model="row.tags[i - 1]" tag="span"
-                            v-bind="CEOpts" />
-                        <button v-if="showTagButton && i == row.tags.length" @click="addTag">➕</button>
-                    </td>
+                <draggable v-model="row.tags" @start="drag = true" @end="drag = false" handle=".handle"
+                    :item-key="(tag: string) => tag">
+                    <template #item="{ element, index }">
+                        <tr>
+                            <td>
+                                <ContentEditable tag="span" v-model="row.tags[index]" v-bind="CEOpts" />
+                                <div style="display: inline; float: right;">
+                                    <button v-if="showTagButton && index == row.tags.length - 1" @click="addTag">➕</button>
+                                    <button @click="removeTag(index)">❌</button>
+                                    <button class="handle" style="cursor:grab">⇳</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </draggable>
+                <tr v-for="i in rowsNeeded - row.tags.length">
+                    <td :key="i"></td>
                 </tr>
             </table>
         </td>

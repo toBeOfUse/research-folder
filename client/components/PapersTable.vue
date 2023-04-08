@@ -22,7 +22,7 @@ function getWorkingCopy(paper: Paper) {
   return {
     ...paper,
     tags: [...paper.tags],
-    authors: JSON.parse(JSON.stringify(paper.authors))
+    authors: JSON.parse(JSON.stringify(cleanAuthors(paper.authors)))
   };
 }
 
@@ -48,11 +48,12 @@ const cleanAuthors = (authors: AuthorName[]) => {
     authors[i].prefix = authors[i].prefix.trim();
     authors[i].lastName = authors[i].lastName.trim();
     authors[i].suffix = authors[i].suffix.trim();
-    if (authors[i].lastName.length < 0) {
+    if (authors[i].lastName.trim().length < 0) {
       authors.splice(i, 1);
       --i;
     }
   }
+  return authors;
 }
 const save = async (row: Paper) => {
   cleanAuthors(row.authors);
