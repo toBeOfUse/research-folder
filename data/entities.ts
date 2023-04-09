@@ -33,7 +33,7 @@ export class Paper {
   notes = "";
 
   @Fields.dateOnly()
-  published = new Date(1970);
+  published = new Date(1990, 0, 1);
 
   @Fields.boolean()
   read = false;

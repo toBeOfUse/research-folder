@@ -10,11 +10,11 @@ import draggable from 'vuedraggable'
 
 const CEOpts = { 'no-nl': true, 'no-html': true };
 
-const props = defineProps<{ row: Paper }>();
+const props = defineProps<{ row: Paper, bg: string }>();
 
 const rowsNeeded = computed(() => {
-    // we need at least two for the title & url in the same column
-    return Math.max(props.row.authors.length, props.row.tags.length, 2);
+    // we need at least three for the button column on the right
+    return Math.max(props.row.authors.length, props.row.tags.length, 3);
 });
 
 const getBlankAuthor = () => ({ prefix: "", lastName: "", suffix: "" });
@@ -63,11 +63,11 @@ const showTagButton = computed(() => {
 
 const drag = ref(false);
 
-defineEmits(["save", "cancel", "edit"]);
+defineEmits(["save", "cancel", "edit", "delete"]);
 </script>
 
 <template>
-    <tr>
+    <tr :style="{ backgroundColor: bg }">
         <td class="parent">
             <table style="width: 165px">
                 <tr v-for="r in rowsNeeded" :key="r">
@@ -83,7 +83,9 @@ defineEmits(["save", "cancel", "edit"]);
                 <template v-for="r in rowsNeeded" :key="r">
                     <tr v-if="r == 1">
                         <td>
-                            <ContentEditable data-ph="title" v-model="row.title" tag="span" v-bind="CEOpts" />
+                            <!-- spaces are important -->
+                            <ContentEditable data-ph="title                    " v-model="row.title" tag="span"
+                                v-bind="CEOpts" />
                         </td>
                     </tr>
                     <tr v-else-if="r == 2">
@@ -126,7 +128,7 @@ defineEmits(["save", "cancel", "edit"]);
             <table>
                 <tr v-for="r in rowsNeeded" :key="r">
                     <td>
-                        <ContentEditable data-ph="summary" v-if="r == 1" tag="span" v-model="row.summary" v-bind="CEOpts" />
+                        <span v-if="r == 1">Edit below</span>
                     </td>
                 </tr>
             </table>
@@ -157,16 +159,9 @@ defineEmits(["save", "cancel", "edit"]);
             <table>
                 <tr v-for="i in rowsNeeded">
                     <td class="button">
-                        <button v-if="i == 1" @click="$emit('save')">💾</button>
-                    </td>
-                </tr>
-            </table>
-        </td>
-        <td class="parent">
-            <table>
-                <tr v-for="i in rowsNeeded">
-                    <td class="button">
-                        <button v-if="i == 1" @click="$emit('cancel')">❌</button>
+                        <button title="save changes" v-if="i == 1" @click="$emit('save')">💾</button>
+                        <button title="cancel changes" v-if="i == 2" @click="$emit('cancel')">↩</button>
+                        <button title="delete row" v-if="i == 3" @click="$emit('delete')">❌</button>
                     </td>
                 </tr>
             </table>

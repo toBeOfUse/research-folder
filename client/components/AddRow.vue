@@ -24,12 +24,13 @@ const reset = () => {
 
 <template>
     <template v-if="adding">
-        <EditableRow :row="rowInProgress" @cancel="reset" @save="$emit('addRow', { ...rowInProgress }); reset()" />
+        <EditableRow bg="#edfced" :row="rowInProgress" @cancel="reset" @delete="reset"
+            @save="$emit('addRow', { ...rowInProgress }); reset()" />
     </template>
     <template v-else>
-        <tr>
+        <tr style="background-color: #edfced">
             <td v-for="i in 5" />
-            <td><button @click="adding = true">➕</button></td>
+            <td class="button"><button title="new row" @click="adding = true">➕</button></td>
         </tr>
     </template>
 </template>

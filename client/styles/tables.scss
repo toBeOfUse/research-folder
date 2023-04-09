@@ -2,12 +2,6 @@ table {
   text-align: left;
   vertical-align: top;
 }
-tbody tr:nth-child(2n + 1) {
-  background-color: lightyellow;
-}
-tbody tr:nth-child(2n) {
-  background-color: white;
-}
 td {
   border: 1px solid white;
   height: 34px;
@@ -27,7 +21,7 @@ button {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  width: 25px;
+  width: 40px;
 }
 td {
   padding: 0;
@@ -43,4 +37,14 @@ td.parent table {
 }
 table {
   border-collapse: collapse;
+}
+.summary-container {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+}
+.summary-container div,
+.summary-container textarea {
+  width: 600px;
+  max-width: 95vw;
 }

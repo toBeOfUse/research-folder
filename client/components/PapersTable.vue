@@ -76,6 +76,12 @@ const save = async (row: Paper, insert: boolean = false) => {
   }
   wip.delete(row.id);
 }
+const del = async (row: Paper) => {
+  await papersRepo.delete(row);
+  delete papersIndex[row.id];
+  papers = papers.filter(p => p.id != row.id);
+}
+
 </script>
 
 <template>
@@ -89,12 +95,12 @@ const save = async (row: Paper, insert: boolean = false) => {
           <th>Summary</th>
           <th>Tags</th>
           <th />
-          <th />
         </tr>
       </template>
       <template #body="{ rows }">
-        <component :is="editing(row) ? EditableRow : StaticRow" v-for="row in rows" :key="row.id" :row="row"
-          @edit="edit(row)" @save="save(row)" @cancel="cancel(row)" />
+        <component :is="editing(row) ? EditableRow : StaticRow" v-for="row, rowIndex in rows" :key="row.id" :row="row"
+          @edit="edit(row)" @save="save(row)" @cancel="cancel(row)" @delete="del(row)"
+          :bg="rowIndex % 2 == 0 ? 'white' : 'lightyellow'" />
         <AddRow @add-row="row => save(row, true)" />
       </template>
     </VTable>
