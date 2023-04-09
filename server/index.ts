@@ -45,23 +45,6 @@ const db = remultFastify({
 
 // start fastify
 const fastify = fastifyCreate({ logger: true });
-// patch empty json requests like remult DELETEs
-fastify.addContentTypeParser(
-  "application/json",
-  { parseAs: "string" },
-  function (req, body: string, done) {
-    try {
-      if (!body) {
-        body = "null";
-      }
-      var json = JSON.parse(body);
-      done(null, json);
-    } catch (err: any) {
-      err.statusCode = 400;
-      done(err, undefined);
-    }
-  }
-);
 (async () => {
   try {
     await fastify.register(db);

@@ -809,10 +809,10 @@ reflect-metadata@^0.1.13:
   resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
   integrity sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==
 
-remult@^0.18.0:
-  version "0.18.0"
-  resolved "https://registry.yarnpkg.com/remult/-/remult-0.18.0.tgz#f9dc79f4bb13f6371bb7e23e19e4e0c17736507b"
-  integrity sha512-BAczXXth3KP4pZQf+AvSBmU5zQS68CLbePO8Zw4tTGr/2Pfqynl5qWG+MsP2yPnJTfgGdKzWasW94jKKLFau8w==
+remult@0.19.2:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/remult/-/remult-0.19.2.tgz#279e4c6e57a638404ef6c25821b5c00ca4016448"
+  integrity sha512-Zys5zDobKePPgI2aVE12AbywiyfvQZ1ABk6SxNR605LFwSbCZ8gzi0O9miSXIEBh7LkWjUTHoDJkDccAaooMTQ==
   dependencies:
     cuid "^2.1.8"
     reflect-metadata "^0.1.13"
