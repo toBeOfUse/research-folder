@@ -111,7 +111,7 @@ defineEmits(["save", "cancel", "edit", "delete"]);
                     </tr>
                     <tr v-else-if="r == 2">
                         <td>
-                            <input style="width:100%" v-model="row.link" type="text" placeholder="URL..." />
+                            <input style="width:100%" v-model="row.link" type="text" placeholder="Link to PDF..." />
                         </td>
                     </tr>
                     <tr v-else>
@@ -215,22 +215,6 @@ td:not(:empty, .parent) {
 
 td:empty {
     background: transparent;
-}
-
-span[contenteditable="true"] {
-    margin-right: 5px;
-    min-width: 15px;
-    display: inline-block;
-    text-decoration: underline;
-    text-decoration-style: dashed;
-}
-
-span[contenteditable="true"]:empty:before {
-    /* fixes firefox span vpos bug: https://stackoverflow.com/a/48260743 */
-    content: attr(data-ph);
-    color: gray;
-    white-space: pre;
-    cursor: text;
 }
 </style>
 

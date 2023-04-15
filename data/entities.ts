@@ -37,4 +37,13 @@ export class Paper {
 
   @Fields.boolean()
   read = false;
+
+  @Fields.string()
+  doi = "";
+
+  @Fields.number()
+  citationCount = 0;
+
+  @Fields.date()
+  citationsRetrieved? = new Date();
 }

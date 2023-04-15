@@ -67,3 +67,17 @@ table {
 .save-notes:active {
   border-style: inset;
 }
+span[contenteditable="true"] {
+  margin-right: 5px;
+  min-width: 15px;
+  display: inline-block;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+}
+span[contenteditable="true"]:empty:before {
+  /* fixes firefox span vpos bug: https://stackoverflow.com/a/48260743 */
+  content: attr(data-ph);
+  color: gray;
+  white-space: pre;
+  cursor: text;
+}
