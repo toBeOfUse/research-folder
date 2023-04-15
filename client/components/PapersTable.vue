@@ -92,7 +92,7 @@ const del = async (row: Paper) => {
           <th>Published</th>
           <th>Title</th>
           <th>Authors</th>
-          <th>Summary</th>
+          <th>Notes</th>
           <th>Tags</th>
           <th />
         </tr>

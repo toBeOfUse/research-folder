@@ -38,13 +38,30 @@ td.parent table {
 table {
   border-collapse: collapse;
 }
-.summary-container {
-  margin: 10px 0;
+.notes-container {
+  margin: 10px auto;
   display: flex;
-  justify-content: center;
-}
-.summary-container div,
-.summary-container textarea {
+  align-items: center;
+  flex-direction: column;
   width: 600px;
   max-width: 95vw;
+}
+.notes-container textarea {
+  width: 100%;
+}
+.notes-edit-row {
+  display: flex;
+  margin-top: 5px;
+  width: 100%;
+}
+.save-notes {
+  margin-left: auto;
+  border: 2px outset lightgray;
+  background-color: lightgray;
+  padding: 3px;
+  width: fit-content;
+  border-radius: 2px;
+}
+.save-notes:active {
+  border-style: inset;
 }

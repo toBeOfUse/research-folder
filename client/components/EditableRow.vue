@@ -128,7 +128,7 @@ defineEmits(["save", "cancel", "edit", "delete"]);
             <table>
                 <tr v-for="r in rowsNeeded" :key="r">
                     <td>
-                        <span v-if="r == 1">Edit below</span>
+                        <span v-if="r == 1">~</span>
                     </td>
                 </tr>
             </table>
