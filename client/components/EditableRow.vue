@@ -77,11 +77,16 @@ const addTagVisibility = (index: number) => {
 
 const drag = ref(false);
 
+const wholeRowBG = {
+    backgroundImage: "linear-gradient(to bottom right, white 0%, white 45%, lightgray 45%, lightgray 55%, white 55%, white 100%)",
+    backgroundSize: "10px 10px"
+}
+
 defineEmits(["save", "cancel", "edit", "delete"]);
 </script>
 
 <template>
-    <tr :style="{ backgroundColor: bg }">
+    <tr :style="wholeRowBG">
         <td class="parent">
             <table style="width: 165px">
                 <tr v-for="r in rowsNeeded" :key="r">
@@ -192,17 +197,16 @@ defineEmits(["save", "cancel", "edit", "delete"]);
 <style scoped>
 @import "../styles/tables.scss";
 
-tr {
-    background-color: #e4f6ff !important;
-}
-
 td[contenteditable="true"] {
     border-bottom: 1px dashed black;
 }
 
+td:not(:empty, .parent) {
+    background-color: v-bind("props.bg");
+}
+
 td:empty {
-    background-image: linear-gradient(to bottom right, white 0%, white 45%, lightgray 45%, lightgray 55%, white 55%, white 100%);
-    background-size: 10px 10px;
+    background: transparent;
 }
 
 span[contenteditable="true"] {

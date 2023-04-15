@@ -9,6 +9,6 @@ import "normalize.css";
 
 <style>
 #app {
-  width: max-content;
+  width: 100%;
 }
 </style>

@@ -59,12 +59,11 @@ const cleanAuthors = (authors: AuthorName[]) => {
 const save = async (row: Paper, insert: boolean = false) => {
   cleanAuthors(row.authors);
   // TODO: more validation? on tags?
-  if (row.authors.length == 0) {
-    return;
-  }
   if (insert) {
+    row.id = "";
     row = await papersRepo.insert(row);
     papers.push(row);
+    papersIndex[row.id] = row;
   } else {
     row = await papersRepo.save(row);
     for (let i = 0; i < papers.length; ++i) {
@@ -85,7 +84,8 @@ const del = async (row: Paper) => {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; align-items:end; width: fit-content">
+  <div id="page-container">
+    <h1 id="table-header">Research Papers</h1>
     <VTable :data="Object.values(papersIndex)">
       <template #head>
         <tr>
@@ -100,7 +100,7 @@ const del = async (row: Paper) => {
       <template #body="{ rows }">
         <component :is="editing(row) ? EditableRow : StaticRow" v-for="row, rowIndex in rows" :key="row.id" :row="row"
           @edit="edit(row)" @save="save(row)" @cancel="cancel(row)" @delete="del(row)"
-          :bg="rowIndex % 2 == 1 ? 'white' : 'lightyellow'" />
+          :bg="rowIndex % 2 == 1 ? 'white' : '#d7ebf5'" />
         <AddRow @add-row="row => save(row, true)" />
       </template>
     </VTable>
@@ -125,4 +125,16 @@ path[opacity="0.4"] {
 
 <style scoped lang="scss">
 @import "../styles/tables.scss";
+
+#page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+#table-header {
+  margin: 80px 0 40px 10px;
+}
 </style>
