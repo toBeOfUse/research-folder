@@ -14,7 +14,12 @@ defineEmits(['edit']);
             " " + row.published.getFullYear()
         }}</td>
         <td><a :href="row.link" target="_blank">{{ row.title }}</a></td>
-        <td>{{ row.authors.map((a: AuthorName) => a.lastName).join(", ") }}</td>
+        <td>
+            <span v-for="author, i in row.authors" :key="i"
+                :title="[author.prefix, author.lastName, author.suffix].join(' ')">
+                {{ author.lastName + (i != row.authors.length - 1 ? ', ' : '') }}
+            </span>
+        </td>
         <td><a @click="notesDisplayed = !notesDisplayed" href="#">{{ notesDisplayed ? "Close" : "Edit" }}</a>
         </td>
         <td>{{ row.tags.join(", ") }}</td>
