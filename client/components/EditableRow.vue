@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
 import { AuthorName, Paper } from '../../data/entities';
 
@@ -19,8 +19,15 @@ const rowsNeeded = computed(() => {
 
 const getBlankAuthor = () => ({ prefix: "", lastName: "", suffix: "" });
 
+const lastFirstName = ref<any>(null);
+
 const addAuthor = () => {
     props.row.authors.push(getBlankAuthor());
+    nextTick(() => {
+        if (lastFirstName.value) {
+            lastFirstName.value.$el.focus();
+        }
+    });
 };
 
 const removeAuthor = (index: number) => {
@@ -36,8 +43,15 @@ const ensureAuthor = () => {
 watch(props.row.authors, ensureAuthor);
 onMounted(ensureAuthor);
 
+const lastTag = ref<any>(null);
+
 const addTag = () => {
     props.row.tags.push("");
+    nextTick(() => {
+        if (lastTag.value) {
+            lastTag.value.$el.focus();
+        }
+    });
 };
 
 const removeTag = (index: number) => {
@@ -53,13 +67,13 @@ const ensureTag = () => {
 watch(props.row.tags, ensureTag);
 onMounted(ensureTag);
 
-const showAuthorButton = computed(() => {
-    return props.row.authors[props.row.authors.length - 1].lastName.trim().length > 0;
-});
+const addAuthorVisibility = (index: number) => {
+    return index == props.row.authors.length - 1 ? 'visible' : 'hidden'
+};
 
-const showTagButton = computed(() => {
-    return props.row.tags[props.row.tags.length - 1].trim().length > 0;
-});
+const addTagVisibility = (index: number) => {
+    return index == props.row.tags.length - 1 ? 'visible' : 'hidden'
+};
 
 const drag = ref(false);
 
@@ -106,11 +120,15 @@ defineEmits(["save", "cancel", "edit", "delete"]);
                     <template #item="{ element, index }">
                         <tr>
                             <td>
-                                <ContentEditable data-ph="first" tag="span" v-model="element.prefix" v-bind="CEOpts" />
-                                <ContentEditable data-ph="last" tag="span" v-model="element.lastName" v-bind="CEOpts" />
-                                <ContentEditable data-ph="jr/sr" tag="span" v-model="element.suffix" v-bind="CEOpts" />
+                                <ContentEditable data-ph="first" tag="span" v-model="element.prefix" v-bind="CEOpts"
+                                    @keypress.enter="addAuthor"
+                                    :ref="el => index == row.authors.length - 1 && (lastFirstName = el)" />
+                                <ContentEditable data-ph="last" tag="span" v-model="element.lastName" v-bind="CEOpts"
+                                    @keypress.enter="addAuthor" />
+                                <ContentEditable data-ph="jr/sr" tag="span" v-model="element.suffix" v-bind="CEOpts"
+                                    @keypress.enter="addAuthor" />
                                 <div style="display: inline; float: right;">
-                                    <button v-if="showAuthorButton && index == row.authors.length - 1"
+                                    <button :style="{ visibility: addAuthorVisibility(index) }"
                                         @click="addAuthor">➕</button>
                                     <button @click="removeAuthor(index)">❌</button>
                                     <button class="handle" style="cursor:grab">⇳</button>
@@ -128,7 +146,7 @@ defineEmits(["save", "cancel", "edit", "delete"]);
             <table>
                 <tr v-for="r in rowsNeeded" :key="r">
                     <td>
-                        <span v-if="r == 1">~</span>
+                        <span v-if="r == 1">...</span>
                     </td>
                 </tr>
             </table>
@@ -140,9 +158,11 @@ defineEmits(["save", "cancel", "edit", "delete"]);
                     <template #item="{ element, index }">
                         <tr>
                             <td>
-                                <ContentEditable data-ph="new tag" tag="span" v-model="row.tags[index]" v-bind="CEOpts" />
+                                <ContentEditable @keypress.enter="addTag"
+                                    :ref="el => index == row.tags.length - 1 && (lastTag = el)" data-ph="new tag" tag="span"
+                                    v-model="row.tags[index]" v-bind="CEOpts" />
                                 <div style="display: inline; float: right;">
-                                    <button v-if="showTagButton && index == row.tags.length - 1" @click="addTag">➕</button>
+                                    <button :style="{ visibility: addTagVisibility(index) }" @click="addTag">➕</button>
                                     <button @click="removeTag(index)">❌</button>
                                     <button class="handle" style="cursor:grab">⇳</button>
                                 </div>
