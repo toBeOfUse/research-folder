@@ -100,7 +100,7 @@ const del = async (row: Paper) => {
       <template #body="{ rows }">
         <component :is="editing(row) ? EditableRow : StaticRow" v-for="row, rowIndex in rows" :key="row.id" :row="row"
           @edit="edit(row)" @save="save(row)" @cancel="cancel(row)" @delete="del(row)"
-          :bg="rowIndex % 2 == 0 ? 'white' : 'lightyellow'" />
+          :bg="rowIndex % 2 == 1 ? 'white' : 'lightyellow'" />
         <AddRow @add-row="row => save(row, true)" />
       </template>
     </VTable>
