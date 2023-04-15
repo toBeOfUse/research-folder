@@ -1,24 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { AuthorName, Paper } from '../../data/entities';
 
 const notesDisplayed = ref(false);
-defineProps<{ row: Paper, bg: string }>();
+const fullName = (author: AuthorName) =>
+    [author.prefix, author.lastName, author.suffix].filter(a => a).join(' ');
+const authorsToShow = 3;
+const props = defineProps<{ row: Paper, bg: string }>();
+const etAl = computed(() => props.row.authors.slice(authorsToShow).map(fullName).join(", "));
 defineEmits(['edit']);
 </script>
 
 <template>
     <tr :style="{ backgroundColor: bg }">
-        <td>{{
+        <td style="text-align:right">{{
             row.published.toLocaleDateString("en-us", { month: "long" }) +
             " " + row.published.getFullYear()
         }}</td>
         <td><a :href="row.link" target="_blank">{{ row.title }}</a></td>
         <td>
-            <span v-for="author, i in row.authors" :key="i"
-                :title="[author.prefix, author.lastName, author.suffix].join(' ')">
+            <span v-for="author, i in row.authors.slice(0, authorsToShow)" :key="i" :title="fullName(author)">
                 {{ author.lastName + (i != row.authors.length - 1 ? ', ' : '') }}
             </span>
+            <span v-if="row.authors.length > authorsToShow" :title="etAl"> et al.</span>
         </td>
         <td><a @click="notesDisplayed = !notesDisplayed" href="#">{{ notesDisplayed ? "Close" : "Edit" }}</a>
         </td>
@@ -30,7 +34,7 @@ defineEmits(['edit']);
             <div class="notes-container">
                 <textarea style="resize:vertical" v-model="row.notes" />
                 <div class="notes-edit-row">
-                    <label><input type="checkbox" v-model="row.read" /> Read</label>
+                    <label><input type="checkbox" v-model="row.read" /> Mitch has read this</label>
                     <button @click="$emit('save', row)" class="save-notes">Save</button>
                 </div>
             </div>
