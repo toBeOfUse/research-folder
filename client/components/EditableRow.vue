@@ -181,7 +181,8 @@ td[contenteditable="true"] {
 }
 
 td:empty {
-    background-color: white;
+    background-image: linear-gradient(to bottom right, white 0%, white 45%, lightgray 45%, lightgray 55%, white 55%, white 100%);
+    background-size: 10px 10px;
 }
 
 span[contenteditable="true"] {
