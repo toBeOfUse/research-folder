@@ -244,5 +244,10 @@ span[contenteditable="true"]:empty:before {
     border-radius: 0;
     text-decoration: underline;
     text-decoration-style: dashed;
+    text-align: right;
+}
+
+.mx-datepicker {
+    width: 160px !important;
 }
 </style>
