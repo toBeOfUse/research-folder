@@ -54,6 +54,13 @@ const addTag = () => {
     });
 };
 
+const handleTagPress = (e: KeyboardEvent) => {
+    if (e.key == 'Enter' || e.key == ',') {
+        e.preventDefault();
+        addTag()
+    }
+}
+
 const removeTag = (index: number) => {
     props.row.tags.splice(index, 1);
 };
@@ -158,7 +165,7 @@ defineEmits(["save", "cancel", "edit", "delete"]);
                     <template #item="{ element, index }">
                         <tr>
                             <td>
-                                <ContentEditable @keypress.enter="addTag"
+                                <ContentEditable @keypress="handleTagPress"
                                     :ref="el => index == row.tags.length - 1 && (lastTag = el)" data-ph="new tag" tag="span"
                                     v-model="row.tags[index]" v-bind="CEOpts" />
                                 <div style="display: inline; float: right;">
