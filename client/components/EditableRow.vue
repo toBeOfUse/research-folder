@@ -77,16 +77,11 @@ const addTagVisibility = (index: number) => {
 
 const drag = ref(false);
 
-const wholeRowBG = {
-    backgroundImage: "linear-gradient(to bottom right, white 0%, white 45%, lightgray 45%, lightgray 55%, white 55%, white 100%)",
-    backgroundSize: "10px 10px"
-}
-
 defineEmits(["save", "cancel", "edit", "delete"]);
 </script>
 
 <template>
-    <tr :style="wholeRowBG">
+    <tr class="row-container">
         <td class="parent">
             <table style="width: 165px">
                 <tr v-for="r in rowsNeeded" :key="r">
@@ -196,6 +191,12 @@ defineEmits(["save", "cancel", "edit", "delete"]);
 
 <style scoped>
 @import "../styles/tables.scss";
+
+.row-container {
+    border: 2px solid black;
+    background-image: linear-gradient(to bottom right, white 0%, white 45%, lightgray 45%, lightgray 55%, white 55%, white 100%);
+    background-size: 10px 10px;
+}
 
 td[contenteditable="true"] {
     border-bottom: 1px dashed black;

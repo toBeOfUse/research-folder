@@ -81,21 +81,25 @@ const del = async (row: Paper) => {
   papers = papers.filter(p => p.id != row.id);
 }
 
+const authorsToSortKey = (authors: AuthorName[]) => {
+  return authors.map(a => a.lastName).join('');
+}
+
 </script>
 
 <template>
   <div id="page-container">
     <h1 id="table-header">Research Papers</h1>
-    <VTable :data="Object.values(papersIndex)">
+    <VTable :data="Object.values(papersIndex)" sortHeaderClass="spaced-header">
       <template #head>
-        <tr>
-          <th>Published</th>
-          <th>Title</th>
-          <th>Authors</th>
-          <th>Notes</th>
-          <th>Tags</th>
-          <th />
-        </tr>
+        <!-- <tr> -->
+        <VTh sortKey="published">Published</VTh>
+        <VTh sortKey="title">Title</VTh>
+        <VTh :sortKey="({ authors }: Paper) => authorsToSortKey(authors)">Authors</VTh>
+        <th>Notes</th>
+        <th>Tags</th>
+        <th />
+        <!-- </tr> -->
       </template>
       <template #body="{ rows }">
         <component :is="editing(row) ? EditableRow : StaticRow" v-for="row, rowIndex in rows" :key="row.id" :row="row"
@@ -117,9 +121,11 @@ a:visited {
   color: blue;
 }
 
-/* hack to get rid of faded-out sort direction indicators */
-path[opacity="0.4"] {
-  display: none;
+.spaced-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
 
