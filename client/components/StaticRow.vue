@@ -17,14 +17,14 @@ defineEmits(['edit']);
             row.published.toLocaleDateString("en-us", { month: "long" }) +
             " " + row.published.getFullYear()
         }}</td>
-        <td><a :href="row.link" target="_blank">{{ row.title }}</a></td>
+        <td><a class="link" :href="row.link" target="_blank">{{ row.title }}</a></td>
         <td>
             <span v-for="author, i in row.authors.slice(0, authorsToShow)" :key="i" :title="fullName(author)">
                 {{ author.lastName + (i != row.authors.length - 1 ? ', ' : '') }}
             </span>
             <span v-if="row.authors.length > authorsToShow" :title="etAl"> et al.</span>
         </td>
-        <td><a @click="notesDisplayed = !notesDisplayed" href="#">{{ notesDisplayed ? "Close" : "Edit" }}</a>
+        <td><button class="link" @click="notesDisplayed = !notesDisplayed">{{ notesDisplayed ? "Close" : "Edit" }}</button>
         </td>
         <td>{{ row.tags.join(", ") }}</td>
         <td class="button"><button title="edit row" @click="$emit('edit')">📝</button></td>

@@ -117,8 +117,10 @@ const authorsToSortKey = (authors: AuthorName[]) => {
 }
 
 a,
-a:visited {
+a:visited,
+button.link {
   color: blue;
+  text-decoration: underline;
 }
 
 .spaced-header {
