@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { remult } from "remult"
-import { onMounted, reactive } from "vue";
-import { AuthorName, Paper } from "../../data/entities";
+import { computed, onMounted, reactive, ref, watch } from "vue";
+import { AuthorName, Paper, TagOrder } from "../../data/entities";
 import StaticRow from "./StaticRow.vue";
 import EditableRow from "./EditableRow.vue";
 import AddRow from "./AddRow.vue";
+import contenteditable from "vue-contenteditable";
+import draggable from "vuedraggable";
 
 const papersRepo = remult.repo(Paper);
+const tagOrderRepo = remult.repo(TagOrder);
 
 // stores papers straight from the database; used to populate papersIndex and
 // then revert to originals if necessary
@@ -16,6 +19,19 @@ let papers: Paper[] = [];
 // needs to be indexable by row.id because sorting/filtering the table will
 // change the order/indexes of displayed rows
 const papersIndex: Record<string, Paper> = reactive({});
+
+const tagOrder = ref<string[]>([]);
+const tagOrderLookup = computed(() => {
+  const lookup: Record<string, number> = {};
+  for (let i = 0; i < tagOrder.value.length; ++i) {
+    if (tagOrder.value[i].trim().length) {
+      lookup[tagOrder.value[i]] = i;
+    }
+  }
+  console.log(lookup);
+  return lookup;
+})
+let tagOrderID = "";
 
 function getWorkingCopy(paper: Paper) {
   // javascript deep copying 👍 needed to keep edits to working copy from
@@ -34,8 +50,27 @@ async function loadAll() {
   for (const value of results) {
     papersIndex[value.id] = getWorkingCopy(value);
   }
+  const dbOrder = await tagOrderRepo.findFirst();
+  tagOrder.value = dbOrder?.order || [];
+  tagOrderID = dbOrder?.id;
 }
 onMounted(loadAll);
+
+watch(tagOrder, v => {
+  if (!v.length || v[v.length - 1] != "") { v.push("") }
+}, { deep: true });
+
+const saveTagOrder = async () => {
+  const toSave = tagOrder.value.filter(t => t.trim().length);
+  let saved;
+  if (tagOrderID) {
+    saved = await tagOrderRepo.update(tagOrderID, { order: toSave });
+  } else {
+    saved = await tagOrderRepo.insert({ id: tagOrderID, order: toSave });
+  }
+  tagOrderID = saved.id;
+  tagOrder.value = saved.order;
+}
 
 const wip = reactive(new Set<string>());
 const edit = (row: Paper) => wip.add(row.id);
@@ -92,29 +127,80 @@ const authorsToSortKey = (authors: AuthorName[]) => {
   return authors.map(a => a.lastName).join('');
 }
 
+const getTagSortOrder = (tag: string) => {
+  if (tag in tagOrderLookup.value) {
+    return tagOrderLookup.value[tag]
+  } else if ("*" in tagOrderLookup.value) {
+    return tagOrderLookup.value["*"];
+  } else {
+    return tagOrder.value.length + 1;
+  }
+}
+
+const tagSorter = (a: string, b: string) => {
+  const aOrder = getTagSortOrder(a);
+  const bOrder = getTagSortOrder(b);
+  if (aOrder != bOrder) {
+    return aOrder - bOrder;
+  } else {
+    return a.localeCompare(b);
+  }
+};
+
+const tagBasedPaperSorter = (one: Paper, two: Paper, direction: number) => {
+  const a = [...one.tags].sort(tagSorter);
+  const b = [...two.tags].sort(tagSorter);
+  for (let i = 0; i < Math.min(a.length, b.length); ++i) {
+    const thisPair = tagSorter(a[i], b[i]);
+    if (thisPair != 0) {
+      return direction * thisPair;
+    }
+  }
+  if (a.length != b.length) {
+    return direction * (a.length - b.length);
+  } else if (a.length == 0) {
+    return 0;
+  } else {
+    return direction * (a[a.length - 1].localeCompare(b[b.length - 1]));
+  }
+}
+
 </script>
 
 <template>
   <div id="page-container">
     <h1 id="table-header">Mitch's Research Paper Index</h1>
     <VTable :data="Object.values(papersIndex)" sortHeaderClass="spaced-header"
-      style="min-width: 950px; margin-bottom: 100px">
+      style="min-width: 950px; margin-bottom: 20px">
       <template #head>
         <VTh :sortKey="({ published }: Paper) => published.toISOString()">Published</VTh>
         <VTh sortKey="title">Title</VTh>
         <VTh :sortKey="({ authors }: Paper) => authorsToSortKey(authors)">Authors</VTh>
         <th>Notes</th>
-        <th>Tags</th>
+        <VTh :customSort="tagBasedPaperSorter" defaultSort="asc">Tags</VTh>
         <VTh sortKey="citationCount">Crossrefs</VTh>
         <th />
       </template>
       <template #body="{ rows }">
         <component :is="editing(row) ? EditableRow : StaticRow" v-for="row, rowIndex in rows" :key="row.id" :row="row"
           @edit="edit(row)" @save="save(row)" @cancel="cancel(row)" @delete="del(row)"
-          :bg="rowIndex % 2 == 1 ? 'white' : '#d7ebf5'" />
+          :sortedTags="[...row.tags].sort(tagSorter)" :bg="rowIndex % 2 == 1 ? 'white' : '#d7ebf5'" />
         <AddRow @add-row="row => save(row, true)" />
       </template>
     </VTable>
+    <div class="tag-order-container">
+      Tag order for sorting:
+      <draggable class="tag-order-container" v-model="tagOrder" handle=".tactile"
+        :item-key="(tag: string) => tagOrder.indexOf(tag)">
+        <template #item="{ element, index }">
+          <div class="movable-tag">
+            <contenteditable tag="span" data-ph="tag..." v-model="tagOrder[index]" />
+            <button class="tactile">&nbsp;</button>
+          </div>
+        </template>
+      </draggable>
+      <button class="wide-button flat-button" @click="saveTagOrder">Save</button>
+    </div>
   </div>
 </template>
 
@@ -145,11 +231,38 @@ button.link {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 0 auto;
+  margin: 0 auto 200px;
   width: fit-content;
 }
 
 #table-header {
   margin: 80px 0 40px 10px;
+}
+
+.tag-order-container {
+  display: flex;
+  align-items: center;
+}
+
+.tag-order-container span {
+  min-width: 40px;
+}
+
+.movable-tag {
+  margin: 0 5px;
+  padding: 3px 5px;
+  background-color: lightgray;
+  border: 1px solid gray;
+  display: flex;
+  align-items: center;
+}
+
+button.tactile {
+  width: 10px;
+  height: 10px;
+  background-image: radial-gradient(gray 0%, gray 50%, transparent 50%, transparent 100%);
+  background-size: 3px 3px;
+  margin: 0 4px;
+  cursor: grab;
 }
 </style>

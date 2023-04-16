@@ -214,10 +214,6 @@ defineEmits(["save", "cancel", "edit", "delete"]);
     background-size: 10px 10px;
 }
 
-td[contenteditable="true"] {
-    border-bottom: 1px dashed black;
-}
-
 td:not(:empty, .parent) {
     background-color: v-bind("props.bg");
 }

@@ -4,10 +4,10 @@ import { createServer } from "vite";
 import fastifyCreate from "fastify";
 
 import { remultFastify } from "remult/remult-fastify";
-import { Paper } from "../data/entities";
+import { Paper, TagOrder } from "../data/entities";
 
 const db = remultFastify({
-  entities: [Paper],
+  entities: [Paper, TagOrder],
   async initApi(remult) {
     const papersRepo = remult.repo(Paper);
     if ((await papersRepo.find()).length == 0) {

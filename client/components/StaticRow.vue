@@ -6,7 +6,7 @@ const notesDisplayed = ref(false);
 const fullName = (author: AuthorName) =>
     [author.prefix, author.lastName, author.suffix].filter(a => a).join(' ');
 const authorsToShow = 3;
-const props = defineProps<{ row: Paper, bg: string }>();
+const props = defineProps<{ row: Paper, bg: string, sortedTags: string[] }>();
 const etAl = computed(() => props.row.authors.slice(authorsToShow).map(fullName).join(", "));
 const citationsUpdated = computed(() =>
     props.row.citationsUpdated ?
@@ -18,7 +18,9 @@ const published = computed(() =>
     " " + props.row.published.getFullYear()
 );
 const notesSaved = ref(true);
-defineEmits(['edit']);
+// this component doesn't use all of these but for it to be interchangable with
+// editablerow without warnings we have to pretend
+defineEmits(['edit', 'save', 'cancel', 'delete']);
 </script>
 
 <template>
@@ -33,7 +35,7 @@ defineEmits(['edit']);
         </td>
         <td><button class="link" @click="notesDisplayed = !notesDisplayed">{{ notesDisplayed ? "Close" : "Edit" }}</button>
         </td>
-        <td>{{ row.tags.join(", ") }}</td>
+        <td>{{ sortedTags.join(", ") }}</td>
         <td :title="citationsUpdated">{{ row.citationCount || "-" }}</td>
         <td class="button"><button title="edit row" @click="$emit('edit')">📝</button></td>
     </tr>
@@ -42,8 +44,6 @@ defineEmits(['edit']);
             <div class="notes-container">
                 <textarea style="resize:vertical;height:150px" v-model="row.notes" @input="notesSaved = false" />
                 <div class="notes-edit-row">
-                    <label><input type="checkbox" @change="notesSaved = false" v-model="row.read" /> Mitch has read
-                        this</label>
                     <button @click="$emit('save', row); notesSaved = true" class="square-button">
                         Save{{ notesSaved ? 'd' : '' }}
                     </button>

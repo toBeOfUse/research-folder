@@ -1,4 +1,4 @@
-import { Entity, Fields } from "remult";
+import { Entity, Fields, IdEntity } from "remult";
 
 export interface AuthorName {
   // first name and maybe middle name or initial; not always displayed
@@ -46,4 +46,11 @@ export class Paper {
 
   @Fields.date()
   citationsUpdated? = new Date();
+}
+
+// should be singleton
+@Entity("tagOrder", { allowApiCrud: true })
+export class TagOrder extends IdEntity {
+  @Fields.json()
+  order: string[] = [];
 }
