@@ -17,6 +17,7 @@ const published = computed(() =>
     props.row.published.toLocaleDateString("en-us", { month: "long" }) +
     " " + props.row.published.getFullYear()
 );
+const notesSaved = ref(true);
 defineEmits(['edit']);
 </script>
 
@@ -37,12 +38,15 @@ defineEmits(['edit']);
         <td class="button"><button title="edit row" @click="$emit('edit')">📝</button></td>
     </tr>
     <tr v-if="notesDisplayed" :style="{ backgroundColor: bg }">
-        <td colspan="7">
+        <td colspan="8">
             <div class="notes-container">
-                <textarea style="resize:vertical" v-model="row.notes" />
+                <textarea style="resize:vertical;height:150px" v-model="row.notes" @input="notesSaved = false" />
                 <div class="notes-edit-row">
-                    <label><input type="checkbox" v-model="row.read" /> Mitch has read this</label>
-                    <button @click="$emit('save', row)" class="save-notes">Save</button>
+                    <label><input type="checkbox" @change="notesSaved = false" v-model="row.read" /> Mitch has read
+                        this</label>
+                    <button @click="$emit('save', row); notesSaved = true" class="square-button">
+                        Save{{ notesSaved ? 'd' : '' }}
+                    </button>
                 </div>
             </div>
         </td>

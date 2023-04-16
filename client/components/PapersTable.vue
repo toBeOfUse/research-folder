@@ -104,7 +104,7 @@ const authorsToSortKey = (authors: AuthorName[]) => {
         <VTh :sortKey="({ authors }: Paper) => authorsToSortKey(authors)">Authors</VTh>
         <th>Notes</th>
         <th>Tags</th>
-        <VTh sortKey="citationCount">Refs</VTh>
+        <VTh sortKey="citationCount">Crossrefs</VTh>
         <th />
       </template>
       <template #body="{ rows }">
@@ -122,8 +122,8 @@ const authorsToSortKey = (authors: AuthorName[]) => {
   font-family: sans-serif;
 }
 
-a,
-a:visited,
+a.link,
+a.link:visited,
 button.link {
   color: blue;
   text-decoration: underline;

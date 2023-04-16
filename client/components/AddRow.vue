@@ -66,7 +66,7 @@ const reset = () => {
             <td>
                 <contenteditable style="margin-top: 4px;" v-model="DOI" tag="span" data-ph="DOI (optional)       "
                     @keypress.enter="initRow" no-html no-nl />
-                <button class="wide-button" style="float: right" @click="initRow">➕ Add</button>
+                <button class="wide-button square-button" style="float: right" @click="initRow">➕ Add</button>
             </td>
             <td v-for="i in 5" />
         </tr>
