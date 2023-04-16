@@ -99,7 +99,7 @@ const authorsToSortKey = (authors: AuthorName[]) => {
     <h1 id="table-header">Research Papers</h1>
     <VTable :data="Object.values(papersIndex)" sortHeaderClass="spaced-header" style="min-width: 950px">
       <template #head>
-        <VTh sortKey="published">Published</VTh>
+        <VTh :sortKey="({ published }: Paper) => published.toISOString()">Published</VTh>
         <VTh sortKey="title">Title</VTh>
         <VTh :sortKey="({ authors }: Paper) => authorsToSortKey(authors)">Authors</VTh>
         <th>Notes</th>
