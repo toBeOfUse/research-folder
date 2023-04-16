@@ -1,0 +1,587 @@
+[
+  {
+    "id": "6e18d413-3545-499c-bd6c-921bd06fd0a3",
+    "title": "The Byzantine Generals Problem",
+    "authors": [
+      {
+        "prefix": "Leslie",
+        "lastName": "Lamport",
+        "suffix": ""
+      },
+      {
+        "prefix": "Robert",
+        "lastName": "Shostak",
+        "suffix": ""
+      },
+      {
+        "prefix": "Marshall",
+        "lastName": "Pease",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "reading list",
+      "BFT",
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "https://lamport.azurewebsites.net/pubs/byz.pdf",
+    "notes": "",
+    "published": "1982-07-01",
+    "read": false,
+    "doi": "10.1145/357172.357176",
+    "citationCount": 3537,
+    "citationsUpdated": "2023-04-16T00:08:52.771Z"
+  },
+  {
+    "id": "c585fb82-ab07-4bb6-9cae-f4660602a6fd",
+    "title": "Defining liveness",
+    "authors": [
+      {
+        "prefix": "Bowen",
+        "lastName": "Alpern",
+        "suffix": ""
+      },
+      {
+        "prefix": "Fred B.",
+        "lastName": "Schneider",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "reading list",
+      "system models"
+    ],
+    "summary": "",
+    "link": "https://www.cs.cornell.edu/fbs/publications/DefLiveness.pdf",
+    "notes": "",
+    "published": "1985-10-01",
+    "read": false,
+    "doi": "10.1016/0020-0190(85)90056-0",
+    "citationCount": 653,
+    "citationsUpdated": "2023-04-16T00:19:56.135Z"
+  },
+  {
+    "id": "90b3d241-433c-415d-b397-64046e575799",
+    "title": "Time, clocks, and the ordering of events",
+    "authors": [
+      {
+        "prefix": "Leslie",
+        "lastName": "Lamport",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "reading list",
+      "system models"
+    ],
+    "summary": "",
+    "link": "https://lamport.azurewebsites.net/pubs/time-clocks.pdf",
+    "notes": "Abstract:\nThe concept of one event happening before another in a distributed system is examined, and is shown to define a partial ordering of the events. A distributed algorithm is given for synchronizing a system of logical clocks which can be used to totally order the events. The use of the total ordering is illustrated with a method for solving synchronization problems. The algorithm is then specialized for synchronizing physical clocks, and a bound is derived on how far out of synchrony the clocks can become.",
+    "published": "1978-07-01",
+    "read": true,
+    "doi": "10.1145/359545.359563",
+    "citationCount": 5567,
+    "citationsUpdated": "2023-04-16T00:35:43.321Z"
+  },
+  {
+    "id": "bc0cd5b7-1c77-4252-8730-7fa237714915",
+    "title": "Impossibility of distributed consensus with one faulty process",
+    "authors": [
+      {
+        "prefix": "Michael J.",
+        "lastName": "Fischer",
+        "suffix": ""
+      },
+      {
+        "prefix": "Nancy A.",
+        "lastName": "Lynch",
+        "suffix": ""
+      },
+      {
+        "prefix": "Michael S.",
+        "lastName": "Paterson",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "reading list",
+      "system models"
+    ],
+    "summary": "",
+    "link": "https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf",
+    "notes": "Abstract:\nThe consensus problem involves an asynchronous system of processes, some of which may be unreliable. The problem is for the reliable processes to agree on a binary value. In this paper, it is shown that every protocol for this problem has the possibility of nontermination, even with only one faulty process. By way of contrast, solutions are known for the synchronous case, the “Byzantine Generals” problem.",
+    "published": "1985-04-01",
+    "read": false,
+    "doi": "10.1145/3149.214121",
+    "citationCount": 2591,
+    "citationsUpdated": "2023-04-16T00:47:33.322Z"
+  },
+  {
+    "id": "01c12706-708f-4b77-b46b-04700378dd25",
+    "title": "Bitcoin: A Peer-to-Peer Electronic Cash System",
+    "authors": [
+      {
+        "prefix": "Satoshi",
+        "lastName": "Nakamoto",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "reading list",
+      "blockchain"
+    ],
+    "summary": "",
+    "link": "https://bitcoin.org/bitcoin.pdf",
+    "notes": "",
+    "published": "2008-10-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-04-16T00:55:19.611Z"
+  },
+  {
+    "id": "c5b964fd-2857-40ec-acd7-819fa64fe641",
+    "title": "Practical Byzantine Fault Tolerance",
+    "authors": [
+      {
+        "prefix": "Miguel",
+        "lastName": "Castro",
+        "suffix": ""
+      },
+      {
+        "prefix": "Barbara",
+        "lastName": "Liskov",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "reading list",
+      "BFT",
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "http://pmg.csail.mit.edu/papers/osdi99.pdf",
+    "notes": "",
+    "published": "1999-02-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-04-16T00:58:47.515Z"
+  },
+  {
+    "id": "81280174-2184-43be-b910-435e0fea13a6",
+    "title": "Practical Synchronous Byzantine Consensus",
+    "authors": [
+      {
+        "prefix": "Ling",
+        "lastName": "Ren",
+        "suffix": ""
+      },
+      {
+        "prefix": "Kartik",
+        "lastName": "Nayak",
+        "suffix": ""
+      },
+      {
+        "prefix": "Ittai",
+        "lastName": "Abraham",
+        "suffix": ""
+      },
+      {
+        "prefix": "Srinivas",
+        "lastName": "Devadas",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "reading list",
+      "BFT",
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "https://www.cs.umd.edu/~kartik/papers/10_syncsmr.pdf",
+    "notes": "",
+    "published": "2017-04-01",
+    "read": true,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-04-16T00:58:47.515Z"
+  },
+  {
+    "id": "9535e249-1ec9-413c-9451-fbc3506b4a2d",
+    "title": "Algorand",
+    "authors": [
+      {
+        "prefix": "Yossi",
+        "lastName": "Gilad",
+        "suffix": ""
+      },
+      {
+        "prefix": "Rotem",
+        "lastName": "Hemo",
+        "suffix": ""
+      },
+      {
+        "prefix": "Silvio",
+        "lastName": "Micali",
+        "suffix": ""
+      },
+      {
+        "prefix": "Georgios",
+        "lastName": "Vlachos",
+        "suffix": ""
+      },
+      {
+        "prefix": "Nickolai",
+        "lastName": "Zeldovich",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "reading list",
+      "BFT",
+      "algorithms",
+      "blockchain"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/3132747.3132757",
+    "notes": "",
+    "published": "2017-10-01",
+    "read": false,
+    "doi": "10.1145/3132747.3132757",
+    "citationCount": 609,
+    "citationsUpdated": "2023-04-16T01:01:42.582Z"
+  },
+  {
+    "id": "9942764c-4b9a-45d3-a751-1d2ec9f90b86",
+    "title": "OmniLedger",
+    "authors": [
+      {
+        "prefix": "Eleftherios",
+        "lastName": "Kokoris-Kogias",
+        "suffix": ""
+      },
+      {
+        "prefix": "Philipp",
+        "lastName": "Jovanovic",
+        "suffix": ""
+      },
+      {
+        "prefix": "Linus",
+        "lastName": "Gasser",
+        "suffix": ""
+      },
+      {
+        "prefix": "Nicolas",
+        "lastName": "Gailly",
+        "suffix": ""
+      },
+      {
+        "prefix": "Ewa",
+        "lastName": "Syta",
+        "suffix": ""
+      },
+      {
+        "prefix": "Bryan",
+        "lastName": "Ford",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "reading list",
+      "BFT",
+      "algorithms",
+      "blockchain"
+    ],
+    "summary": "",
+    "link": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8418625",
+    "notes": "",
+    "published": "2018-05-01",
+    "read": false,
+    "doi": "10.1109/SP.2018.000-5",
+    "citationCount": 437,
+    "citationsUpdated": "2023-04-16T01:02:52.763Z"
+  },
+  {
+    "id": "79f8a7f4-daa6-42fb-8dfd-c1a3af149c02",
+    "title": "RapidChain",
+    "authors": [
+      {
+        "prefix": "Mahdi",
+        "lastName": "Zamani",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mahnush",
+        "lastName": "Movahedi",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mariana",
+        "lastName": "Raykova",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "reading list",
+      "BFT",
+      "algorithms",
+      "blockchain"
+    ],
+    "summary": "",
+    "link": "https://eprint.iacr.org/2018/460.pdf",
+    "notes": "",
+    "published": "2018-10-01",
+    "read": false,
+    "doi": "10.1145/3243734.3243853",
+    "citationCount": 368,
+    "citationsUpdated": "2023-04-16T01:03:57.829Z"
+  },
+  {
+    "id": "39219773-3183-4ffd-ba54-0924d382513b",
+    "title": "Concurrent Geometric Multicasting",
+    "authors": [
+      {
+        "prefix": "Jordan",
+        "lastName": "Adamek",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mikhail",
+        "lastName": "Nesterenko",
+        "suffix": ""
+      },
+      {
+        "prefix": "James Scott",
+        "lastName": "Robinson",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sébastien",
+        "lastName": "Tixeuil",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "routing",
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/3154273.3154314",
+    "notes": "",
+    "published": "2018-01-01",
+    "read": false,
+    "doi": "10.1145/3154273.3154314",
+    "citationCount": 2,
+    "citationsUpdated": "2023-04-16T01:08:09.350Z"
+  },
+  {
+    "id": "471c5ab1-e561-4655-bc3f-d3eb6ff3ced7",
+    "title": "Chord",
+    "authors": [
+      {
+        "prefix": "I.",
+        "lastName": "Stoica",
+        "suffix": ""
+      },
+      {
+        "prefix": "R.",
+        "lastName": "Morris",
+        "suffix": ""
+      },
+      {
+        "prefix": "D.",
+        "lastName": "Liben-Nowell",
+        "suffix": ""
+      },
+      {
+        "prefix": "D.R.",
+        "lastName": "Karger",
+        "suffix": ""
+      },
+      {
+        "prefix": "M.F.",
+        "lastName": "Kaashoek",
+        "suffix": ""
+      },
+      {
+        "prefix": "F.",
+        "lastName": "Dabek",
+        "suffix": ""
+      },
+      {
+        "prefix": "H.",
+        "lastName": "Balakrishnan",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "DHT",
+      "routing"
+    ],
+    "summary": "",
+    "link": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1180543",
+    "notes": "",
+    "published": "2003-02-01",
+    "read": false,
+    "doi": "10.1109/TNET.2002.808407",
+    "citationCount": 1912,
+    "citationsUpdated": "2023-04-16T01:16:23.466Z"
+  },
+  {
+    "id": "1d3f7314-5a1e-47b9-9193-ec0705686d09",
+    "title": "The part-time parliament (Paxos)",
+    "authors": [
+      {
+        "prefix": "Leslie",
+        "lastName": "Lamport",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf",
+    "notes": "Abstract:\n<jats:p>Recent archaeological discoveries on the island of Paxos reveal that the parliament functioned despite the peripatetic propensity of its part-time legislators. The legislators maintained consistent copies of the parliamentary record, despite their frequent forays from the chamber and the forgetfulness of their messengers. The Paxon parliament's protocol provides a new way of implementing the state machine approach to the design of distributed systems.</jats:p>",
+    "published": "1998-05-01",
+    "read": false,
+    "doi": "10.1145/279227.279229",
+    "citationCount": 1571,
+    "citationsUpdated": "2023-04-16T01:18:02.292Z"
+  },
+  {
+    "id": "1438268f-9bef-493d-b6d5-68aa8bd194ee",
+    "title": "Paxos Made Simple",
+    "authors": [
+      {
+        "prefix": "Leslie",
+        "lastName": "Lamport",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "https://lamport.azurewebsites.net/pubs/paxos-simple.pdf",
+    "notes": "",
+    "published": "2001-11-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-04-16T01:19:25.440Z"
+  },
+  {
+    "id": "f297bec4-9679-4267-b51d-c7813358a938",
+    "title": "In Search of an Understandable Consensus Algorithm (Raft)",
+    "authors": [
+      {
+        "prefix": "Diego",
+        "lastName": "Ongaro",
+        "suffix": ""
+      },
+      {
+        "prefix": "John",
+        "lastName": "Ousterhout",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "https://www.usenix.org/system/files/conference/atc14/atc14-paper-ongaro.pdf",
+    "notes": "",
+    "published": "2014-06-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-04-16T01:23:40.037Z"
+  },
+  {
+    "id": "bec4de0b-aa69-4e04-926c-85d4d5658f0c",
+    "title": "The Sybil Attack",
+    "authors": [
+      {
+        "prefix": "John R.",
+        "lastName": "Douceur",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "system models"
+    ],
+    "summary": "",
+    "link": "https://www.freehaven.net/anonbib/cache/sybil.pdf",
+    "notes": "",
+    "published": "2002-01-01",
+    "read": false,
+    "doi": "10.1007/3-540-45748-8_24",
+    "citationCount": 1729,
+    "citationsUpdated": "2023-04-16T01:32:28.254Z"
+  },
+  {
+    "id": "44fa8a62-2425-48d1-bfb2-99eddcd66069",
+    "title": "Towards worst-case churn resistant peer-to-peer systems",
+    "authors": [
+      {
+        "prefix": "Fabian",
+        "lastName": "Kuhn",
+        "suffix": ""
+      },
+      {
+        "prefix": "Stefan",
+        "lastName": "Schmid",
+        "suffix": ""
+      },
+      {
+        "prefix": "Roger",
+        "lastName": "Wattenhofer",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "system models",
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "https://link.springer.com/content/pdf/10.1007/s00446-010-0099-z.pdf",
+    "notes": "",
+    "published": "2010-03-01",
+    "read": false,
+    "doi": "10.1007/s00446-010-0099-z",
+    "citationCount": 31,
+    "citationsUpdated": "2023-04-16T01:34:58.406Z"
+  },
+  {
+    "id": "aa561c13-b395-4983-96d6-774ea939d82a",
+    "title": "Towards a scalable and robust DHT",
+    "authors": [
+      {
+        "prefix": "Baruch",
+        "lastName": "Awerbuch",
+        "suffix": ""
+      },
+      {
+        "prefix": "Christian",
+        "lastName": "Scheideler",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "BFT",
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "https://www.cs.jhu.edu/~baruch/RESEARCH/Research_areas/Peer-to-Peer/2006_SPAA/virtual5.pdf",
+    "notes": "",
+    "published": "2006-07-01",
+    "read": false,
+    "doi": "10.1145/1148109.1148163",
+    "citationCount": 41,
+    "citationsUpdated": "2023-04-16T01:40:14.178Z"
+  }
+]
