@@ -20,10 +20,13 @@ const db = remultFastify({
         ],
         tags: ["fundamentals", "BFT", "Algorithms"],
         notes: "",
-        published: new Date(1972, 6, 1), // July 1972 (months are 0-indexed)
+        published: new Date(1982, 6, 1), // July 1982 (months are 0-indexed)
         summary: "Inconsistent senders make consensus very difficult.",
         link: "https://lamport.azurewebsites.net/pubs/byz.pdf",
         read: true,
+        doi: "10.1145/357172.357176",
+        citationCount: 3537,
+        citationsUpdated: new Date(2023, 3, 15),
       });
     }
   },
