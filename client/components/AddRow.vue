@@ -18,25 +18,36 @@ const getBlankRow: () => Paper = () => ({
     title: "",
     doi: "",
     citationCount: 0,
-    citationsRetrieved: undefined
+    citationsUpdated: undefined
 });
 const rowInProgress = reactive<Paper>(getBlankRow());
 const initRow = async () => {
-    try {
-        const crossref = (await (
-            await fetch("https://api.crossref.org/works/" + DOI.value)
-        ).json()).message;
-        rowInProgress.doi = DOI.value;
-        rowInProgress.title = crossref.title.join(" ");
-        const publication = crossref.issued["date-parts"][0];
-        rowInProgress.published = new Date(publication[0], publication.length > 1 ? publication[1] - 1 : 0, 1);
-        rowInProgress.citationCount = crossref["is-referenced-by-count"];
-        rowInProgress.citationsRetrieved = new Date();
-        rowInProgress.authors = crossref.author.map((a: any) => ({ prefix: a.given, lastName: a.family, suffix: "" }))
-    } catch {
-        console.log("DOI didn't work:", DOI.value);
+    if (DOI.value.trim().length > 0) {
+        try {
+            const crossrefResp = await fetch("https://api.crossref.org/works/" + DOI.value.trim());
+            if (!crossrefResp.ok) {
+                throw "Request to crossref API failed with status " +
+                crossrefResp.status + " " + crossrefResp.statusText;
+            }
+            const crossref = (await crossrefResp.json()).message;
+            rowInProgress.doi = DOI.value;
+            rowInProgress.title = crossref.title.join(" ");
+            const issued = crossref.issued["date-parts"][0];
+            rowInProgress.published = new Date(issued[0], issued.length > 1 ? issued[1] - 1 : 0, 1);
+            rowInProgress.citationCount = crossref["is-referenced-by-count"];
+            rowInProgress.citationsUpdated = new Date();
+            rowInProgress.authors = crossref.author.map((a: any) => ({ prefix: a.given, lastName: a.family, suffix: "" }));
+            if (crossref.abstract) {
+                rowInProgress.notes = `Abstract:\n${crossref.abstract}`
+            }
+            DOI.value = ""
+            adding.value = true;
+        } catch (e: any) {
+            alert("This DOI didn't work:" + DOI.value + "\n" + e.toString())
+        }
+    } else {
+        adding.value = true;
     }
-    adding.value = true;
 };
 const reset = () => {
     Object.assign(rowInProgress, getBlankRow());
@@ -51,12 +62,13 @@ const reset = () => {
     </template>
     <template v-else>
         <tr style="background-color: #e6fae7">
-            <td v-for="i in 4" />
-            <td><span>Use DOI: </span>
-                <contenteditable v-model="DOI" tag="span" data-ph="10.1145/359545.359563" @keypress.enter="initRow" no-html
-                    no-nl />
+            <td />
+            <td>
+                <contenteditable style="margin-top: 4px;" v-model="DOI" tag="span" data-ph="DOI (optional)       "
+                    @keypress.enter="initRow" no-html no-nl />
+                <button class="wide-button" style="float: right" @click="initRow">➕ Add</button>
             </td>
-            <td class="button"><button title="new row" @click="initRow">➕</button></td>
+            <td v-for="i in 5" />
         </tr>
     </template>
 </template>

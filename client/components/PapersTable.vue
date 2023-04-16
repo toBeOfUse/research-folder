@@ -61,24 +61,30 @@ const save = async (row: Paper, insert: boolean = false) => {
   // TODO: more validation? on tags?
   if (insert) {
     row.id = "";
+    row.citationsUpdated = new Date();
     row = await papersRepo.insert(row);
     papers.push(row);
     papersIndex[row.id] = row;
   } else {
-    row = await papersRepo.save(row);
     for (let i = 0; i < papers.length; ++i) {
       if (papers[i].id == row.id) {
+        if (papers[i].citationCount != row.citationCount) {
+          row.citationsUpdated = new Date();
+        }
         papers[i] = row;
         break;
       }
     }
+    row = await papersRepo.save(row);
   }
   wip.delete(row.id);
 }
 const del = async (row: Paper) => {
-  await papersRepo.delete(row);
-  delete papersIndex[row.id];
-  papers = papers.filter(p => p.id != row.id);
+  if (confirm(`Delete entry for ${row.title}?`)) {
+    await papersRepo.delete(row);
+    delete papersIndex[row.id];
+    papers = papers.filter(p => p.id != row.id);
+  }
 }
 
 const authorsToSortKey = (authors: AuthorName[]) => {
@@ -92,14 +98,13 @@ const authorsToSortKey = (authors: AuthorName[]) => {
     <h1 id="table-header">Research Papers</h1>
     <VTable :data="Object.values(papersIndex)" sortHeaderClass="spaced-header" style="min-width: 950px">
       <template #head>
-        <!-- <tr> -->
         <VTh sortKey="published">Published</VTh>
         <VTh sortKey="title">Title</VTh>
         <VTh :sortKey="({ authors }: Paper) => authorsToSortKey(authors)">Authors</VTh>
         <th>Notes</th>
         <th>Tags</th>
+        <VTh sortKey="citationCount">Refs</VTh>
         <th />
-        <!-- </tr> -->
       </template>
       <template #body="{ rows }">
         <component :is="editing(row) ? EditableRow : StaticRow" v-for="row, rowIndex in rows" :key="row.id" :row="row"

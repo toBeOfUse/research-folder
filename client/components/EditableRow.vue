@@ -184,6 +184,15 @@ defineEmits(["save", "cancel", "edit", "delete"]);
         </td>
         <td class="parent">
             <table>
+                <tr v-for="r in rowsNeeded" :key="r">
+                    <td>
+                        <input style="width: 55px" type="number" min="0" v-if="r == 1" v-model="row.citationCount" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="parent">
+            <table>
                 <tr v-for="i in rowsNeeded">
                     <td class="button">
                         <button title="save changes" v-if="i == 1" @click="$emit('save')">💾</button>
@@ -215,6 +224,20 @@ td:not(:empty, .parent) {
 
 td:empty {
     background: transparent;
+}
+
+/* Hide inrement/decrement arrows on citations field: */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 </style>
 

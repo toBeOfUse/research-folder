@@ -8,15 +8,21 @@ const fullName = (author: AuthorName) =>
 const authorsToShow = 3;
 const props = defineProps<{ row: Paper, bg: string }>();
 const etAl = computed(() => props.row.authors.slice(authorsToShow).map(fullName).join(", "));
+const citationsUpdated = computed(() =>
+    props.row.citationsUpdated ?
+        ('Last modified: ' + props.row.citationsUpdated.toLocaleDateString()) :
+        ''
+);
+const published = computed(() =>
+    props.row.published.toLocaleDateString("en-us", { month: "long" }) +
+    " " + props.row.published.getFullYear()
+);
 defineEmits(['edit']);
 </script>
 
 <template>
     <tr :style="{ backgroundColor: bg }">
-        <td style="text-align:right">{{
-            row.published.toLocaleDateString("en-us", { month: "long" }) +
-            " " + row.published.getFullYear()
-        }}</td>
+        <td style="text-align: right; width: 125px">{{ published }}</td>
         <td><a class="link" :href="row.link" target="_blank">{{ row.title }}</a></td>
         <td>
             <span v-for="author, i in row.authors.slice(0, authorsToShow)" :key="i" :title="fullName(author)">
@@ -27,6 +33,7 @@ defineEmits(['edit']);
         <td><button class="link" @click="notesDisplayed = !notesDisplayed">{{ notesDisplayed ? "Close" : "Edit" }}</button>
         </td>
         <td>{{ row.tags.join(", ") }}</td>
+        <td :title="citationsUpdated">{{ row.citationCount || "-" }}</td>
         <td class="button"><button title="edit row" @click="$emit('edit')">📝</button></td>
     </tr>
     <tr v-if="notesDisplayed" :style="{ backgroundColor: bg }">

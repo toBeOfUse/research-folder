@@ -45,5 +45,5 @@ export class Paper {
   citationCount = 0;
 
   @Fields.date()
-  citationsRetrieved? = new Date();
+  citationsUpdated? = new Date();
 }

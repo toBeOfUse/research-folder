@@ -19,7 +19,7 @@ td.button {
   text-align: center;
   width: 40px;
 }
-button {
+button:not(.wide-button) {
   background-color: transparent;
   border: none;
   cursor: pointer;
