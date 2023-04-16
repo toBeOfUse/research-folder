@@ -43,7 +43,7 @@ const initRow = async () => {
             DOI.value = ""
             adding.value = true;
         } catch (e: any) {
-            alert("This DOI didn't work:" + DOI.value + "\n" + e.toString())
+            alert("This DOI didn't work: " + DOI.value + "\n" + e.toString())
         }
     } else {
         adding.value = true;
