@@ -44,7 +44,7 @@ defineEmits(['edit', 'save', 'cancel', 'delete']);
             <div class="notes-container">
                 <textarea style="resize:vertical;height:150px" v-model="row.notes" @input="notesSaved = false" />
                 <div class="notes-edit-row">
-                    <button @click="$emit('save', row); notesSaved = true" class="square-button">
+                    <button @click="$emit('save', row); notesSaved = true" style="margin-left: auto" class="wide-button">
                         Save{{ notesSaved ? 'd' : '' }}
                     </button>
                 </div>

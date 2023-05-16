@@ -56,18 +56,6 @@ table {
   margin-top: 5px;
   width: 100%;
 }
-button.square-button {
-  margin-left: auto;
-  border: 2px outset lightgray;
-  background-color: lightgray;
-  padding: 3px;
-  width: fit-content;
-  border-radius: 2px;
-  cursor: pointer;
-}
-button.square-button:active {
-  border-style: inset;
-}
 span[contenteditable="true"] {
   margin-right: 5px;
   min-width: 15px;

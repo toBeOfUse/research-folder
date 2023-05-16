@@ -1,4 +1,4 @@
-import { Entity, Fields, IdEntity } from "remult";
+import { Entity, Fields } from "remult";
 
 export interface AuthorName {
   // first name and maybe middle name or initial; not always displayed
@@ -48,9 +48,23 @@ export class Paper {
   citationsUpdated? = new Date();
 }
 
-// should be singleton
-@Entity("tagOrder", { allowApiCrud: true })
-export class TagOrder extends IdEntity {
+// should have one entity of each type for each instance
+export enum TagOrderType {
+  ordering,
+  precedence,
+}
+
+@Entity<TagOrder>("tagOrder", {
+  allowApiCrud: true,
+  id: (t) => [t.instance, t.type],
+})
+export class TagOrder {
+  @Fields.string()
+  instance: string = "mitch";
+
+  @Fields.string()
+  type: TagOrderType = TagOrderType.ordering;
+
   @Fields.json()
   order: string[] = [];
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { remult } from "remult"
 import { computed, onMounted, reactive, ref, watch } from "vue";
-import { AuthorName, Paper, TagOrder } from "../../data/entities";
+import { AuthorName, Paper, TagOrder, TagOrderType } from "../../data/entities";
 import StaticRow from "./StaticRow.vue";
 import EditableRow from "./EditableRow.vue";
 import AddRow from "./AddRow.vue";
@@ -10,6 +10,9 @@ import draggable from "vuedraggable";
 
 const papersRepo = remult.repo(Paper);
 const tagOrderRepo = remult.repo(TagOrder);
+
+// for use in rows in the repos if we want to instance the tables later
+const INSTANCE = "mitch";
 
 // stores papers straight from the database; used to populate papersIndex and
 // then revert to originals if necessary
@@ -21,18 +24,9 @@ let papers: Paper[] = [];
 const papersIndex: Record<string, Paper> = reactive({});
 
 const tagOrder = ref<string[]>([]);
-const tagOrderLookup = computed(() => {
-  const lookup: Record<string, number> = {};
-  for (let i = 0; i < tagOrder.value.length; ++i) {
-    if (tagOrder.value[i].trim().length) {
-      lookup[tagOrder.value[i]] = i;
-    }
-  }
-  console.log(lookup);
-  return lookup;
-})
-let tagOrderID = "";
+const tagPrecedence = ref<string[]>([]);
 
+// TODO: move to editable component
 function getWorkingCopy(paper: Paper) {
   // javascript deep copying 👍 needed to keep edits to working copy from
   // changing canonical data before save() is run
@@ -50,35 +44,42 @@ async function loadAll() {
   for (const value of results) {
     papersIndex[value.id] = getWorkingCopy(value);
   }
-  const dbOrder = await tagOrderRepo.findFirst();
-  tagOrder.value = dbOrder?.order || [];
-  tagOrderID = dbOrder?.id;
+  const dbOrder = await tagOrderRepo.findFirst(
+    { instance: INSTANCE, type: TagOrderType.ordering },
+    { createIfNotFound: true }
+  );
+  const dbPrecedence = await tagOrderRepo.findFirst(
+    { instance: INSTANCE, type: TagOrderType.precedence },
+    { createIfNotFound: true }
+  )
+  tagOrder.value = dbOrder.order;
+  tagPrecedence.value = dbPrecedence.order;
 }
 onMounted(loadAll);
 
-watch(tagOrder, v => {
+const ensureLastStringEmpty = (v: string[]) => {
   if (!v.length || v[v.length - 1] != "") { v.push("") }
-}, { deep: true });
+};
 
-const saveTagOrder = async () => {
+watch(tagOrder, ensureLastStringEmpty, { deep: true });
+watch(tagPrecedence, ensureLastStringEmpty, { deep: true });
+
+const saveTagOrder = async (type: TagOrderType) => {
   const toSave = tagOrder.value.filter(t => t.trim().length);
-  let saved;
-  if (tagOrderID) {
-    saved = await tagOrderRepo.update(tagOrderID, { order: toSave });
-  } else {
-    saved = await tagOrderRepo.insert({ id: tagOrderID, order: toSave });
-  }
-  tagOrderID = saved.id;
-  tagOrder.value = saved.order;
+  await tagOrderRepo.save({ instance: INSTANCE, type, order: toSave });
 }
 
 const wip = reactive(new Set<string>());
+
 const edit = (row: Paper) => wip.add(row.id);
+
 const editing = (row: Paper) => wip.has(row.id);
+
 const cancel = (row: Paper) => {
   wip.delete(row.id);
   papersIndex[row.id] = getWorkingCopy(papers.find(r => r.id == row.id)!);
 }
+
 const cleanAuthors = (authors: AuthorName[]) => {
   for (let i = 0; i < authors.length; ++i) {
     if (!authors[i].lastName || authors[i].lastName.trim().length < 0) {
@@ -92,6 +93,7 @@ const cleanAuthors = (authors: AuthorName[]) => {
   }
   return authors;
 }
+
 const save = async (row: Paper, insert: boolean = false) => {
   cleanAuthors(row.authors);
   // TODO: more validation? on tags?
@@ -115,6 +117,7 @@ const save = async (row: Paper, insert: boolean = false) => {
   }
   wip.delete(row.id);
 }
+
 const del = async (row: Paper) => {
   if (confirm(`Delete entry for ${row.title}?`)) {
     await papersRepo.delete(row);
@@ -128,13 +131,15 @@ const authorsToSortKey = (authors: AuthorName[]) => {
 }
 
 const getTagSortOrder = (tag: string) => {
-  if (tag in tagOrderLookup.value) {
-    return tagOrderLookup.value[tag]
-  } else if ("*" in tagOrderLookup.value) {
-    return tagOrderLookup.value["*"];
-  } else {
-    return tagOrder.value.length + 1;
+  const tagIndex = tagOrder.value.indexOf(tag);
+  if (tagIndex != -1) {
+    return tagIndex;
   }
+  const wildcardIndex = tagOrder.value.indexOf("*");
+  if (wildcardIndex != -1) {
+    return wildcardIndex;
+  }
+  return tagOrder.value.length + 1;
 }
 
 const tagSorter = (a: string, b: string) => {
@@ -194,12 +199,12 @@ const tagBasedPaperSorter = (one: Paper, two: Paper, direction: number) => {
         :item-key="(tag: string) => tagOrder.indexOf(tag)">
         <template #item="{ element, index }">
           <div class="movable-tag">
-            <contenteditable tag="span" data-ph="tag..." v-model="tagOrder[index]" />
+            <contenteditable tag="span" data-ph="add tag..." v-model="tagOrder[index]" />
             <button class="tactile">&nbsp;</button>
           </div>
         </template>
       </draggable>
-      <button class="wide-button flat-button" @click="saveTagOrder">Save</button>
+      <button class="wide-button" @click="() => saveTagOrder(TagOrderType.ordering)">Save</button>
     </div>
   </div>
 </template>
@@ -251,8 +256,9 @@ button.link {
 .movable-tag {
   margin: 0 5px;
   padding: 3px 5px;
-  background-color: lightgray;
+  background-color: white;
   border: 1px solid gray;
+  border-radius: 3px;
   display: flex;
   align-items: center;
 }
