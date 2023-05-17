@@ -7,7 +7,7 @@ import ContentEditable from "vue-contenteditable";
 import DatePicker from 'vue-datepicker-next';
 import 'vue-datepicker-next/index.css';
 import draggable from 'vuedraggable'
-import { cleanAuthors } from './dataUtilities';
+import { cleanAuthors } from '../code/dataUtilities';
 
 const CEOpts = { 'no-nl': true, 'no-html': true };
 

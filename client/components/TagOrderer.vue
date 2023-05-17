@@ -2,7 +2,7 @@
 import contenteditable from "vue-contenteditable";
 import draggable from "vuedraggable";
 import { defineProps, ref, watch } from 'vue';
-import LocalTagOrder from "./tagOrder";
+import LocalTagOrder from "../code/tagOrder";
 import { TagOrderType } from "../../data/entities";
 
 const props = defineProps<{ type: string, local: LocalTagOrder }>();

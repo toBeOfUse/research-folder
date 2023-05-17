@@ -6,8 +6,8 @@ import StaticRow from "./StaticRow.vue";
 import EditableRow from "./EditableRow.vue";
 import AddRow from "./AddRow.vue";
 import TagOrderer from "./TagOrderer.vue";
-import LocalTagOrder from "./tagOrder";
-import { cleanAuthors } from "./dataUtilities";
+import LocalTagOrder from "../code/tagOrder";
+import { cleanAuthors } from "../code/dataUtilities";
 
 const papersRepo = remult.repo(Paper);
 
