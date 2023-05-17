@@ -21,7 +21,7 @@ defineEmits(['edit', 'save', 'cancel', 'delete', 'notes']);
 
 <template>
     <tr :style="{ backgroundColor: bg }">
-        <td style="text-align: right; width: 125px">{{ published }}</td>
+        <td style="text-align: right; width: 150px">{{ published }}</td>
         <td><a :class="{ link: row.link }" :href="row.link || undefined" target="_blank">{{ row.title }}</a></td>
         <td>
             <span v-for="author, i in row.authors.slice(0, authorsToShow)" :key="i" :title="fullName(author)">
