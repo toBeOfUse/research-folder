@@ -50,8 +50,8 @@ export class Paper {
 
 // should have one entity of each type for each instance
 export enum TagOrderType {
-  ordering,
-  precedence,
+  ordering = "ordering",
+  precedence = "precedence",
 }
 
 @Entity<TagOrder>("tagOrder", {

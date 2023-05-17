@@ -18,15 +18,13 @@ const INSTANCE = "mitch";
 // then revert to originals if necessary
 let papers: Paper[] = [];
 
+// TODO: move "working copy" state to editable component
+
 // stores "working copy" of papers that is actually displayed and editable;
 // needs to be indexable by row.id because sorting/filtering the table will
 // change the order/indexes of displayed rows
 const papersIndex: Record<string, Paper> = reactive({});
 
-const tagOrder = ref<string[]>([]);
-const tagPrecedence = ref<string[]>([]);
-
-// TODO: move to editable component
 function getWorkingCopy(paper: Paper) {
   // javascript deep copying 👍 needed to keep edits to working copy from
   // changing canonical data before save() is run
@@ -36,6 +34,9 @@ function getWorkingCopy(paper: Paper) {
     authors: JSON.parse(JSON.stringify(cleanAuthors(paper.authors)))
   };
 }
+
+const tagOrder = ref<string[]>([]);
+const tagPrecedence = ref<string[]>([]);
 
 // load papers and initialize two completely separate reactive copies:
 async function loadAll() {
@@ -64,8 +65,14 @@ const ensureLastStringEmpty = (v: string[]) => {
 watch(tagOrder, ensureLastStringEmpty, { deep: true });
 watch(tagPrecedence, ensureLastStringEmpty, { deep: true });
 
-const saveTagOrder = async (type: TagOrderType) => {
-  const toSave = tagOrder.value.filter(t => t.trim().length);
+const saveTagOrder = async (value: string[], type: TagOrderType) => {
+  const toSave = value.filter(t => t.trim().length);
+  // can't update entities with compound primary keys properly :(
+  const existing = await tagOrderRepo.find({ where: { instance: INSTANCE, type } });
+  // should only be one, but just in case
+  for (const exists of existing) {
+    tagOrderRepo.delete(exists);
+  }
   await tagOrderRepo.save({ instance: INSTANCE, type, order: toSave });
 }
 
@@ -204,7 +211,7 @@ const tagBasedPaperSorter = (one: Paper, two: Paper, direction: number) => {
           </div>
         </template>
       </draggable>
-      <button class="wide-button" @click="() => saveTagOrder(TagOrderType.ordering)">Save</button>
+      <button class="wide-button" @click="() => saveTagOrder(tagOrder, TagOrderType.ordering)">Save</button>
     </div>
   </div>
 </template>
