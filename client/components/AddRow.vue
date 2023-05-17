@@ -37,9 +37,6 @@ const initRow = async () => {
             rowInProgress.citationCount = crossref["is-referenced-by-count"];
             rowInProgress.citationsUpdated = new Date();
             rowInProgress.authors = crossref.author.map((a: any) => ({ prefix: a.given, lastName: a.family, suffix: "" }));
-            if (crossref.abstract) {
-                rowInProgress.notes = `Abstract:\n${crossref.abstract}`
-            }
             DOI.value = ""
             adding.value = true;
         } catch (e: any) {
