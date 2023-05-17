@@ -2,6 +2,7 @@ import { cwd } from "process";
 
 import { createServer } from "vite";
 import fastifyCreate from "fastify";
+import axios from "axios";
 
 import { remultFastify } from "remult/remult-fastify";
 import { Paper, TagOrder } from "../data/entities";
@@ -39,7 +40,10 @@ const db = remultFastify({
     root: cwd(),
     server: {
       port: 3000,
-      proxy: { "/api": "http://localhost:3001" },
+      proxy: {
+        "/api": "http://localhost:3001",
+        "/paper": "http://localhost:3001",
+      },
     },
   });
   await viteServer.listen();
@@ -51,6 +55,13 @@ const fastify = fastifyCreate({ logger: true });
 (async () => {
   try {
     await fastify.register(db);
+    fastify.get("/paper", async (req, res) => {
+      // silly proxy to get papers while ignoring CORS
+      const url = (req.query as any).url;
+      const paper = await axios.get(url, { responseType: "arraybuffer" });
+      res.header("Content-Type", paper.headers["Content-Type"]);
+      res.send(paper.data);
+    });
     await fastify.listen({ port: 3001 });
   } catch (err) {
     fastify.log.error(err);

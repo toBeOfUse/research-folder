@@ -8,6 +8,7 @@ import AddRow from "./AddRow.vue";
 import TagOrderer from "./TagOrderer.vue";
 import LocalTagOrder from "../code/tagOrder";
 import { cleanAuthors } from "../code/dataUtilities";
+import NoteTaker from "./NoteTaker.vue";
 
 const papersRepo = remult.repo(Paper);
 
@@ -100,10 +101,14 @@ const tagBasedPaperSorter = (one: Paper, two: Paper, direction: number) => {
   }
 }
 
+const takingNotesOn: Ref<string | undefined> = ref(undefined);
+
 </script>
 
 <template>
   <div id="page-container">
+    <NoteTaker v-if="takingNotesOn" :existingNotes="papers.find(p => p.id == takingNotesOn)?.notes || ''"
+      :paperURL="papers.find(p => p.id == takingNotesOn)?.link || ''" />
     <h1 id="table-header">Mitch's Research Paper Index</h1>
     <VTable :data="papers" sortHeaderClass="spaced-header" style="min-width: 950px; margin-bottom: 20px">
       <template #head>
@@ -118,7 +123,8 @@ const tagBasedPaperSorter = (one: Paper, two: Paper, direction: number) => {
       <template #body="{ rows }">
         <component :is="editing(row) ? EditableRow : StaticRow" v-for="row, rowIndex in rows" :key="row.id" :row="row"
           @edit="edit(row)" @save="row => save(row)" @cancel="cancel(row)" @delete="del(row)"
-          :sortedTags="[...row.tags].sort(tagSorter)" :bg="rowIndex % 2 == 1 ? 'white' : '#d7ebf5'" />
+          @notes="takingNotesOn = row.id" :sortedTags="[...row.tags].sort(tagSorter)"
+          :bg="rowIndex % 2 == 1 ? 'white' : '#d7ebf5'" />
         <AddRow @add-row="row => save(row, true)" />
       </template>
     </VTable>
