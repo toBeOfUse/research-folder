@@ -1,4 +1,4 @@
-import { AuthorName } from "../../data/entities";
+import { AuthorName, Paper } from "../../data/entities";
 
 export const cleanAuthors = (authors: AuthorName[]) => {
   for (let i = 0; i < authors.length; ++i) {
@@ -15,3 +15,11 @@ export const cleanAuthors = (authors: AuthorName[]) => {
 };
 
 // move tag filtering/cleaning code here?
+
+export const getPublicationDate = (paper: Paper) => {
+  return (
+    paper.published.toLocaleDateString("en-us", { month: "long" }) +
+    " " +
+    paper.published.getFullYear()
+  );
+};

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { AuthorName, Paper } from '../../data/entities';
+import { getPublicationDate } from '../code/dataUtilities';
 
 const fullName = (author: AuthorName) =>
     [author.prefix, author.lastName, author.suffix].filter(a => a).join(' ');
@@ -12,10 +13,7 @@ const citationsUpdated = computed(() =>
         ('Last modified: ' + props.row.citationsUpdated.toLocaleDateString()) :
         ''
 );
-const published = computed(() =>
-    props.row.published.toLocaleDateString("en-us", { month: "long" }) +
-    " " + props.row.published.getFullYear()
-);
+const published = computed(() => getPublicationDate(props.row));
 // this component doesn't use all of these but for it to be interchangable with
 // editablerow without warnings we have to pretend
 defineEmits(['edit', 'save', 'cancel', 'delete', 'notes']);

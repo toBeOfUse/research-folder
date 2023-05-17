@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueup/vue-quill": "^1.2.0",
     "axios": "^1.4.0",
     "fastify": "^4.14.1",
     "normalize.css": "^8.0.1",

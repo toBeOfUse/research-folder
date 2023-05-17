@@ -107,8 +107,8 @@ const takingNotesOn: Ref<string | undefined> = ref(undefined);
 
 <template>
   <div id="page-container">
-    <NoteTaker v-if="takingNotesOn" :existingNotes="papers.find(p => p.id == takingNotesOn)?.notes || ''"
-      :paperURL="papers.find(p => p.id == takingNotesOn)?.link || ''" />
+    <NoteTaker v-if="takingNotesOn" :paper="papers.find(p => p.id == takingNotesOn)!"
+      @close="takingNotesOn = undefined" />
     <h1 id="table-header">Mitch's Research Paper Index</h1>
     <VTable :data="papers" sortHeaderClass="spaced-header" style="min-width: 950px; margin-bottom: 20px">
       <template #head>
