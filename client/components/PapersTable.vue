@@ -5,11 +5,10 @@ import { AuthorName, Paper, TagOrder, TagOrderType } from "../../data/entities";
 import StaticRow from "./StaticRow.vue";
 import EditableRow from "./EditableRow.vue";
 import AddRow from "./AddRow.vue";
-import contenteditable from "vue-contenteditable";
-import draggable from "vuedraggable";
+import TagOrderer from "./TagOrderer.vue";
+import LocalTagOrder from "./tagOrder";
 
 const papersRepo = remult.repo(Paper);
-const tagOrderRepo = remult.repo(TagOrder);
 
 // for use in rows in the repos if we want to instance the tables later
 const INSTANCE = "mitch";
@@ -35,8 +34,8 @@ function getWorkingCopy(paper: Paper) {
   };
 }
 
-const tagOrder = ref<string[]>([]);
-const tagPrecedence = ref<string[]>([]);
+const tagOrder = new LocalTagOrder(INSTANCE, TagOrderType.ordering);
+const tagPrecedence = new LocalTagOrder(INSTANCE, TagOrderType.precedence);
 
 // load papers and initialize two completely separate reactive copies:
 async function loadAll() {
@@ -45,36 +44,8 @@ async function loadAll() {
   for (const value of results) {
     papersIndex[value.id] = getWorkingCopy(value);
   }
-  const dbOrder = await tagOrderRepo.findFirst(
-    { instance: INSTANCE, type: TagOrderType.ordering },
-    { createIfNotFound: true }
-  );
-  const dbPrecedence = await tagOrderRepo.findFirst(
-    { instance: INSTANCE, type: TagOrderType.precedence },
-    { createIfNotFound: true }
-  )
-  tagOrder.value = dbOrder.order;
-  tagPrecedence.value = dbPrecedence.order;
 }
 onMounted(loadAll);
-
-const ensureLastStringEmpty = (v: string[]) => {
-  if (!v.length || v[v.length - 1] != "") { v.push("") }
-};
-
-watch(tagOrder, ensureLastStringEmpty, { deep: true });
-watch(tagPrecedence, ensureLastStringEmpty, { deep: true });
-
-const saveTagOrder = async (value: string[], type: TagOrderType) => {
-  const toSave = value.filter(t => t.trim().length);
-  // can't update entities with compound primary keys properly :(
-  const existing = await tagOrderRepo.find({ where: { instance: INSTANCE, type } });
-  // should only be one, but just in case
-  for (const exists of existing) {
-    tagOrderRepo.delete(exists);
-  }
-  await tagOrderRepo.save({ instance: INSTANCE, type, order: toSave });
-}
 
 const wip = reactive(new Set<string>());
 
@@ -137,21 +108,9 @@ const authorsToSortKey = (authors: AuthorName[]) => {
   return authors.map(a => a.lastName).join('');
 }
 
-const getTagSortOrder = (tag: string) => {
-  const tagIndex = tagOrder.value.indexOf(tag);
-  if (tagIndex != -1) {
-    return tagIndex;
-  }
-  const wildcardIndex = tagOrder.value.indexOf("*");
-  if (wildcardIndex != -1) {
-    return wildcardIndex;
-  }
-  return tagOrder.value.length + 1;
-}
-
 const tagSorter = (a: string, b: string) => {
-  const aOrder = getTagSortOrder(a);
-  const bOrder = getTagSortOrder(b);
+  const aOrder = tagPrecedence.getTagPriority(a);
+  const bOrder = tagPrecedence.getTagPriority(b);
   if (aOrder != bOrder) {
     return aOrder - bOrder;
   } else {
@@ -163,7 +122,7 @@ const tagBasedPaperSorter = (one: Paper, two: Paper, direction: number) => {
   const a = [...one.tags].sort(tagSorter);
   const b = [...two.tags].sort(tagSorter);
   for (let i = 0; i < Math.min(a.length, b.length); ++i) {
-    const thisPair = tagSorter(a[i], b[i]);
+    const thisPair = tagOrder.getTagPriority(a[i]) - tagOrder.getTagPriority(b[i]);
     if (thisPair != 0) {
       return direction * thisPair;
     }
@@ -200,19 +159,8 @@ const tagBasedPaperSorter = (one: Paper, two: Paper, direction: number) => {
         <AddRow @add-row="row => save(row, true)" />
       </template>
     </VTable>
-    <div class="tag-order-container">
-      Tag order for sorting:
-      <draggable class="tag-order-container" v-model="tagOrder" handle=".tactile"
-        :item-key="(tag: string) => tagOrder.indexOf(tag)">
-        <template #item="{ element, index }">
-          <div class="movable-tag">
-            <contenteditable tag="span" data-ph="add tag..." v-model="tagOrder[index]" />
-            <button class="tactile">&nbsp;</button>
-          </div>
-        </template>
-      </draggable>
-      <button class="wide-button" @click="() => saveTagOrder(tagOrder, TagOrderType.ordering)">Save</button>
-    </div>
+    <TagOrderer :type="TagOrderType.precedence" :local="tagPrecedence" />
+    <TagOrderer :type="TagOrderType.ordering" :local="tagOrder" />
   </div>
 </template>
 
@@ -249,33 +197,5 @@ button.link {
 
 #table-header {
   margin: 80px 0 40px 10px;
-}
-
-.tag-order-container {
-  display: flex;
-  align-items: center;
-}
-
-.tag-order-container span {
-  min-width: 40px;
-}
-
-.movable-tag {
-  margin: 0 5px;
-  padding: 3px 5px;
-  background-color: white;
-  border: 1px solid gray;
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
-}
-
-button.tactile {
-  width: 10px;
-  height: 10px;
-  background-image: radial-gradient(gray 0%, gray 50%, transparent 50%, transparent 100%);
-  background-size: 3px 3px;
-  margin: 0 4px;
-  cursor: grab;
 }
 </style>
