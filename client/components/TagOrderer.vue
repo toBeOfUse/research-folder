@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import contenteditable from "vue-contenteditable";
 import draggable from "vuedraggable";
-import { defineProps } from 'vue';
+import { defineProps, ref, watch } from 'vue';
 import LocalTagOrder from "./tagOrder";
 import { TagOrderType } from "../../data/entities";
 
-defineProps<{ type: string, local: LocalTagOrder }>();
+const props = defineProps<{ type: string, local: LocalTagOrder }>();
+const saved = ref(true);
+watch(props.local.tags, () => {
+    saved.value = false;
+});
+const save = () => {
+    props.local.save().then(() => saved.value = true);
+}
 </script>
 
 <template>
@@ -22,7 +29,9 @@ defineProps<{ type: string, local: LocalTagOrder }>();
                 </div>
             </template>
         </draggable>
-        <button style="margin-left: 20px" class="wide-button" @click="() => local.save()">Save</button>
+        <button :disabled="saved" style="margin-left: 20px" class="wide-button" @click="save">
+            Save{{ saved ? "d" : "" }}
+        </button>
     </div>
 </template>
 
