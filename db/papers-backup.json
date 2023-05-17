@@ -21,8 +21,7 @@
     ],
     "tags": [
       "reading list",
-      "BFT",
-      "algorithms"
+      "BFT"
     ],
     "summary": "",
     "link": "https://lamport.azurewebsites.net/pubs/byz.pdf",
@@ -129,7 +128,8 @@
     ],
     "tags": [
       "reading list",
-      "blockchain"
+      "blockchain",
+      "algorithms"
     ],
     "summary": "",
     "link": "https://bitcoin.org/bitcoin.pdf",
@@ -240,7 +240,6 @@
     ],
     "tags": [
       "reading list",
-      "BFT",
       "algorithms",
       "blockchain"
     ],
@@ -289,10 +288,9 @@
       }
     ],
     "tags": [
-      "reading list",
-      "BFT",
       "algorithms",
-      "blockchain"
+      "blockchain",
+      "reading list"
     ],
     "summary": "",
     "link": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8418625",
@@ -324,10 +322,9 @@
       }
     ],
     "tags": [
-      "reading list",
-      "BFT",
       "algorithms",
-      "blockchain"
+      "blockchain",
+      "reading list"
     ],
     "summary": "",
     "link": "https://eprint.iacr.org/2018/460.pdf",
@@ -365,11 +362,12 @@
     ],
     "tags": [
       "routing",
-      "algorithms"
+      "algorithms",
+      "in-house"
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/3154273.3154314",
-    "notes": "",
+    "notes": "hello",
     "published": "2018-01-01",
     "read": false,
     "doi": "10.1145/3154273.3154314",
@@ -545,7 +543,8 @@
     ],
     "tags": [
       "system models",
-      "algorithms"
+      "algorithms",
+      "unread"
     ],
     "summary": "",
     "link": "https://link.springer.com/content/pdf/10.1007/s00446-010-0099-z.pdf",
@@ -583,5 +582,152 @@
     "doi": "10.1145/1148109.1148163",
     "citationCount": 41,
     "citationsUpdated": "2023-04-16T01:40:14.178Z"
+  },
+  {
+    "id": "633b91b1-e0af-4051-9e2f-a1fe370d7b19",
+    "title": "Spanner: Google’s Globally Distributed Database",
+    "authors": [
+      {
+        "prefix": "James C.",
+        "lastName": "Corbett",
+        "suffix": ""
+      },
+      {
+        "prefix": "Jeffrey",
+        "lastName": "Dean",
+        "suffix": ""
+      },
+      {
+        "prefix": "Michael",
+        "lastName": "Epstein",
+        "suffix": ""
+      },
+      {
+        "prefix": "Andrew",
+        "lastName": "Fikes",
+        "suffix": ""
+      },
+      {
+        "prefix": "Christopher",
+        "lastName": "Frost",
+        "suffix": ""
+      },
+      {
+        "prefix": "J. J.",
+        "lastName": "Furman",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sanjay",
+        "lastName": "Ghemawat",
+        "suffix": ""
+      },
+      {
+        "prefix": "Andrey",
+        "lastName": "Gubarev",
+        "suffix": ""
+      },
+      {
+        "prefix": "Christopher",
+        "lastName": "Heiser",
+        "suffix": ""
+      },
+      {
+        "prefix": "Peter",
+        "lastName": "Hochschild",
+        "suffix": ""
+      },
+      {
+        "prefix": "Wilson",
+        "lastName": "Hsieh",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sebastian",
+        "lastName": "Kanthak",
+        "suffix": ""
+      },
+      {
+        "prefix": "Eugene",
+        "lastName": "Kogan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Hongyi",
+        "lastName": "Li",
+        "suffix": ""
+      },
+      {
+        "prefix": "Alexander",
+        "lastName": "Lloyd",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sergey",
+        "lastName": "Melnik",
+        "suffix": ""
+      },
+      {
+        "prefix": "David",
+        "lastName": "Mwaura",
+        "suffix": ""
+      },
+      {
+        "prefix": "David",
+        "lastName": "Nagle",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sean",
+        "lastName": "Quinlan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Rajesh",
+        "lastName": "Rao",
+        "suffix": ""
+      },
+      {
+        "prefix": "Lindsay",
+        "lastName": "Rolig",
+        "suffix": ""
+      },
+      {
+        "prefix": "Yasushi",
+        "lastName": "Saito",
+        "suffix": ""
+      },
+      {
+        "prefix": "Michal",
+        "lastName": "Szymaniak",
+        "suffix": ""
+      },
+      {
+        "prefix": "Christopher",
+        "lastName": "Taylor",
+        "suffix": ""
+      },
+      {
+        "prefix": "Ruth",
+        "lastName": "Wang",
+        "suffix": ""
+      },
+      {
+        "prefix": "Dale",
+        "lastName": "Woodford",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      ""
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/2491245",
+    "notes": "Abstract:\n<jats:p>Spanner is Google’s scalable, multiversion, globally distributed, and synchronously replicated database. It is the first system to distribute data at global scale and support externally-consistent distributed transactions. This article describes how Spanner is structured, its feature set, the rationale underlying various design decisions, and a novel time API that exposes clock uncertainty. This API and its implementation are critical to supporting external consistency and a variety of powerful features: nonblocking reads in the past, lock-free snapshot transactions, and atomic schema changes, across all of Spanner.</jats:p>",
+    "published": "2013-08-01",
+    "read": false,
+    "doi": "10.1145/2491245",
+    "citationCount": 186,
+    "citationsUpdated": "2023-05-17T03:50:06.142Z"
   }
 ]
