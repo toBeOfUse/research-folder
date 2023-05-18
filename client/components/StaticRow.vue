@@ -29,7 +29,7 @@ defineEmits(['edit', 'save', 'cancel', 'delete', 'notes']);
             </span>
             <span v-if="row.authors.length > authorsToShow" :title="etAl"> et al.</span>
         </td>
-        <td><button class="link" @click="$emit('notes')">Edit</button>
+        <td><button class="link" @click="$emit('notes')">View</button>
         </td>
         <td>{{ sortedTags.join(", ") }}</td>
         <td :title="citationsUpdated">{{ row.citationCount || "-" }}</td>
