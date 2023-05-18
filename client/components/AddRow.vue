@@ -55,7 +55,7 @@ const reset = () => {
 <template>
     <template v-if="adding">
         <EditableRow bg="#e6fae7" :row="rowInProgress" @cancel="reset" @delete="reset"
-            @save="$emit('addRow', { ...rowInProgress }); reset()" />
+            @save="row => { $emit('addRow', row); reset() }" />
     </template>
     <template v-else>
         <tr style="background-color: #e6fae7">
