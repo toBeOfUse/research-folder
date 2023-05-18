@@ -1,13 +1,13 @@
 import { cwd } from "process";
 
 import { createServer } from "vite";
-import fastifyCreate from "fastify";
+import express from "express";
 import axios from "axios";
 
-import { remultFastify } from "remult/remult-fastify";
+import { remultExpress } from "remult/remult-express";
 import { Paper, TagOrder } from "../data/entities";
 
-const db = remultFastify({
+const db = remultExpress({
   entities: [Paper, TagOrder],
   async initApi(remult) {
     const papersRepo = remult.repo(Paper);
@@ -38,44 +38,30 @@ const db = remultFastify({
   const viteServer = await createServer({
     configFile: "./vite.config.js",
     root: cwd(),
-    server: {
-      port: 3000,
-      proxy: {
-        "/api": "http://localhost:3001",
-        "/paper": "http://localhost:3001",
-      },
-    },
+    server: { middlewareMode: true },
   });
-  await viteServer.listen();
-  viteServer.printUrls();
-})();
-
-// start fastify
-const fastify = fastifyCreate({ logger: true });
-(async () => {
-  try {
-    await fastify.register(db);
-    fastify.get("/paper", async (req, res) => {
-      // silly proxy to serve papers that can't be embedded in iframes while
-      // ignoring cross-origin policies
-      const url = (req.query as any).url;
-      const paper = await axios.get(url, {
-        responseType: "arraybuffer",
-        headers: { Accept: "application/pdf" },
-      });
-      // only proxy if a normal iframe isn't allowed, so that cookies function
-      // normally as often as possible
-      if (!paper.headers["x-frame-options"]) {
-        res.redirect(url);
-      } else {
-        console.log("proxying request for document " + url);
-        res.header("content-type", paper.headers["content-type"]);
-        res.send(paper.data);
-      }
+  const app = express();
+  app.use(db);
+  app.get("/paper", async (req, res) => {
+    // silly proxy to serve papers that can't be embedded in iframes while
+    // ignoring cross-origin policies
+    const url = (req.query as any).url;
+    const paper = await axios.get(url, {
+      responseType: "arraybuffer",
+      headers: { Accept: "application/pdf" },
     });
-    await fastify.listen({ port: 3001 });
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
+    // only proxy if a normal iframe isn't allowed, so that cookies function
+    // normally as often as possible
+    if (!paper.headers["x-frame-options"]) {
+      res.redirect(url);
+    } else {
+      console.log("proxying request for document " + url);
+      res.header("content-type", paper.headers["content-type"]);
+      res.send(paper.data);
+    }
+  });
+  app.use(viteServer.middlewares);
+  app.listen(3000, () => {
+    console.log("listening at http://localhost:3000");
+  });
 })();

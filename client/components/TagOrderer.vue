@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import contenteditable from "vue-contenteditable";
 import draggable from "vuedraggable";
-import { defineProps, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import LocalTagOrder from "../code/tagOrder";
 import { TagOrderType } from "../../data/entities";
 
