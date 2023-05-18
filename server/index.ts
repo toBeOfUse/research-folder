@@ -56,11 +56,22 @@ const fastify = fastifyCreate({ logger: true });
   try {
     await fastify.register(db);
     fastify.get("/paper", async (req, res) => {
-      // silly proxy to get papers while ignoring CORS
+      // silly proxy to serve papers that can't be embedded in iframes while
+      // ignoring cross-origin policies
       const url = (req.query as any).url;
-      const paper = await axios.get(url, { responseType: "arraybuffer" });
-      res.header("Content-Type", paper.headers["Content-Type"]);
-      res.send(paper.data);
+      const paper = await axios.get(url, {
+        responseType: "arraybuffer",
+        headers: { Accept: "application/pdf" },
+      });
+      // only proxy if a normal iframe isn't allowed, so that cookies function
+      // normally as often as possible
+      if (!paper.headers["x-frame-options"]) {
+        res.redirect(url);
+      } else {
+        console.log("proxying request for document " + url);
+        res.header("content-type", paper.headers["content-type"]);
+        res.send(paper.data);
+      }
     });
     await fastify.listen({ port: 3001 });
   } catch (err) {
