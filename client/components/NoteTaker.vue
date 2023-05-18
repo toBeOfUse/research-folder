@@ -48,10 +48,12 @@ watch(notes, () => saved.value = false);
     box-sizing: border-box;
 }
 
+$buttons-height: 40px;
+
 #readingModal {
     display: flex;
     width: 100%;
-    height: 100%;
+    height: calc(100% - $buttons-height);
 }
 
 #paper {
@@ -81,7 +83,7 @@ watch(notes, () => saved.value = false);
 
 #buttons {
     width: 100%;
-    height: 40px;
+    height: $buttons-height;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -90,5 +92,12 @@ watch(notes, () => saved.value = false);
     button {
         margin: 5px;
     }
+}
+</style>
+
+<style>
+div.ql-container {
+    /* hack to allow space for the quill toolbar */
+    height: calc(100% - 42px);
 }
 </style>
