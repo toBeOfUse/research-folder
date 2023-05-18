@@ -76,7 +76,7 @@
     ],
     "summary": "",
     "link": "https://lamport.azurewebsites.net/pubs/time-clocks.pdf",
-    "notes": "Abstract:\nThe concept of one event happening before another in a distributed system is examined, and is shown to define a partial ordering of the events. A distributed algorithm is given for synchronizing a system of logical clocks which can be used to totally order the events. The use of the total ordering is illustrated with a method for solving synchronization problems. The algorithm is then specialized for synchronizing physical clocks, and a bound is derived on how far out of synchrony the clocks can become.",
+    "notes": "",
     "published": "1978-07-01",
     "read": true,
     "doi": "10.1145/359545.359563",
@@ -109,7 +109,7 @@
     ],
     "summary": "",
     "link": "https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf",
-    "notes": "Abstract:\nThe consensus problem involves an asynchronous system of processes, some of which may be unreliable. The problem is for the reliable processes to agree on a binary value. In this paper, it is shown that every protocol for this problem has the possibility of nontermination, even with only one faulty process. By way of contrast, solutions are known for the synchronous case, the “Byzantine Generals” problem.",
+    "notes": "",
     "published": "1985-04-01",
     "read": false,
     "doi": "10.1145/3149.214121",
@@ -367,7 +367,7 @@
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/3154273.3154314",
-    "notes": "hello",
+    "notes": "",
     "published": "2018-01-01",
     "read": false,
     "doi": "10.1145/3154273.3154314",
@@ -443,7 +443,7 @@
     ],
     "summary": "",
     "link": "https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf",
-    "notes": "Abstract:\n<jats:p>Recent archaeological discoveries on the island of Paxos reveal that the parliament functioned despite the peripatetic propensity of its part-time legislators. The legislators maintained consistent copies of the parliamentary record, despite their frequent forays from the chamber and the forgetfulness of their messengers. The Paxon parliament's protocol provides a new way of implementing the state machine approach to the design of distributed systems.</jats:p>",
+    "notes": "",
     "published": "1998-05-01",
     "read": false,
     "doi": "10.1145/279227.279229",
@@ -719,15 +719,642 @@
       }
     ],
     "tags": [
-      ""
+      "unread",
+      "algorithms",
+      "industry"
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/2491245",
-    "notes": "Abstract:\n<jats:p>Spanner is Google’s scalable, multiversion, globally distributed, and synchronously replicated database. It is the first system to distribute data at global scale and support externally-consistent distributed transactions. This article describes how Spanner is structured, its feature set, the rationale underlying various design decisions, and a novel time API that exposes clock uncertainty. This API and its implementation are critical to supporting external consistency and a variety of powerful features: nonblocking reads in the past, lock-free snapshot transactions, and atomic schema changes, across all of Spanner.</jats:p>",
+    "notes": "",
     "published": "2013-08-01",
     "read": false,
     "doi": "10.1145/2491245",
     "citationCount": 186,
     "citationsUpdated": "2023-05-17T03:50:06.142Z"
+  },
+  {
+    "id": "b3a2f783-422d-4653-baea-e6783631f3eb",
+    "title": "The Case for Learned Index Structures",
+    "authors": [
+      {
+        "prefix": "Tim",
+        "lastName": "Kraska",
+        "suffix": ""
+      },
+      {
+        "prefix": "Alex",
+        "lastName": "Beutel",
+        "suffix": ""
+      },
+      {
+        "prefix": "Ed H.",
+        "lastName": "Chi",
+        "suffix": ""
+      },
+      {
+        "prefix": "Jeffrey",
+        "lastName": "Dean",
+        "suffix": ""
+      },
+      {
+        "prefix": "Neoklis",
+        "lastName": "Polyzotis",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "ML",
+      "industry",
+      "unread",
+      "databases"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/3183713.3196909",
+    "notes": "",
+    "published": "2018-05-01",
+    "read": false,
+    "doi": "10.1145/3183713.3196909",
+    "citationCount": 293,
+    "citationsUpdated": "2023-05-17T23:30:46.032Z"
+  },
+  {
+    "id": "b91b0523-779f-467c-ad20-63e5d651f818",
+    "title": "Engineering Record And Replay For Deployability",
+    "authors": [
+      {
+        "prefix": "Robert",
+        "lastName": "O'Callahan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Chris",
+        "lastName": "Jones",
+        "suffix": ""
+      },
+      {
+        "prefix": "Nathan",
+        "lastName": "Froyd",
+        "suffix": ""
+      },
+      {
+        "prefix": "Kyle",
+        "lastName": "Huey",
+        "suffix": ""
+      },
+      {
+        "prefix": "Albert",
+        "lastName": "Noll",
+        "suffix": ""
+      },
+      {
+        "prefix": "Nimrod",
+        "lastName": "Partush",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "software engineering"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/1705.05937",
+    "notes": "",
+    "published": "2017-05-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-05-17T23:35:26.234Z"
+  },
+  {
+    "id": "9df403f2-dfd7-4cfe-89ea-96b64cbde33d",
+    "title": "Smooth, easy to compute interpolating splines",
+    "authors": [
+      {
+        "prefix": "John D.",
+        "lastName": "Hobby",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "geometry"
+    ],
+    "summary": "",
+    "link": "https://link.springer.com/content/pdf/10.1007/BF02187690.pdf",
+    "notes": "",
+    "published": "1986-06-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-05-17T23:38:02.216Z"
+  },
+  {
+    "id": "f10c4328-7fb3-48d1-9816-b70f79f373c6",
+    "title": "Byzantine Geoconsensus",
+    "authors": [
+      {
+        "prefix": "Joseph",
+        "lastName": "Oglio",
+        "suffix": ""
+      },
+      {
+        "prefix": "Kendric",
+        "lastName": "Hood",
+        "suffix": ""
+      },
+      {
+        "prefix": "Gokarna",
+        "lastName": "Sharma",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mikhail",
+        "lastName": "Nesterenko",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "in-house",
+      "system models",
+      "BFT"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/2010.02436.pdf",
+    "notes": "",
+    "published": "2021-01-01",
+    "read": false,
+    "doi": "10.1007/978-3-030-91014-3_2",
+    "citationCount": 0,
+    "citationsUpdated": "2023-05-17T23:39:36.710Z"
+  },
+  {
+    "id": "4edf6358-07c6-4b27-a36d-b93fa2ac8974",
+    "title": "Partitionable Asynchronous Cryptocurrency Blockchain",
+    "authors": [
+      {
+        "prefix": "Kendric",
+        "lastName": "Hood",
+        "suffix": ""
+      },
+      {
+        "prefix": "Joseph",
+        "lastName": "Oglio",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mikhail",
+        "lastName": "Nesterenko",
+        "suffix": ""
+      },
+      {
+        "prefix": "Gokarna",
+        "lastName": "Sharma",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "in-house",
+      "blockchain",
+      "unread"
+    ],
+    "summary": "",
+    "link": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9461080",
+    "notes": "",
+    "published": "2021-05-01",
+    "read": false,
+    "doi": "10.1109/ICBC51069.2021.9461080",
+    "citationCount": 2,
+    "citationsUpdated": "2023-05-17T23:41:07.948Z"
+  },
+  {
+    "id": "98575a59-a05c-46ca-918c-8cfeab11c227",
+    "title": "Self-stabilization",
+    "authors": [
+      {
+        "prefix": "Marco",
+        "lastName": "Schneider",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "self-stabilizing",
+      "survey"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/151254.151256",
+    "notes": "",
+    "published": "1993-03-01",
+    "read": false,
+    "doi": "10.1145/151254.151256",
+    "citationCount": 222,
+    "citationsUpdated": "2023-05-17T23:42:02.179Z"
+  },
+  {
+    "id": "913659bc-f0ef-4484-bf56-878cfe5c329e",
+    "title": "Consensus on an Unknown Torus with Dense Byzantine Faults",
+    "authors": [
+      {
+        "prefix": "Jospeh",
+        "lastName": "Oglio",
+        "suffix": ""
+      },
+      {
+        "prefix": "Kendric",
+        "lastName": "Hood",
+        "suffix": ""
+      },
+      {
+        "prefix": "Gokarna",
+        "lastName": "Sharma",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mikhail",
+        "lastName": "Nesterenko",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "in-house",
+      "BFT"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/2303.12870.pdf",
+    "notes": "",
+    "published": "2023-05-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-05-17T23:44:45.777Z"
+  },
+  {
+    "id": "7050093f-1aa3-4bbf-8529-13346c29c2ad",
+    "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+    "authors": [
+      {
+        "prefix": "Joon Sung",
+        "lastName": "Park",
+        "suffix": ""
+      },
+      {
+        "prefix": "Joseph C.",
+        "lastName": "O'Brien",
+        "suffix": ""
+      },
+      {
+        "prefix": "Carrie J.",
+        "lastName": "Cai",
+        "suffix": ""
+      },
+      {
+        "prefix": "Percy",
+        "lastName": "Liang",
+        "suffix": ""
+      },
+      {
+        "prefix": "Michael S.",
+        "lastName": "Bernstein",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "ML"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/2304.03442.pdf",
+    "notes": "",
+    "published": "2023-04-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-05-18T00:00:40.550Z"
+  },
+  {
+    "id": "2de88f1c-a642-4ee5-ab09-4e264c50de0a",
+    "title": "A Secure Sharding Protocol For Open Blockchains (Elastico)",
+    "authors": [
+      {
+        "prefix": "Loi",
+        "lastName": "Luu",
+        "suffix": ""
+      },
+      {
+        "prefix": "Viswesh",
+        "lastName": "Narayanan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Chaodong",
+        "lastName": "Zheng",
+        "suffix": ""
+      },
+      {
+        "prefix": "Kunal",
+        "lastName": "Baweja",
+        "suffix": ""
+      },
+      {
+        "prefix": "Seth",
+        "lastName": "Gilbert",
+        "suffix": ""
+      },
+      {
+        "prefix": "Prateek",
+        "lastName": "Saxena",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "blockchain",
+      "BFT",
+      "sharding"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/2976749.2978389",
+    "notes": "",
+    "published": "2016-10-01",
+    "read": false,
+    "doi": "10.1145/2976749.2978389",
+    "citationCount": 590,
+    "citationsUpdated": "2023-05-18T00:02:31.250Z"
+  },
+  {
+    "id": "68b10660-052c-4566-bbde-2d22b61a0468",
+    "title": "SoK: Consensus in the Age of Blockchains",
+    "authors": [
+      {
+        "prefix": "Shehar",
+        "lastName": "Bano",
+        "suffix": ""
+      },
+      {
+        "prefix": "Alberto",
+        "lastName": "Sonnino",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mustafa",
+        "lastName": "Al-Bassam",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sarah",
+        "lastName": "Azouvi",
+        "suffix": ""
+      },
+      {
+        "prefix": "Patrick",
+        "lastName": "McCorry",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sarah",
+        "lastName": "Meiklejohn",
+        "suffix": ""
+      },
+      {
+        "prefix": "George",
+        "lastName": "Danezis",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "blockchain",
+      "BFT",
+      "survey"
+    ],
+    "summary": "",
+    "link": "about:blank",
+    "notes": "",
+    "published": "2019-10-01",
+    "read": false,
+    "doi": "10.1145/3318041.3355458",
+    "citationCount": 77,
+    "citationsUpdated": "2023-05-18T00:04:43.003Z"
+  },
+  {
+    "id": "d5db52af-2d7b-4e2b-9a1c-ce103351a563",
+    "title": "Making Byzantine Fault Tolerant Systems Tolerate Byzantine Faults",
+    "authors": [
+      {
+        "prefix": "Allen",
+        "lastName": "Clement",
+        "suffix": ""
+      },
+      {
+        "prefix": "Edmund",
+        "lastName": "Wong",
+        "suffix": ""
+      },
+      {
+        "prefix": "Lorenzo",
+        "lastName": "Alvisi",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mike",
+        "lastName": "Dahlin",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mirco",
+        "lastName": "Marchetti",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "BFT",
+      "algorithms",
+      "survey"
+    ],
+    "summary": "",
+    "link": "https://www.usenix.org/legacy/events/nsdi09/tech/full_papers/clement/clement.pdf",
+    "notes": "",
+    "published": "2009-04-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-05-18T00:11:52.906Z"
+  },
+  {
+    "id": "11af269a-f8bc-485f-ac1f-6622d0a50417",
+    "title": "Zyzzyva",
+    "authors": [
+      {
+        "prefix": "Ramakrishna",
+        "lastName": "Kotla",
+        "suffix": ""
+      },
+      {
+        "prefix": "Lorenzo",
+        "lastName": "Alvisi",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mike",
+        "lastName": "Dahlin",
+        "suffix": ""
+      },
+      {
+        "prefix": "Allen",
+        "lastName": "Clement",
+        "suffix": ""
+      },
+      {
+        "prefix": "Edmund",
+        "lastName": "Wong",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "BFT",
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/1294261.1294267",
+    "notes": "",
+    "published": "2007-10-01",
+    "read": false,
+    "doi": "10.1145/1294261.1294267",
+    "citationCount": 227,
+    "citationsUpdated": "2023-05-18T00:12:50.455Z"
+  },
+  {
+    "id": "b1fa4a8e-8f61-4bd0-b9da-ced19d3c27e1",
+    "title": "A case for redundant arrays of inexpensive disks (RAID)",
+    "authors": [
+      {
+        "prefix": "David A.",
+        "lastName": "Patterson",
+        "suffix": ""
+      },
+      {
+        "prefix": "Garth",
+        "lastName": "Gibson",
+        "suffix": ""
+      },
+      {
+        "prefix": "Randy H.",
+        "lastName": "Katz",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "industry",
+      "hardware"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/50202.50214",
+    "notes": "",
+    "published": "1988-01-01",
+    "read": false,
+    "doi": "10.1145/50202.50214",
+    "citationCount": 1160,
+    "citationsUpdated": "2023-05-18T00:27:49.058Z"
+  },
+  {
+    "id": "f88ec399-6a85-4513-a0d9-198ec8d3bb31",
+    "title": "How to Leak a Secret (Ring Signatures)",
+    "authors": [
+      {
+        "prefix": "Ronald L.",
+        "lastName": "Rivest",
+        "suffix": ""
+      },
+      {
+        "prefix": "Adi",
+        "lastName": "Shamir",
+        "suffix": ""
+      },
+      {
+        "prefix": "Yael",
+        "lastName": "Tauman",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "cryptography"
+    ],
+    "summary": "",
+    "link": "https://link.springer.com/content/pdf/10.1007/3-540-45682-1_32.pdf",
+    "notes": "",
+    "published": "2001-01-01",
+    "read": false,
+    "doi": "10.1007/3-540-45682-1_32",
+    "citationCount": 714,
+    "citationsUpdated": "2023-05-18T00:30:53.671Z"
+  },
+  {
+    "id": "8c4930d4-6c7a-4292-bf5c-99b647280e1c",
+    "title": "Traceable Ring Signature",
+    "authors": [
+      {
+        "prefix": "Eiichiro",
+        "lastName": "Fujisaki",
+        "suffix": ""
+      },
+      {
+        "prefix": "Koutarou",
+        "lastName": "Suzuki",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "cryptography"
+    ],
+    "summary": "",
+    "link": "https://link.springer.com/content/pdf/10.1007/978-3-540-71677-8_13.pdf",
+    "notes": "",
+    "published": "2007-04-01",
+    "read": false,
+    "doi": "10.1007/978-3-540-71677-8_13",
+    "citationCount": 108,
+    "citationsUpdated": "2023-05-18T00:32:50.718Z"
+  },
+  {
+    "id": "60558cdf-96f3-4acb-b573-2ac6c452384e",
+    "title": "QUANTAS",
+    "authors": [
+      {
+        "prefix": "Joseph",
+        "lastName": "Oglio",
+        "suffix": ""
+      },
+      {
+        "prefix": "Kendric",
+        "lastName": "Hood",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mikhail",
+        "lastName": "Nesterenko",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sebastien",
+        "lastName": "Tixeuil",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "system models",
+      "in-house"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/2205.04930",
+    "notes": "",
+    "published": "2022-05-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-05-18T00:35:18.841Z"
   }
 ]
