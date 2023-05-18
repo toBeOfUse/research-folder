@@ -130,12 +130,20 @@ const filters: Filters = reactive({
   }
 });
 
+const closeNotes = (newNotes: string) => {
+  const paper = papers.value.find(p => p.id == takingNotesOn.value);
+  if (paper) {
+    paper.notes = newNotes;
+  }
+  takingNotesOn.value = undefined;
+
+}
+
 </script>
 
 <template>
   <div id="page-container">
-    <NoteTaker v-if="takingNotesOn" :paper="papers.find(p => p.id == takingNotesOn)!"
-      @close="takingNotesOn = undefined" />
+    <NoteTaker v-if="takingNotesOn" :paper="papers.find(p => p.id == takingNotesOn)!" @close="closeNotes" />
     <h1 id="table-header">Mitch's Research Paper Index</h1>
     <VTable :filters="filters" :data="papers" sortHeaderClass="spaced-header" style="width: 100%; margin-bottom: 20px">
       <template #head>

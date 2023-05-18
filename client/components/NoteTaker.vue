@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { Paper } from '../../data/entities';
@@ -7,13 +7,17 @@ import { getPublicationDate } from '../code/dataUtilities';
 import { remult } from 'remult';
 
 const props = defineProps<{ paper: Paper }>();
-defineEmits(["close"]);
+const emit = defineEmits(["close"]);
 const notes = ref(props.paper.notes);
+// savedNotes only updates when a database save succeeds; when the user closes
+// the editor, it lets the parent component know what the local paper object
+// should store (ignoring the unsaved changes that may be present in `notes.value`)
+const savedNotes = ref(props.paper.notes);
 if (!notes.value.trim().length) {
     notes.value += `<h1>${props.paper.title}</h1>`;
-    notes.value += `<h2>By ${props.paper.authors.map(a => [a.prefix, a.lastName, a.suffix]
-        .filter(a => a.trim().length).join(' ')).join(", ")}</h2>`;
-    notes.value += `<h2>Published ${getPublicationDate(props.paper)}</h2>`
+    notes.value += `<h3>Authors: ${props.paper.authors.map(a => [a.prefix, a.lastName, a.suffix]
+        .filter(a => a.trim().length).join(' ')).join(", ")}</h3>`;
+    notes.value += `<h3>Published: ${getPublicationDate(props.paper)}</h3>`
     notes.value += "<br><br>"
 }
 const proxyURL = computed(() => {
@@ -21,11 +25,27 @@ const proxyURL = computed(() => {
 });
 const saved = ref(true);
 const repo = remult.repo(Paper);
+const close = () => {
+    if (!saved.value) {
+        if (!confirm("Close without saving?")) {
+            return;
+        }
+    }
+    emit("close", savedNotes.value);
+}
 const save = () => {
     repo.update(props.paper.id, { ...props.paper, notes: notes.value })
-        .then(() => saved.value = true);
+        .then(() => { saved.value = true; savedNotes.value = notes.value });
 }
 watch(notes, () => saved.value = false);
+const ctrlS = (e: KeyboardEvent) => {
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        save();
+    }
+};
+onMounted(() => document.addEventListener("keydown", ctrlS));
+onUnmounted(() => document.removeEventListener("keydown", ctrlS));
 </script>
 
 <template>
@@ -37,7 +57,7 @@ watch(notes, () => saved.value = false);
             </div>
         </div>
         <div id="buttons">
-            <button @click="$emit('close')">Close</button>
+            <button @click="close">Close</button>
             <button @click="save" :disabled="saved">Save{{ saved ? "d" : "" }}</button>
         </div>
     </div>
@@ -99,5 +119,9 @@ $buttons-height: 40px;
 div.ql-container {
     /* hack to allow space for the quill toolbar */
     height: calc(100% - 42px);
+}
+
+div.ql-editor {
+    padding-bottom: 100px;
 }
 </style>
