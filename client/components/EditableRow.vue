@@ -2,14 +2,13 @@
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
 import { AuthorName, Paper } from '../../data/entities';
+import { CEOpts } from "../code/settings";
 
 import ContentEditable from "vue-contenteditable";
 import DatePicker from 'vue-datepicker-next';
 import 'vue-datepicker-next/index.css';
 import draggable from 'vuedraggable'
 import { cleanAuthors } from '../code/dataUtilities';
-
-const CEOpts = { 'no-nl': true, 'no-html': true };
 
 const props = defineProps<{ row: Paper, bg: string }>();
 

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { remult } from "remult"
 import { Ref, onMounted, reactive, ref } from "vue";
+import { Filters } from "vuejs-smart-table";
+import ContentEditable from "vue-contenteditable";
+import { CEOpts } from "../code/settings";
 import { AuthorName, Paper, TagOrderType } from "../../data/entities";
 import StaticRow from "./StaticRow.vue";
 import EditableRow from "./EditableRow.vue";
@@ -103,6 +106,30 @@ const tagBasedPaperSorter = (one: Paper, two: Paper, direction: number) => {
 
 const takingNotesOn: Ref<string | undefined> = ref(undefined);
 
+const filters: Filters = reactive({
+  title: {
+    value: "",
+    keys: ["title"]
+  },
+  authors: {
+    value: "",
+    custom(value, row) {
+      const v = (value as string).toLowerCase();
+      return (row as Paper).authors
+        .some(a => a.lastName.toLowerCase().includes(v) ||
+          a.prefix.toLowerCase().includes(v) ||
+          a.suffix.toLowerCase().includes(v))
+    }
+  },
+  tags: {
+    value: "",
+    custom(value, row) {
+      const words = (value as string).trim().split(' ');
+      return (row as Paper).tags.some(t => words.some(w => t.includes(w)));
+    }
+  }
+});
+
 </script>
 
 <template>
@@ -110,13 +137,25 @@ const takingNotesOn: Ref<string | undefined> = ref(undefined);
     <NoteTaker v-if="takingNotesOn" :paper="papers.find(p => p.id == takingNotesOn)!"
       @close="takingNotesOn = undefined" />
     <h1 id="table-header">Mitch's Research Paper Index</h1>
-    <VTable :data="papers" sortHeaderClass="spaced-header" style="min-width: 950px; margin-bottom: 20px">
+    <VTable :filters="filters" :data="papers" sortHeaderClass="spaced-header" style="width: 100%; margin-bottom: 20px">
       <template #head>
         <VTh :sortKey="({ published }: Paper) => published.toISOString()">Published</VTh>
-        <VTh sortKey="title">Title</VTh>
-        <VTh :sortKey="({ authors }: Paper) => authorsToSortKey(authors)">Authors</VTh>
+        <VTh sortKey="title">
+          <span>Title</span>
+          <ContentEditable v-bind="CEOpts" data-ph="Search..." tag="span" v-model="filters.title.value"
+            style="font-weight:normal" @click="(e: MouseEvent) => e.stopPropagation()" />
+        </VTh>
+        <VTh :sortKey="({ authors }: Paper) => authorsToSortKey(authors)">
+          <span>Authors</span>
+          <ContentEditable v-bind="CEOpts" data-ph="Search..." tag="span" v-model="filters.authors.value"
+            style="font-weight:normal" @click="(e: MouseEvent) => e.stopPropagation()" />
+        </VTh>
         <th>Notes</th>
-        <VTh :customSort="tagBasedPaperSorter" defaultSort="asc">Tags</VTh>
+        <VTh :customSort="tagBasedPaperSorter" defaultSort="asc">
+          <span>Tags</span>
+          <ContentEditable v-bind="CEOpts" data-ph="Search..." tag="span" v-model="filters.tags.value"
+            style="font-weight:normal" @click="(e: MouseEvent) => e.stopPropagation()" />
+        </VTh>
         <VTh sortKey="citationCount">Crossrefs</VTh>
         <th />
       </template>
@@ -150,6 +189,13 @@ button.link {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  &>span {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+  }
 }
 </style>
 
@@ -161,7 +207,7 @@ button.link {
   flex-direction: column;
   align-items: flex-start;
   margin: 0 auto 200px;
-  width: fit-content;
+  width: 95%;
 }
 
 #table-header {
