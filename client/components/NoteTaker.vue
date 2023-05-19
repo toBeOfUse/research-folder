@@ -2,6 +2,7 @@
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import LoadingSpinner from "./LoadingSpinner.vue";
 import { Paper } from '../../data/entities';
 import { getPublicationDate } from '../code/dataUtilities';
 import { remult } from 'remult';
@@ -51,7 +52,10 @@ onUnmounted(() => document.removeEventListener("keydown", ctrlS));
 <template>
     <div id="modalContainer">
         <div id="readingModal">
-            <embed id="paper" :src="proxyURL" type="application/pdf" />
+            <div id="paperContainer">
+                <LoadingSpinner id="spinner" />
+                <embed id="paper" :src="proxyURL" type="application/pdf" />
+            </div>
             <div id="notes">
                 <QuillEditor theme="snow" v-model:content="notes" content-type="html" />
             </div>
@@ -76,8 +80,22 @@ $buttons-height: 40px;
     height: calc(100% - $buttons-height);
 }
 
-#paper {
+#paperContainer {
     width: 60%;
+    height: 100%;
+    position: relative;
+}
+
+#spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+#paper {
+    width: 100%;
     height: 100%;
 }
 
@@ -98,7 +116,7 @@ $buttons-height: 40px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fffa;
+    background-color: #fff;
 }
 
 #buttons {
