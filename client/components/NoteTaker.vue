@@ -39,14 +39,17 @@ const save = () => {
         .then(() => { saved.value = true; savedNotes.value = notes.value });
 }
 watch(notes, () => saved.value = false);
-const ctrlS = (e: KeyboardEvent) => {
+const keys = (e: KeyboardEvent) => {
     if (e.ctrlKey && e.key === 's') {
         e.preventDefault();
         save();
+    } else if (e.key == "Escape") {
+        e.preventDefault();
+        close();
     }
 };
-onMounted(() => document.addEventListener("keydown", ctrlS));
-onUnmounted(() => document.removeEventListener("keydown", ctrlS));
+onMounted(() => document.addEventListener("keydown", keys));
+onUnmounted(() => document.removeEventListener("keydown", keys));
 </script>
 
 <template>
