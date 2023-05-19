@@ -50,6 +50,15 @@ const keys = (e: KeyboardEvent) => {
 };
 onMounted(() => document.addEventListener("keydown", keys));
 onUnmounted(() => document.removeEventListener("keydown", keys));
+
+const toolbar = [
+    [{ header: [false, 1, 2, 3] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ 'color': [] }],
+    [{ 'script': 'sub' }, { 'script': 'super' }],
+    // ['formula'],  TODO: something something KaTex
+    ['clean']
+];
 </script>
 
 <template>
@@ -60,7 +69,7 @@ onUnmounted(() => document.removeEventListener("keydown", keys));
                 <embed id="paper" :src="proxyURL" type="application/pdf" />
             </div>
             <div id="notes">
-                <QuillEditor theme="snow" v-model:content="notes" content-type="html" />
+                <QuillEditor theme="snow" v-model:content="notes" content-type="html" :toolbar="toolbar" />
             </div>
         </div>
         <div id="buttons">
