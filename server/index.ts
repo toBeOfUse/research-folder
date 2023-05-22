@@ -48,7 +48,11 @@ const db = remultExpress({
     const url = (req.query as any).url;
     const paper = await axios.get(url, {
       responseType: "arraybuffer",
-      headers: { Accept: "application/pdf" },
+      headers: {
+        "user-agent": req.header("user-agent"),
+        accept: "application/pdf",
+      },
+      withCredentials: true,
     });
     // only proxy if a normal iframe isn't allowed, so that cookies function
     // normally as often as possible
