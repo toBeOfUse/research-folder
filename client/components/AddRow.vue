@@ -31,12 +31,12 @@ const initRow = async () => {
             }
             const crossref = (await crossrefResp.json()).message;
             rowInProgress.doi = DOI.value;
-            rowInProgress.title = crossref.title.join(" ");
+            rowInProgress.title = crossref.title?.join(" ") || "";
             const issued = crossref.issued["date-parts"][0];
             rowInProgress.published = new Date(issued[0], issued.length > 1 ? issued[1] - 1 : 0, 1);
-            rowInProgress.citationCount = crossref["is-referenced-by-count"];
+            rowInProgress.citationCount = crossref["is-referenced-by-count"] || 0;
             rowInProgress.citationsUpdated = new Date();
-            rowInProgress.authors = crossref.author.map((a: any) => ({ prefix: a.given, lastName: a.family, suffix: "" }));
+            rowInProgress.authors = crossref.author.map((a: any) => ({ prefix: a.given || "", lastName: a.family || "", suffix: "" }));
             DOI.value = ""
             adding.value = true;
         } catch (e: any) {
