@@ -145,7 +145,8 @@ const closeNotes = (newNotes: string) => {
   <div id="page-container">
     <NoteTaker v-if="takingNotesOn" :paper="papers.find(p => p.id == takingNotesOn)!" @close="closeNotes" />
     <h1 id="table-header">Mitch's Research Paper Index</h1>
-    <VTable :filters="filters" :data="papers" sortHeaderClass="spaced-header" style="width: 100%; margin-bottom: 20px">
+    <VTable :filters="filters" :data="papers" sortHeaderClass="spaced-header" style="width: 100%; margin-bottom: 20px"
+      :style="takingNotesOn && { display: 'none' }">
       <template #head>
         <VTh :sortKey="({ published }: Paper) => published.toISOString()">Published</VTh>
         <VTh sortKey="title">
