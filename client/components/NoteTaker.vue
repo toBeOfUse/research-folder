@@ -56,6 +56,8 @@ const toolbar = [
     ['bold', 'italic', 'underline', 'strike'],
     [{ 'color': [] }],
     [{ 'script': 'sub' }, { 'script': 'super' }],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    ["link"],
     // ['formula'],  TODO: something something KaTex
     ['clean']
 ];
