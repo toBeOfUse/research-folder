@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
-import { QuillEditor } from '@vueup/vue-quill'
+import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import ImageUploader from "quill-image-uploader";
+import 'quill-image-uploader/dist/quill.imageUploader.min.css';
 import LoadingSpinner from "./LoadingSpinner.vue";
 import { Paper } from '../../data/entities';
 import { getPublicationDate } from '../code/dataUtilities';
@@ -59,8 +61,24 @@ const toolbar = [
     [{ list: 'ordered' }, { list: 'bullet' }],
     ["link"],
     // ['formula'],  TODO: something something KaTex
-    ['clean']
+    ['clean'],
+    ["image"]
 ];
+
+const uploader = {
+    upload(file: File) {
+        return new Promise((resolve, reject) => {
+            const formData = new FormData();
+            formData.append("image", file);
+            fetch("/newimage", { method: "post", body: formData })
+                .then(res => res.text().then(t => resolve(t)))
+                .catch(err => {
+                    console.error(err);
+                    reject("http request failure")
+                });
+        })
+    }
+}
 </script>
 
 <template>
@@ -71,7 +89,8 @@ const toolbar = [
                 <embed id="paper" :src="proxyURL" type="application/pdf" />
             </div>
             <div id="notes">
-                <QuillEditor theme="snow" v-model:content="notes" content-type="html" :toolbar="toolbar" />
+                <QuillEditor theme="snow" v-model:content="notes" content-type="html" :toolbar="toolbar"
+                    :modules="{ name: 'imageUploader', module: ImageUploader, options: uploader }" />
             </div>
         </div>
         <div id="buttons">

@@ -3,6 +3,7 @@ import { cwd } from "process";
 import { createServer } from "vite";
 import express from "express";
 import axios from "axios";
+import multer from "multer";
 
 import { remultExpress } from "remult/remult-express";
 import { Paper, TagOrder } from "../data/entities";
@@ -64,6 +65,18 @@ const db = remultExpress({
       res.send(paper.data);
     }
   });
+  app.post(
+    "/newimage",
+    multer({ dest: "./public/uploads/" }).single("image"),
+    (req, res) => {
+      if (req.file) {
+        res.contentType("text/plain");
+        res.send("/uploads/" + req.file.filename);
+      } else {
+        res.sendStatus(500);
+      }
+    }
+  );
   app.use(viteServer.middlewares);
   app.listen(3000, () => {
     console.log("listening at http://localhost:3000");
