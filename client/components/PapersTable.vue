@@ -173,7 +173,7 @@ const closeNotes = (newNotes: string) => {
           @edit="edit(row)" @save="row => save(row)" @cancel="cancel(row)" @delete="del(row)"
           @notes="takingNotesOn = row.id" :sortedTags="[...row.tags].sort(tagSorter)"
           :bg="rowIndex % 2 == 1 ? 'white' : '#d7ebf5'" />
-        <AddRow @add-row="row => save(row, true)" />
+        <AddRow @add-row="(row: Paper) => save(row, true)" />
       </template>
     </VTable>
     <TagOrderer :type="TagOrderType.precedence" :local="tagPrecedence" />
