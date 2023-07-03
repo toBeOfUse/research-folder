@@ -2,8 +2,9 @@ import { cwd } from "process";
 
 import { createServer } from "vite";
 import express from "express";
-import axios from "axios";
 import multer from "multer";
+import got from "got";
+import { CookieJar } from "tough-cookie";
 
 import { remultExpress } from "remult/remult-express";
 import { Paper, TagOrder } from "../data/entities";
@@ -43,17 +44,19 @@ const db = remultExpress({
   });
   const app = express();
   app.use(db);
+  // proxying ACM PDFs requires us to support redirects that set cookies
+  const cookieJar = new CookieJar();
   app.get("/paper", async (req, res) => {
     // silly proxy to serve papers that can't be embedded in iframes while
     // ignoring cross-origin policies
     const url = (req.query as any).url;
-    const paper = await axios.get(url, {
-      responseType: "arraybuffer",
+    const paper = await got(url, {
+      responseType: "buffer",
       headers: {
-        "user-agent": req.header("user-agent"),
-        accept: "application/pdf",
+        "User-Agent": req.header("user-agent")!,
+        Accept: "application/pdf",
       },
-      withCredentials: true,
+      cookieJar,
     });
     // only proxy if a normal iframe isn't allowed, so that cookies function
     // normally as often as possible
@@ -61,8 +64,12 @@ const db = remultExpress({
       res.redirect(url);
     } else {
       console.log("proxying request for document " + url);
-      res.header("content-type", paper.headers["content-type"]);
-      res.send(paper.data);
+      console.log("redirects", paper.redirectUrls);
+      console.log(paper.headers["content-type"]);
+      res.header("content-type", paper.headers["content-type"] || "");
+      const data = paper.body;
+      console.log(data);
+      res.send(data);
     }
   });
   app.post(
