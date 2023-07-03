@@ -3,6 +3,7 @@ import { reactive, ref } from 'vue';
 import { Paper } from '../../data/entities';
 import EditableRow from './EditableRow.vue';
 import contenteditable from 'vue-contenteditable';
+import { lookupPaper } from '../code/dataUtilities';
 defineEmits<{ (event: 'addRow', row: Paper): void }>();
 const adding = ref(false);
 const DOI = ref("");
@@ -24,19 +25,10 @@ const rowInProgress = reactive<Paper>(getBlankRow());
 const initRow = async () => {
     if (DOI.value.trim().length > 0) {
         try {
-            const crossrefResp = await fetch("https://api.crossref.org/works/" + DOI.value.trim());
-            if (!crossrefResp.ok) {
-                throw "Request to crossref API failed with status " +
-                crossrefResp.status + " " + crossrefResp.statusText;
-            }
-            const crossref = (await crossrefResp.json()).message;
+            const info = await lookupPaper(DOI.value);
             rowInProgress.doi = DOI.value;
-            rowInProgress.title = crossref.title?.join(" ") || "";
-            const issued = crossref.issued["date-parts"][0];
-            rowInProgress.published = new Date(issued[0], issued.length > 1 ? issued[1] - 1 : 0, 1);
-            rowInProgress.citationCount = crossref["is-referenced-by-count"] || 0;
+            Object.assign(rowInProgress, info);
             rowInProgress.citationsUpdated = new Date();
-            rowInProgress.authors = crossref.author.map((a: any) => ({ prefix: a.given || "", lastName: a.family || "", suffix: "" }));
             DOI.value = ""
             adding.value = true;
         } catch (e: any) {
