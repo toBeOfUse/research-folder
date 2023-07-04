@@ -25,7 +25,7 @@
     ],
     "summary": "",
     "link": "https://lamport.azurewebsites.net/pubs/byz.pdf",
-    "notes": "",
+    "notes": "<h1>The Byzantine Generals Problem</h1><h3>Authors: Leslie Lamport, Robert Shostak, Marshall Pease</h3><h3>Published: July 1982</h3><p><br></p><p>(Old notes from December 2022)</p><p><br></p><p>the initial problem is one of generals camped outside a city trying to vote on whether to attack or retreat while suspecting some among their number to be traitors who will send different votes to different people, which can cause them to take different actions and e.g. get killed if they're the only one who thinks the group voted to attack. for simplicity, this problem is reframed around a single commander issuing one order to his lieutenants, who must determine what action to take, knowing that this commander could be a traitor who's sending different orders to different people; this could be iterated over with all the generals being a \"commander\" whose order counts as a vote to solve the original problem.</p><p>&nbsp;</p><p>initially this problem is considered in the context of oral messages that are sent independently from general to general with reliable delivery and the immediate sender's identity being known. for 3 generals, no solution is possible; orders cannot be directly relied upon, and a loyal lieutenant that receives one order from one general but hears about a different order from the other lieutenant cannot know if the commander or the other lieutenant is engaging in duplicity and thus cannot know which order to follow. the solution for 3m+1 generals, the OM (oral messages) algorithm, successfully relays orders between generals so that each knows what the commander told them and what all of the other lieutenants supposedly heard from the commander. this gives them all the same list of reported orders, so they can use a majority function to pick the most popular one and all do the same thing; if the commander sent everyone the same order, then they will have heard that order the most times because most of the lieutenants are relaying faithfully, and so they will be obeying the commander. those are the two goals for the algorithm, known as the interactive consistency principles: (1) that all loyal generals do the same thing, and (2) that if the commander is loyal, that thing is in accordance with their orders. controlling disloyal generals or determining the objectively correct action when the commander is potentially emitting nonsense are not considered.</p><p>&nbsp;</p><p>this problem is also considered in a setup with signed messages in which generals append unforgeable signatures to the end of every message that they send (putting it after any existing signatures) so that the unreliable aspects of the relay system are more or less over and the problem can be solved with an algorithm \"that copes with m traitors for any number of generals. (The problem is vacuous if there are fewer than m + 2 generals.)\" in the algorithm, lieutenants take steps to send every distinct new order that they see to every other lieutenant who hasn't already seen it based on the signature list, in addition to storing it for themselves. by the end, they all have the same orders that they have seen and they can apply the same function to it to determine their choice, which could be anything but will probably be a majority/median function. they can also notice if the commander is treacherous just by seeing his signature unforgeably signed to non-equal decisions/orders.</p><p>&nbsp;</p><p>the above algorithms assume that graphs are completely connected so that anyone can send a message to anyone. versions of OM and SM are provided that merely assume a network graph that is mostly connected.</p>",
     "published": "1982-07-01",
     "read": false,
     "doi": "10.1145/357172.357176",
@@ -53,7 +53,7 @@
     ],
     "summary": "",
     "link": "https://www.cs.cornell.edu/fbs/publications/DefLiveness.pdf",
-    "notes": "",
+    "notes": "<h1>Defining liveness</h1><h3>Authors: Bowen Alpern, Fred B. Schneider</h3><h3>Published: October 1985</h3><p><br></p><p>Alpern and Schneider claim that any execution of a program consists of an infinite sequence of states (a program that has stopped is considered to have its final state repeating over and over, which frankly seems to contradict the other offered notion that the next state results from an atomic action in the previous state) and that a property can be thought of as the set of (infinite) sequences that meet it. individual properties can carve the set of infinite sequences up arbitrarily, but this paper covers two specific broad categories of properties that it considers fundamental.</p><p>&nbsp;</p><p>i kind of don't think this paper is necessarily about distributed systems? at the beginning it specifies that its modeling \"concurrent\" programs but i feel like this all applies just as well to centralized/localized programs.</p><p>&nbsp;</p><p>categories of properties tend to be defined in terms of an initial finite prefix that is a partial execution and an infinite continuation/follow-up that is itself an execution and can be prefixed with the prefix; categories of properties are defined through the violation or non-violation of the property that the combination of these produce.</p><p>&nbsp;</p><p>a property P is a safety property if every sequence (execution) not in it starts with a subsequence of states (a partial execution) that would exclude any sequence starting with it from the property. In other words, the sequences that meet it eventually hit a point where a \"bad thing\" happened, and from then on, they cannot be redeemed, no matter what you put after that.</p><p>&nbsp;</p><p>examples of safety properties revolving around specific bad things (quoted):</p><ul><li>In mutual exclusion, the proscribed 'bad thing' is two processes executing in critical sections at the same time.</li><li>In deadlock freedom it is deadlock. [Gee, thanks.]</li><li>In partial correctness, it is terminating in a state not satisfying the postcondition after having been started in a state that satisfies the precondition. </li><li>In first-come-first-serve, which states that requests are serviced in the order they are made, the 'bad thing' is servicing a request that was made after one not yet serviced.</li></ul><p>&nbsp;</p><p>so once one of these ^ things happens, somewhere in the initial subsequence consisting of the first i states, the safety property is violated, period, and that's all a safety property is - the guarantee that the \"bad thing\" won't happen.</p><p>&nbsp;</p><p>on the other hand, liveness properties are those that stipulate that a \"\"\"good thing\"\"\" happens at some point during execution. in other words, for every finite initial subsequence, there exists a continuation from the set of infinite state sequences that produces a result that meets the property. that's the whole definition of the category \"liveness properties:\" \"every partial execution is live.\" It is the most permissive possible definition that does not intrude on the category of safety properties.</p><p>&nbsp;</p><p>examples of liveness properties (quoted):</p><ul><li>In starvation freedom, which states that a process makes progress infinitely often, the 'good thing' is making progress.</li><li>In termination, which asserts that a program does not run forever, the 'good thing' is completion of the final instruction.</li><li>Finally, in guaranteed service, which states that every request for service is satisfied eventually, the 'good thing' is receiving service.</li></ul><p>&nbsp;</p><p>there are further categories of properties that meet the definition of a liveness property that can be formalized under this system even without clearly defining things like \"service.\"</p><p>&nbsp;</p><p>uniform liveness properties are those that have some infinite sequence that can be appended to any finite sequence to produce a result that meets the property. i think that this is very subtly different from the original broad liveness category, which only required that every partial execution be salvageable *somehow*, as opposed to this category which requires that every partial execution be salvageable through the specific step of appending some particular infinite sequence, making its members potentially more uniform; more uniformly rescuable; less diverse in what they require to meet the property; etc.</p><p>&nbsp;</p><p>absolute liveness appears to be the only category so far that explicitly excludes properties that have an empty set of sequences. It states that any infinite sequence (execution) that meets the property can be appended to any finite sequence (partial execution) to produce a sequence that still meets the property; in other words, prefixing an execution with some partial execution can never disqualify it. in other words, an execution that meets this property is live no matter what (absolutely.) any absolute liveness property is a uniform liveness property; i guess that it expands the set of always-successful follow-ups to fit the entire set of executions that meet the property.</p><p>&nbsp;</p><p>these two sub-types do not capture the whole landscape of liveness properties because these categories that defy them exist:</p><p>&nbsp;</p><p>leads-to properties represent liveness properties that are not absolute: they specify that some specific event will always eventually be followed by some other specific event. these are not absolute because the prefix might narrow down the set of successful continuations.</p><p>&nbsp;</p><p>predictive properties represent liveness properties that are not uniform: they specify that some initial condition A can determine whether B holds after some partial execution. this seems to fall a bit outside the self-contained execution model but oh well. this is not uniform because the same continuation can't ensure membership for any partial execution.</p><p>&nbsp;</p><p>many properties are neither [solely] safety or liveness. !!!</p><p>&nbsp;</p><p>\"until\" properties specify two types of events; every event is of the first type until one of the second type eventually occurs, at which point lots of different types of events could occur. this seems like a pretty pathetic definition to me, but the point is, it combines a safety property (no events not of the first type occur before an event of the second type) and a liveness property (eventually an event of the second type will come along and open the floodgates.)</p><p>&nbsp;</p><p>in fact, every property is the intersection of a liveness property and a safety property!!! Explaining how they fit into the topology of the set of all executions involves some set theory that is big trouble.</p><p>&nbsp;</p><p>basic open sets are those with membership determined by the presence of a specific prefix. open sets are built out of the unions of basic open sets. liveness properties are dense sets because they intersect all of these open sets - there's no prefix that prohibits liveness. safety properties are the closed sets, the complements of the open sets.</p><p><br></p><h3>Tangents</h3><p><br></p><p>logical symbols:</p><p><br></p><p>the colon is the same as the pipe and means, roughly, \"such that;\" like, the thing that comes after it is adding to the available information. σ = lowercase sigma. ω = lowercase omega. γ = lowercase gamma. ⊨ is called the double turnstile and usually means something along the lines of \"entails;\" this paper uses it to show a sequence's membership in a property set, which i guess is indeed like saying that the sequence entails the property.</p><p><br></p><p>set terminology:</p><p><br></p><p>open sets are those that don't include their boundaries, like the set of real numbers in the range (0, 10). an open set is the union of basic open sets. closed sets include their boundaries, like [0, 10]. a closed set's complement is open.</p><p>a dense set is one that intersects every nonempty open set.</p>",
     "published": "1985-10-01",
     "read": false,
     "doi": "10.1016/0020-0190(85)90056-0",
@@ -76,7 +76,7 @@
     ],
     "summary": "",
     "link": "https://lamport.azurewebsites.net/pubs/time-clocks.pdf",
-    "notes": "",
+    "notes": "<h1>Time, clocks, and the ordering of events</h1><h2>By Leslie Lamport</h2><h2>Published July 1978</h2><p><br></p><p>In which Lamport takes on relativity.</p><p>&nbsp;</p><p>\"A distributed system consists of a collection of distinct processes which are spatially separated, and which communicate with one another by exchanging messages… A system is distributed if the message transmission delay is not negligible compared to the time between events in a single process.\" This is a big definitional claim, I wonder if it has held up</p><p>&nbsp;</p><p>\"In particular, a multiprocessing system on a single computer involves problems similar to those of a distributed system because of the unpredictable order in which certain events can occur.\" This is what I've been being reminded of the whole time. Even single-threaded asynchronous (event-driven) programming has echoes of this.</p><p>&nbsp;</p><p>We cannot rely on perfectly synchronized physical clocks to exist and give us an ordering of events in a distributed system comprised of multiple simultaneously executing processes. However, we can invent an intuitive partial order that allows us to successfully order some events. Within a single process, we can order events pretty easily. Also, when a message is sent from one process to another, we can probably get away with saying that the sending event in process A happens before the receiving event in process B. Also, let's make the relation transitive. We hereby define the \"happened before\" relation, represented by a thin arrow pointing right (I'm just going to write \"HB\"), which is the smallest one that satisfies these three conditions. (Btw it's irreflexive, so I guess it's a strict partial order.) Concurrent events are those that are not related to each other in either order. An event can causally affect another if it is related to it by this relation.</p><p>&nbsp;</p><p>Logical clocks can be implemented as simple counters that increment between events (implementation rule 1), causing events to have \"timestamps,\" represented by C(a) for an event a. Each process can be assumed to have its own clock. If a HB b, then hopefully C(a) &lt; C(b); this is called the Clock Condition. To achieve this during IPC, when a process receives a message, the message should contain the timestamp of its sending event, and the receiver should advance its clock if necessary so that is greater than that timestamp (implementation rule 2.) It needs to be changed before the actual message receiving event happens (since that event needs to happen after the sending.) Which is seems like an awkward game of catch-up but okay.</p><p>&nbsp;</p><p>We can now totally order events across processes if we break ties between concurrent events with an arbitrary id/index-based-type comparison of their processes. What a scam. This total ordering is represented by a double-stemmed arrow pointing to the right. We hereby use this ordering in an algorithm for making and respecting requests to acquire a mutex according to the order in which they were made. This works as long as all processes can deliver their requests reliably and doesn't require a central scheduling/access control system as long as all processes use the same algorithm. This is a very pure distributed algorithm. (Is this an asynchronous setting? I think so.) This algorithm can be generalized to produce an arbitrary distributed state machine (although process failure is the asteroid looming in the sky in the background.)</p><p>&nbsp;</p><p>The only problem with our system is that as it relies on counters instead of physical clocks, it may assign timestamps to events that are incongruous with their real-world causes, including in how they are ordered. This is referred to as \"anomalous behavior.\" In order to tackle this, we will create a relation symbolized by a bold arrow pointing right that indicates the ordering of events defined by special relativity.</p><p>&nbsp;</p><p>For this, we will need physical clocks that act as a function of a \"physical time\" t. More precisely, they must have a derivative (slope) with respect to t of very close to 1; the (absolute value of the) difference between the slope and 1 must be less than K (PC1). (We are assuming they are continuous and differentiable except perhaps at isolated \"jump discontinuities.\") Furthermore, the (absolute value of the) difference between any two of them must be less than e (PC2). We can imagine a minimum message delay of u; to keep anomalous behavior from occurring, e/(1-K) &lt;= u. Algebra.</p><p>&nbsp;</p><p>However, even with these small numbers asserted, no two clocks will run at exactly the same rate and the differences will grow over time; we need an algorithm to ensure our ordering continues to hold. We need new, enhanced implementation rules. IR1' indicates that if a process does not receive a message at time t, then its clock function is differentiable at that time and has a derivative with respect to t that is greater than 0. (I guess that makes sense as an extension of \"counter must increment…\") IR2' states that upon receiving a message at time t', which contains a timestamp T from the sender's physical clock function, process j will set the output of its clock function to the maximum of either Cj(t') or T+u. As far as I can tell, the policy is basically \"fastest clock wins\"</p><p><br></p><h3>Tangent: Relations and Orders</h3><p><br></p><p>A relation is something that either exists or doesn't exist between two elements of sets. Is-Enrolled-In(class, student) is a relation between the elements of a set of classes and the elements of a set of students; it can be described as a set of (class, student) tuples and as a subset of the Cartesian product of the two sets. When the tuple exists in the set of the relation, the class and student are said to be related to each other by the relation. This example is a binary relation; there can also be n-ary relations.</p><p>&nbsp;</p><p>Relations can also exist between the members of the same set. The order of the tuple still matters, though; only the first element is said to be related to the second by the relation. One such relation is Less-Than-Or-Equal-To, which is a relation commonly understood to exist within and between sets of numbers (integers, real numbers, etc.) Any relation that is reflexive, antisymmetric, and transitive is called a partial order for its sub-elements, even if some pairs of elements are incomparable. When every two elements are comparable, the relation is called a total ordering. Antisymmetric means that no pair of distinct elements are both related to each other by the relation. Reflexive means every element is related to itself. Transitive means that if (a, b) and (b, c) then (a, c).</p><p>&nbsp;</p><p>On the other hand: Wikipedia says that there are multiple types of partial order, and an irreflexive, strong, or strict partial order is a homogeneous relation &lt; on a set that is irreflexive, asymmetric, and transitive.</p><p>&nbsp;</p><p>The less-than operator is not actually a partial order in the sense that the textbook defined it; however, it is a strict partial order? either way, it can be used to derive all the other comparison operators, so it's certainly enough if you are implementing an algorithm. By the way, it must be defined in a way that provides a strict weak ordering, which is a variant of a strict partial order. This apparently goes way into the weeds.</p>",
     "published": "1978-07-01",
     "read": true,
     "doi": "10.1145/359545.359563",
@@ -133,7 +133,7 @@
     ],
     "summary": "",
     "link": "https://bitcoin.org/bitcoin.pdf",
-    "notes": "",
+    "notes": "<h1>Bitcoin: A Peer-to-Peer Electronic Cash System</h1><h3>Authors: Satoshi Nakamoto</h3><h3>Published: October 2008</h3><p><br></p><p>(old notes from December 2022)</p><p><br></p><p>fundamentals:</p><p>public key cryptography wants to give us the ability to transform data such that knowing how to carry out the transformation does not entail knowing how to change the data back, and vice versa. so like, when encrypting data, you can send people information about how to do the encryption but keep secure the knowledge of how to do the decryption, so that even if someone is watching all of your communication, only you can figure out how to decrypt and read the data you're being sent. (signing is like the opposite; see paper notes.)</p><p>the modulus operator is in my head as a cool example of one-way data transformation but i guess you cannot decrypt anything that is \"encoded\" with it.</p><p>there is a metaphor that this is like being able to lock a box with one key but only unlock it with another one. in my opinion a better metaphor would be: the public key is like a big dog that you send over to your communication partner's house. the big dog will safely keep their message in its mouth as it is sent back to you. then, you can retrieve the data because you know the dog's favorite food (the private key) and can thus get it to open its mouth and can get the message from it.</p><p>a nonce is an arbitrary number, probably generated using a secure unpredictable random algorithm, that should only be used once for something. the word is much older than cryptography and has a real etymology but you can imagine it's an abbreviation of \"number used once.\" this has a wide range of applications; HTTP content security policy headers can instruct browsers to disable inline scripts to try to prevent XSS attacks unless the inline script is accompanied within the HTML by a nonce value that matches one specified in the response headers (which are not possible to alter with XSS.)</p><p>&nbsp;</p><p>timestamp server spec: <a href=\"https://www.ietf.org/rfc/rfc3161.txt\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.ietf.org/rfc/rfc3161.txt</a></p><p>&nbsp;</p><p>Bitcoin uses Elliptic Curve Digital Signature Algorithm (ECDSA) to sign transactions.</p><p>&nbsp;</p><p>there are a number of unintuitive things about the bitcoin algorithm. a really basic part of the proof of work mechanism is that hash functions are non-reversible, which is not actually necessary for use cases that i'm familiar with like hash tables and tracking file changes. it's not even needed for the basic timestamp server thing. well. i guess it makes some sense that hash functions are irreversible when they're taking huge amounts of data and returning small amounts of data: you're losing bits. although i can still imagine a hash function where you'd be able to find all the options that hash to the result pretty easily. but i'm not sure if that's the case with the cryptographic nonce. i'm not sure it's larger than the hash with all the zeroes. it's a very strange thing that the non-reversibility is only really important some of the time.</p><p>&nbsp;</p><p>another strange thing is that the proof of work mechanism imposes a large cost on everyone but somehow levels the playing field between honest and deceptive nodes instead of disadvantaging everyone equally. i guess the way you'd think about it is this: without the proof of work, honest nodes have a bunch of restrictions to abide by and dishonest nodes have none, so they can double-spend left and right. with proof of work, they both have a huge restriction to abide by - much bigger than just \"create transactions without cheating\" - and so since the really limiting rule is the one they both have to play by, every node has life pretty much equally difficult, but that's fine as long as there are more honest nodes than deceptive ones, so that the honest ones are going to find nonce values more quickly and build longer chains.</p><p>&nbsp;</p><p>The \"follow the longest chain\" idea is interesting because dishonest nodes could ignore it in theory and have their own shorter chain with the transactions they want to stick with, but the honest nodes are going to follow it, and dishonest nodes would only actually want to trade with honest nodes, lest their peers rip them off.</p><p>&nbsp;</p><p>it's interesting how the paper mentions the idea of a mint as a transaction-verifier without even talking about the idea of a mint as like, the place where coins come from. the only sense i can make out of this is that the paper kind of assumes that in a digital currency, by default, all the coins that are going to exist are created at the very beginning, and so you just need one one-time founder and don't need the ongoing efforts of a mint; it introduces the idea of incentivizing transaction verification with a free \"here have this bitcoin\" transaction and the idea of the currency supply expanding over time as a bit of a novelty. presumably the legit coins from the original minting could be identified because they contain… some value, maybe a numerical identifier… signed by the mint's private key. and then the existence of that could be checked as part of the transaction verification. the genesis block of bitcoin gave a reward of only 50 BTC, though, so presumably continual mining was intended to be an integral part of the network by then, especially since something went weird or wrong and the transaction creating those bitcoin never went into the database and so those cannot be spent. it's weird that bitcoin mining is so emphasized as a concept when the \"block reward\" is just kind of an arbitrary bonus tacked onto the system and what people are really doing is generating valid blocks which involves recording transactions and finding values that hash to numbers with 0s.</p><p>&nbsp;</p><p>is it possible for a transaction to fail just because it didn't happen to reach the next person to successfully mine a block, because of like a brief network outage on their part? it feels like you would want the people who successfully create blocks to be the people who have the best internet connections. getting a transaction in a block today seems to actually be tricky, allegedly it can take hours or days. and you have to attach fees to your transactions to get them confirmed… imagine a five dollar bill taped to the transaction message i wrote out</p><p>&nbsp;</p><p>the smallest amount of bitcoin you can buy is \"1 Satoshi\" - 0.00000001 BTC, one one-hundred millionth of a coin, 1e-8.</p><p>&nbsp;</p><p>cold storage is not really that different from any bitcoin account and nothing is really stored anywhere. remember that guy campaigning to dig up that dump. \"A June 2020 study by the crypto forensics firm Chainalysis estimates that up to 20% of the Bitcoin already issued may be permanently lost.\" seems like it might all just slip away after the block reward drops to nothing.</p><p>&nbsp;</p><p>a merkle tree is \"a [typically binary] tree structure in which each leaf node is a hash of a block of data, and each non-leaf node is a hash of its children.\" seems straightforward. i think you'd want to build this tree bottom-up: divide your hashes into pairs, give each pair a parent, then take pairs of all of those to make parents of pairs of pairs, and so on. then if you want to forget some of the original hashes, you can excise them from the bottom of the tree, while still keeping the upper layers that can be used to verify whether their children are their children.</p><p>&nbsp;</p><p>things that feel underspecified:</p><p>network topology and communications. are there trackers? it looks like that role is filled by \"seed nodes,\" which can give you the addresses of others. also, unbelievably, you used to be able to find other nodes logged onto an irc server. it looks like bitcoin currently uses tcp port 8333 and there are query and announcement and et cetera messages that can be sent.</p><p>apparently you find the current longest branch by querying other nodes for it \"until you are satisfied\"</p><p>incentive structure, especially the transaction fees part. in the final network there are always fees plus the block reward and the fees are sort of an opaque auction for miners' attention and the block reward decreases over time.</p><p>fractional coins. very funny that rounding is decreasing the number of bitcoin that will ever exist.</p><p>how nodes store data and the scalability thereof - this is kind of addressed by the merkle tree thing but you still need access to the latest transaction for each coin in your transaction list to verify it, which seems like a lot. in the worst case, you would need to go back to the beginning of the chain. to do this, you would probably have to request a lot of blocks from other nodes - presumably \"until you are satisfied.\" in practice, how many hashes can be replaced with the merkle tree?</p><p>&nbsp;</p><p>i've seen the blockchain described as a distributed ledger but that is really only one of the things it can do based on the fact that you can write programs that are not about payment tracking/verification in solidity on ethereum. but because of the difficulties imposed by proof systems, you would not want to use this for a traditional distributed computing application where you just want to get things done faster with more power? you only want to use the blockchain where you don't trust any one person to do it so you want a lot of people to work on it instead. the left hand doesn't know what the right is doing.</p><p>&nbsp;</p><p>what’s the deal with this change situation? i think it would be fair to say that coins only exist inasmuch as they're expressed in transactions, so you need the transaction where you received&nbsp;a coin in order to spend that coin, and you really just have to create a follow-up transaction. but when you don't necessarily want to spend everything you received there, you have explicitly transact the change to yourself, or else where does it go? it doesn't exist outside of transactions. you might also have to follow up on multiple transactions to have enough money to create your next one.</p><p>&nbsp;</p><p>a wallet is really just a public key \"address\" and a private key that can be used to sign away money that ends up in there, although it looks like people/businesses refer to wallets as the place where they store those keys.</p><p>&nbsp;</p><p>an underlay network is physical infrastructure for a network. an overlay network is a virtual layer over an underlay network.</p><p>&nbsp;</p><p>amusing that they have a list of desired changes they can't make <a href=\"https://en.bitcoin.it/wiki/Hardfork_Wishlist\" rel=\"noopener noreferrer\" target=\"_blank\">https://en.bitcoin.it/wiki/Hardfork_Wishlist</a>. due to the tuning of the block size and block time, the throughput seems to be quite bad and the average number of transactions hasn't increased in a while. the 1mb block size does seem kind of silly.</p>",
     "published": "2008-10-01",
     "read": false,
     "doi": "",
@@ -162,7 +162,7 @@
     ],
     "summary": "",
     "link": "http://pmg.csail.mit.edu/papers/osdi99.pdf",
-    "notes": "",
+    "notes": "<h1>Practical Byzantine Fault Tolerance</h1><h3>Authors: Miguel Castro, Barbara Liskov</h3><h3>Published: February 1999</h3><p><br></p><p>PBFT is a Byzantine consensus protocol. What does it solve that goes beyond Byzantine broadcast?</p><p><br></p><p>To quote PSBC: \"In Byzantine broadcast, there is a designated sender who tries to broadcast a value to the parties; in Byzantine agreement [consensus], every party holds an initial input value.\" But for a problem like state machine replication, why would every party hold an initial input value? Unless the \"input value\" was the current state which indicated that a requested state transition was invalid, in which case they could simply ignore it?</p>",
     "published": "1999-02-01",
     "read": false,
     "doi": "",
@@ -244,8 +244,8 @@
       "blockchain"
     ],
     "summary": "",
-    "link": "https://dl.acm.org/doi/pdf/10.1145/3132747.3132757",
-    "notes": "",
+    "link": "http://localhost:3000/algorand.pdf",
+    "notes": "<h1>Algorand</h1><h3>Authors: Yossi Gilad, Rotem Hemo, Silvio Micali, Georgios Vlachos, Nickolai Zeldovich</h3><h3>Published: October 2017</h3><p><br></p><p>&nbsp;- uses standard byzantine agreement carried out within a committee of users</p><p>&nbsp;- selects committee members with probability weighted by their cash on hand; this avoids sybil attacks because while attackers can create many accounts, they hopefully cannot create many accounts with money in them. could we use a modified version of this?</p><p>&nbsp;- there is a \"verifiable random function\" that will tell you based on your private key whether you're in the committee for this round; you can then release a proof with which others can see that you're important (presumably using your public key)</p><p>&nbsp;- but you can only do this once, as you vote, so that no one will have time to attack you</p><p>&nbsp;- it seems like there is a similar protocol called honey badger that uses a fixed committee; is algorand mostly a better version of that?</p><p>&nbsp;- stellar has been puzzling theoreticians since at least 2017</p><p>&nbsp;- they mention some papers with trees or direct acyclic graphs instead of chains to increase throughput</p><p>&nbsp;- very loose safety and liveness: \"with overwhelming probability\" nodes agree on transactions, \"algorand aims to reach consensus… within roughly one minute\"</p><p>&nbsp;- strong synchrony assumptions: loosely synchronized clocks, messages delivered within a bounded amount of time most of the time, network must be given time to recover if this is violated for a while e.g. by a partition</p><p>&nbsp;- uses the term blockchain for its ledger, transfers money from one public key to another public key</p><p>&nbsp;- what would it mean/look like for a network to be controlled by an adversary? presumably that does not mean that more than 2/3rds of the money is controlled by such, or the system would collapse. it seems to mean that communication is limited, making the network weakly synchronous; so, messages are being blocked? is the adversary a power outage? i think the adversary could control highly connected nodes that can partition the network by not participating</p><p>&nbsp;- when nodes reach tentative consensus, that means that they may have each reached tentative consensus on different things. when any node reaches final consensus, all nodes must have agreed on the same thing (although some of the other nodes may still be in tentative mode)</p><p>&nbsp;- gossip network: each node picks a small random selection of other nodes to gossip to (again, selection weighted by account balance. economic inequality)</p><p>&nbsp;- since each node hears about different transactions, only one of the proposers' blocks can really be adopted. each proposer obtains a priority and proof of priority that determines whose block gets considered first</p><p>&nbsp;- the algorithm BA* repeats until \"enough\" users have reached consensus - presumably there are tentative consensuses first and then the final consensus is reached eventually and BA* concludes</p><p>&nbsp;- each unit of currency becomes a potential vote; multiple of a user's units of currency may be selected by the sortition algorithm, necessitating that that user participate as multiple \"sub-users\" (each of which will want to propose the same block and will be able to do so according to each of their priorities)</p><p>&nbsp;- each block comes with the provable random seed for the next block; since there is no global state, it's not like you can just seed the algorithm at the beginning (although an initial random seed does need to be chosen arbitrarily for the first block) but every node still needs to agree on the current seed for the cryptographic sortition function to work</p><p> &nbsp;- algorand has a lot of things about the necessary timing and duration of its synchrony assumptions necessary without just explaining what kind of attacks it's trying to guard against. that seems to be a trend in this kind of paper</p><p>&nbsp;- algorand reaches consensus on an empty block if there are no valid block proposals for a long enough time. this case necessitates a different mechanism for choosing the next seed</p><p>&nbsp;- BA* consists of a proposal phase and then a phase that either confirms what was proposed or puts in an empty block (which i think is basically the same as starting over again from the beginning with a different seed.) The first phase takes two steps; the second takes two in the best case and eleven (!) in the worst case. well, it seems like it'll run for an arbitrary constant number of steps before giving up, concluding strong synchrony has been violated, and waiting for a recovery period.</p><p>&nbsp;- the voting system is surprisingly informal compared to other algorithms</p><p>&nbsp;- since algorand has to operate with secret keys and monetary weights from a time well before the current round to avoid adversaries being able to predict the next seed and choose its new private key correspondingly (?? would love to know how that's feasible), the validators might have nothing at stake by the time they're selected to validate. one solution proposed in a paper called Dfinity is to use \"a new VRF protocol based on non-interactive threshold signature scheme with uniqueness property.\"</p>",
     "published": "2017-10-01",
     "read": false,
     "doi": "10.1145/3132747.3132757",
@@ -290,11 +290,12 @@
     "tags": [
       "algorithms",
       "blockchain",
-      "reading list"
+      "reading list",
+      "sharding"
     ],
     "summary": "",
     "link": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8418625",
-    "notes": "",
+    "notes": "<h1>OmniLedger</h1><h3>Authors: Eleftherios Kokoris-Kogias, Philipp Jovanovic, Linus Gasser, Nicolas Gailly, Ewa Syta, Bryan Ford</h3><h3>Published: May 2018</h3><p><br></p><p>Permissionless blockchain (which it seems to equate to \"distributed ledger\") that divides validators into shards and claims to scale linearly with them.</p><p><br></p><p>Contributions:</p><ul><li>Distributed ledger that compromises none of scalability, decentralization, and security</li><li>The main security tactics are:</li><li class=\"ql-indent-1\">non-gameable validator selection - cryptographic sortition</li><li class=\"ql-indent-2\">requires some arbitrary external proof-of-x Sybil avoidance tactics</li><li class=\"ql-indent-1\">shard formation and reformation - using RandHound</li><li class=\"ql-indent-1\">the \"Atomix\" protocol ensure the atomicity of cross-shard transactions</li><li>The bells and whistles are:</li><li class=\"ql-indent-1\">a PBFT-based consensus that is more resistant to DoS attacks. It is named \"ByzCoinX\" and is a sequel to a protocol called ByzCoin</li><li class=\"ql-indent-1\">checkpointing so that miners don't have to track a whole history</li><li class=\"ql-indent-1\">a \"trust-but-verify\" mode where a weak set of validators quickly validate transactions and then a larger slower set of validators check their work (this seems silly)</li></ul><p><br></p><p>Terms:</p><ul><li>a \"scale-out\" database is one whose capacity scales horizontally with the number of contributors to it. Accomplished by parallelization (without parallelization, I guess more validators will always just make things slower)</li><li>UTXO: unspent transaction output. UTXOs represent the current contents of a wallet given the inputs (credits) and outputs (charges which potentially consume UTXOs.) This is the same transaction/credit model that Bitcoin uses. It seems like an implementation detail kind of thing.</li><li>Cryptographic sortition uses a verifiable random function to select a subset of validators using some weighting function. This is also a thing Algorand does.</li></ul><p><br></p><p>Prior work:</p><ul><li>Elastico: Shards, permissionless, PBFT, automatic shard formation. However: slow, non-atomic, shard formation is kind of gameable, shards are too small in their experimental setup (\"only\" 100 validators...)</li><li>That's the only prior work they give a whole paragraph to...</li></ul><p><br></p><p>System model:</p><ul><li>Validators \"register\" to participate; validators participate in the epoch after the one they registered in; there is an \"identity blockchain\" (?) that confirms who they are by some undescribed proof-of-x mechanism. At the beginning of the epoch, configuration happens.</li><li>Assume n=4f, i.e. at most 25% of the validators are Byzantine, except in a footnote it says up to 3f+1 validators can be Byzantine with degraded performance and 2/3rds endorsements are used for things</li><li>Epochs are assumed to be a day long; epoch configuration takes \"minutes\" and they list this long duration as a weakness at the end</li></ul><p><br></p><p>Then in Section IV there are in-depth descriptions of the various algorithms. First, it goes on about shard assignment. Then, it worries about losing liveness during epoch transitions.</p><p><br></p><p>They have a model where UTXOs are randomly assigned to shards for processing and therefore the majority of transactions are cross-shard. Seems slow.</p><p><br></p><p>Their cross-shard atomic commit process, Atomix, is client-driven. It also needs a more creative name. The client collects proofs from input shards (those that track the money the client wishes to spend) that establish the input shards' acceptance of a transaction; when generating the proofs, the leader marks the money as spent. Alternatively, if the input shard does not accept the transaction, the client gets proofs of rejection. The client can use proofs of acceptance to commit the transaction in the output shards or, if not all input shards accepted it, the client can use proofs of rejection to un-spend and unlock the money in the input shards. This seems like a bell/whistle that is only really useful when you have multiple inputs and outputs in a transaction.</p><p><br></p><p>Similarly, they create a block-based directed acyclic graph to manage the dependencies between complex transactions. This feels like a topological sort kind of situation.</p><p><br></p><p>Their checkpoints are called \"state blocks\" and store Merkle trees.</p><p><br></p><p>\"A higher number of smaller shards results in a better performance but provides less resiliency against a more powerful attacker.\" Aha, but this is only the case when you can't tolerate any Byzantine shards</p>",
     "published": "2018-05-01",
     "read": false,
     "doi": "10.1109/SP.2018.000-5",
@@ -324,11 +325,12 @@
     "tags": [
       "algorithms",
       "blockchain",
-      "reading list"
+      "reading list",
+      "sharding"
     ],
     "summary": "",
     "link": "https://eprint.iacr.org/2018/460.pdf",
-    "notes": "",
+    "notes": "<h1>RapidChain</h1><h3>Authors: Mahdi Zamani, Mahnush Movahedi, Mariana Raykova</h3><h3>Published: October 2018</h3><p><br></p><p>Public (meaning permissionless?) blockchain protocol that uses shards and tolerates up to 1/3rd of its participants being Byzantine, without a trusted setup procedure and with \"complete sharding\" of communication, computation, and et cetera.</p><p><br></p><h3>Goals</h3><p><br></p><p>Sublinear communication. It claims that previous sharding-based blockchain protocols still require an amount of communication that rises linearly with the number of participants. For example, they say \"OmniLedger’s consensus protocol requires O(n) per-node communication as each committee has to gossip multiple messages to all n nodes for each block of transaction.\" This is not immediately obvious to me; is this an interpretation/transferred assumption from other algorithms that isn't necessarily automatically true? They acknowledge that peer-to-peer gossiping spreads out the overhead of distributing transactions across the nodes. Either way, RapidChain has a Kademlia-inspired routing algorithm that directs traffic more efficiently, which I think is how they claim sub-linear message complexity (the routing algorithm is logarithmic.) Not sure what claims we could make about EyeWitness regarding this. Also, they use Merkle trees and an information dispersal algorithm that can work even with missing data to gossip efficiently.</p><p><br></p><p>Tolerates n/3-1 overall faults. Omniledger does too, but it runs in degraded performance mode then, which I think just means it doesn't do the optimistic trust-but-verify validation?</p><p><br></p><p>Secure and seamless shard reconfiguration, building on the <span style=\"color: rgb(161, 0, 0);\">cuckoo rule</span>. What is that</p><p><br></p><p>Partitioned chain with routing to find the committee you need</p><p><br></p><p>Decentralized bootstrapping. The implicit argument that a genesis block and a network setup created by an arbitrarily trusted protocol founder could be inherently dangerous seems like it needs more elaboration, but they do worry in general about the possibility of biasing random number generation.</p><p><br></p><h3>Terms</h3><p><br></p><ul><li>A committee is a group of nodes. Committees operate in parallel on disjoint blocks of transactions and maintain disjoint ledgers.</li><li>A shard is what they call a disjoint transaction ledger.</li><li>An epoch is a period of time during which the protocol does work. In between epochs, a reference committee does reconfiguration stuff. The reference committee is chosen carefully to have a high probability of being majority-honest. It is denoted C<sub>R</sub>.</li><li>The output committee is the one responsible for storing a given transaction in its ledger. It must reach consensus with with one or more input committees to ensure that the inputs for the transaction actually exist, via an intra-committee consensus protocol that uses Ren et al.</li><li>Allegedly a slowly adaptive adversary is one that can only add intrusions between epochs. This feels more like a stepwise adaptive adversary or something</li></ul><p><br></p><p>\"This protocol [Ren's] allows RapidChain to obtain an intra-committee consensus with the optimal resiliency of 1/2, and thus, achieve a total resiliency of 1/3 with small committees.\" What? Where did 1/3 come from. It seems like every shard needs to be at least 1/2 honest internally, while the whole network can only tolerate up to 1/3 faults. <span style=\"color: rgb(161, 0, 0);\">Why?</span></p><p><br></p><p>\"Since asynchronous consensus requires t &lt; n/3, one needs to assume a total resiliency of roughly 1/5 or less to achieve similar committee size and failure probability when sampling a committee with 1/3 resiliency (see Figure 7). Unfortunately, increasing the total resiliency (e.g., to 1/4) will dramatically increase the committee size (e.g., 3-4x larger) making intra-committee consensus significantly inefficient.\" <span style=\"color: rgb(161, 0, 0);\">What is this relationship between committee size and fractional resiliency?</span></p><p><br></p><p>\"In our target network size of 4,000 nodes with 16 committees, roughly 99.98% of all transactions are expected to be cross-shard, meaning that at least one of every transaction’s input UTXOs is expected to be located in a shard other than the one that will store the transaction itself. Since transactions are assigned to committees based on their randomly-generated IDs, transactions are expected to be distributed uniformly among committees.\" <span style=\"color: rgb(161, 0, 0);\">Yikes</span></p><p><br></p><h3>Prior Work</h3><p><br></p><p>They cite a number of older committee-based protocol algorithms. They approve of Algorand's approach to committee selection but complain that its randomness can be biased unless history is used to select validators somehow which can result in validators with nothing at stake. A better solution using cryptography is proposed by an algorithm called Dfinity. Solida is another algorithm with proof-of-work-based committee membership.</p><p><br></p><p>They prominently feature the other sharding-based protocols that hew to the Bitcoin transaction model:</p><ul><li>RSCoin is a preliminary sharded blockchain protocol that is allegedly not completely decentralized and not completely Byzantine tolerant.</li><li>Elastico took step towards decentralization (it is \"public\") and it requires small committee sizes of like 100 to limit the overhead of running PBFT in each committee. Also, the randomness is biasable, the setup requires trust, everyone has to store the whole ledger (why?) and it can only tolerate 1/4 faults.</li><li>Omniledger gets more attention, but they complain about 1/4 corruption limit, the tenuousness of the trust-but-verify optimization, the linear gossip protocol, the trusted setup, the significant responsibilities of the client, and the vulnerability of the atomic commit protocol to dishonest lock requests (although I think the Omniledger paper acknowledged that these might have to be timed out by the committee members involved.)</li></ul><p><br></p><h3>Protocol Phases</h3><p><br></p><p>Decentralized bootstrapping. Looks complicated. Committees are of size O(log(n)).</p><p><br></p><p>Any node that wishes to participate in an epoch must solve a proof-of-work \"puzzle\" within 10 minutes after its random elements are created by C<sub>R</sub>, between epochs; a solution earns it the placement of its public key in the list of participants that the reconfiguration committee reaches consensus on. This forms a reconfiguration block that is sent to all committees (seems like linear communication!). This is like, pseudo-permissionless. Temporarily permissioned.</p><p><br></p><p>Users send in transactions; these are a set of inputs and outputs; the transactions are divided into blocks; all nodes have the ability to verify transactions. Nodes gossip using an information dispersal algorithm that uses erasure codes and Merkle trees. They then reach consensus to agree on the digest of a block. Much more to learn here.</p><p><br></p><p>Transactions are divided up among the committees based on their transaction IDs; this determines the output committee. There are no wallets as such; only transactions. There are N input committees. The user sends in a transaction; the transaction is routed to the output committee; the leader of the output creates transactions that move money from each of the input committees to the output committee; it can then record that transaction that was routed to it. These transactions can be batched via the trivial method of output committees gathering many that involve the same input committee(s).</p>",
     "published": "2018-10-01",
     "read": false,
     "doi": "10.1145/3243734.3243853",
@@ -572,11 +574,12 @@
     ],
     "tags": [
       "BFT",
-      "algorithms"
+      "algorithms",
+      "DHT"
     ],
     "summary": "",
     "link": "https://www.cs.jhu.edu/~baruch/RESEARCH/Research_areas/Peer-to-Peer/2006_SPAA/virtual5.pdf",
-    "notes": "",
+    "notes": "<h1>Towards a scalable and robust DHT</h1><h3>Authors: Baruch Awerbuch, Christian Scheideler</h3><h3>Published: July 2006</h3><p><br></p><p>This paper is not very flashy but I keep seeing the \"cuckoo rule\" that it apparently proposes referenced. It attempts to create a DHT that is resistant to active adversaries, unlike e.g. Chord. It protects against malicious actions that are not just based on sending inaccurate messages, apparently; this is more like churn-resistance than consensus-preserving fault tolerance.</p><p><br></p><p>A hash table has actions like Insert(thing) and Lookup(name_of_thing). A DHT also has Join(node) and Leave(node).</p>",
     "published": "2006-07-01",
     "read": false,
     "doi": "10.1145/1148109.1148163",
@@ -919,7 +922,7 @@
     ],
     "summary": "",
     "link": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9461080",
-    "notes": "",
+    "notes": "<h1>Partitionable Asynchronous Cryptocurrency Blockchain</h1><h3>Authors: Kendric Hood, Joseph Oglio, Mikhail Nesterenko, Gokarna Sharma</h3><h3>Published: May 2021</h3><p><br></p><p>Detectors!</p>",
     "published": "2021-05-01",
     "read": false,
     "doi": "10.1109/ICBC51069.2021.9461080",
@@ -938,12 +941,12 @@
     ],
     "tags": [
       "unread",
-      "self-stabilizing",
+      "self-stabilization",
       "survey"
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/151254.151256",
-    "notes": "",
+    "notes": "<h1>Self-stabilization</h1><h3>Authors: Marco Schneider</h3><h3>Published: March 1993</h3><p><br></p><p>Self-stabilizing systems are just guaranteed to be able to convert arbitrary states to \"legitimate\" ones in a finite number of steps. This provides a general, unified, and formal approach to fault tolerance. It is complicated by concurrent situations where each node has to take steps towards the correct state based only on local knowledge, which is the original context where it was discussed.</p>",
     "published": "1993-03-01",
     "read": false,
     "doi": "10.1145/151254.151256",
@@ -976,9 +979,9 @@
       }
     ],
     "tags": [
-      "unread",
       "in-house",
-      "BFT"
+      "BFT",
+      "routing"
     ],
     "summary": "",
     "link": "https://arxiv.org/pdf/2303.12870.pdf",
@@ -1068,14 +1071,13 @@
       }
     ],
     "tags": [
-      "unread",
       "blockchain",
       "BFT",
       "sharding"
     ],
     "summary": "",
-    "link": "https://dl.acm.org/doi/pdf/10.1145/2976749.2978389",
-    "notes": "",
+    "link": "http://localhost:3000/elastico.pdf",
+    "notes": "<h1>A Secure Sharding Protocol For Open Blockchains (Elastico)</h1><h3>Authors: Loi Luu, Viswesh Narayanan, Chaodong Zheng, Kunal Baweja, Seth Gilbert, Prateek Saxena</h3><h3>Published: October 2016</h3><p><br></p><p>Apparently, this is the first Byzantine-tolerant blockchain sharding protocol. Previous sharding protocols were semi-permissioned (used \"trusted infrastructure\" for identities) and/or only considered crash faults.</p><p><br></p><h3>Goals</h3><ul><li>Scale throughput \"nearly\" linearly with the number of participants: O(n / log log(n))</li><li>Tolerate f &lt; n/4 adversaries; this is a semi-arbitrary goal \"bounded away from 1/3\"</li><li>Improve on the Bitcoin hash-chain data structure</li><li>They implemented a version of the algorithm right on top of Bitcoin</li></ul><p><br></p><h3>Terms</h3><ul><li>A blockchain is an append-only distributed database that stores a time-ordered set of facts, also known as transactions. This is a good, clear general definition.</li><li>This paper also throws around a security parameter λ. It is used to formally define the phrase \"with high probability;\" it means, it happens with probability of at least 1-O(1/2^λ).</li><li>Committees are disjoint groups of nodes; shards are disjoint sets of transactions</li><li>It notes that validity in a blockchain is not interactive consistency - there is no leader to determine correctness; the stored facts must just be compatible with each other (\"satisfy an externally-specified constraint C\")</li></ul><p><br></p><p>The number of shards grows \"near linearly\" with the size of the network. Interesting - RapidChain committees are of size O(log(n)). <span style=\"color: rgb(161, 0, 0);\">How does this affect throughput?</span> (Obviously larger committees are more likely to be representative and not accidentally Byzantine, since they are a larger sample of the population)</p><p><br></p><h3>Strategy</h3><p><br></p><p>There are epochs. In each epoch, identities are established using PoW, committees are formed, intra-committee consensus happens using a classical consensus algorithm, and a \"final\" \"consensus committee\" reaches consensus on the combined shards of the other committees for some reason. I think this last step creates a block for the chain; the digest of the block is then broadcast to the whole network. <span style=\"color: rgb(161, 0, 0);\">What is this used for?</span> It seems like it should maybe be a substitute for the per-transaction inter-committee communication in other protocols.</p><p><br></p><p>It does not address the fundamental problem of transaction validation; it still requires blocks to broadcast throughout its network for the validity of transaction inputs to be checked, rather than performing validations fully in parallel. (Hidden in appendix 10.2)</p>",
     "published": "2016-10-01",
     "read": false,
     "doi": "10.1145/2976749.2978389",
@@ -1129,7 +1131,7 @@
       "survey"
     ],
     "summary": "",
-    "link": "about:blank",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/3318041.3355458",
     "notes": "",
     "published": "2019-10-01",
     "read": false,
@@ -1356,5 +1358,1091 @@
     "doi": "",
     "citationCount": 0,
     "citationsUpdated": "2023-05-18T00:35:18.841Z"
+  },
+  {
+    "id": "c9a65f70-4ced-4991-923c-ac202f77e69e",
+    "title": "Ouroboros: A Provably Secure Proof-of-Stake Blockchain Protocol",
+    "authors": [
+      {
+        "prefix": "Aggelos",
+        "lastName": "Kiayias",
+        "suffix": ""
+      },
+      {
+        "prefix": "Alexander",
+        "lastName": "Russell",
+        "suffix": ""
+      },
+      {
+        "prefix": "Bernardo",
+        "lastName": "David",
+        "suffix": ""
+      },
+      {
+        "prefix": "Roman",
+        "lastName": "Oliynykov",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "blockchain",
+      "BFT"
+    ],
+    "summary": "",
+    "link": "https://link.springer.com/content/pdf/10.1007/978-3-319-63688-7_12.pdf",
+    "notes": "<h1>Ouroboros: A Provably Secure Proof-of-Stake Blockchain Protocol</h1><h3>Authors: Aggelos Kiayias, Alexander Russell, Bernardo David, Roman Oliynykov</h3><h3>Published: January 2017</h3><p><br></p><p>According to Wikipedia, the very first proof-of-stake cryptocurrency was PeerCoin in 2012, but it still wasn't a common thing when this was published. So, this paper was significant.</p>",
+    "published": "2017-01-01",
+    "read": false,
+    "doi": "10.1007/978-3-319-63688-7_12",
+    "citationCount": 513,
+    "citationsUpdated": "2023-05-21T01:48:25.056Z"
+  },
+  {
+    "id": "114a630d-aa9c-466c-8268-4cb055418a5f",
+    "title": "SoK: Eternal War in Memory",
+    "authors": [
+      {
+        "prefix": "L.",
+        "lastName": "Szekeres",
+        "suffix": ""
+      },
+      {
+        "prefix": "M.",
+        "lastName": "Payer",
+        "suffix": ""
+      },
+      {
+        "prefix": "Tao",
+        "lastName": "Wei",
+        "suffix": ""
+      },
+      {
+        "prefix": "Dawn",
+        "lastName": "Song",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "software engineering"
+    ],
+    "summary": "",
+    "link": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6547101",
+    "notes": "",
+    "published": "2013-05-01",
+    "read": false,
+    "doi": "10.1109/SP.2013.13",
+    "citationCount": 337,
+    "citationsUpdated": "2023-05-21T04:10:43.531Z"
+  },
+  {
+    "id": "7c2b23f4-6f47-4f74-b222-e91df2360415",
+    "title": "SoK: Sharding on Blockchain",
+    "authors": [
+      {
+        "prefix": "Gang",
+        "lastName": "Wang",
+        "suffix": ""
+      },
+      {
+        "prefix": "Zhijie Jerry",
+        "lastName": "Shi",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mark",
+        "lastName": "Nixon",
+        "suffix": ""
+      },
+      {
+        "prefix": "Song",
+        "lastName": "Han",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "sharding",
+      "blockchain",
+      "BFT"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/3318041.3355457",
+    "notes": "<h1>SoK: Sharding on Blockchain</h1><h3>Authors: Gang Wang, Zhijie Jerry Shi, Mark Nixon, Song Han</h3><h3>Published: October 2019</h3><p><br></p><p><br></p>",
+    "published": "2019-10-01",
+    "read": false,
+    "doi": "10.1145/3318041.3355457",
+    "citationCount": 86,
+    "citationsUpdated": "2023-05-21T04:22:50.246Z"
+  },
+  {
+    "id": "cee7fef3-b9ed-413a-99ab-c2d48b34da2e",
+    "title": "Hyperledger fabric",
+    "authors": [
+      {
+        "prefix": "Elli",
+        "lastName": "Androulaki",
+        "suffix": ""
+      },
+      {
+        "prefix": "Artem",
+        "lastName": "Barger",
+        "suffix": ""
+      },
+      {
+        "prefix": "Vita",
+        "lastName": "Bortnikov",
+        "suffix": ""
+      },
+      {
+        "prefix": "Christian",
+        "lastName": "Cachin",
+        "suffix": ""
+      },
+      {
+        "prefix": "Konstantinos",
+        "lastName": "Christidis",
+        "suffix": ""
+      },
+      {
+        "prefix": "Angelo",
+        "lastName": "De Caro",
+        "suffix": ""
+      },
+      {
+        "prefix": "David",
+        "lastName": "Enyeart",
+        "suffix": ""
+      },
+      {
+        "prefix": "Christopher",
+        "lastName": "Ferris",
+        "suffix": ""
+      },
+      {
+        "prefix": "Gennady",
+        "lastName": "Laventman",
+        "suffix": ""
+      },
+      {
+        "prefix": "Yacov",
+        "lastName": "Manevich",
+        "suffix": ""
+      },
+      {
+        "prefix": "Srinivasan",
+        "lastName": "Muralidharan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Chet",
+        "lastName": "Murthy",
+        "suffix": ""
+      },
+      {
+        "prefix": "Binh",
+        "lastName": "Nguyen",
+        "suffix": ""
+      },
+      {
+        "prefix": "Manish",
+        "lastName": "Sethi",
+        "suffix": ""
+      },
+      {
+        "prefix": "Gari",
+        "lastName": "Singh",
+        "suffix": ""
+      },
+      {
+        "prefix": "Keith",
+        "lastName": "Smith",
+        "suffix": ""
+      },
+      {
+        "prefix": "Alessandro",
+        "lastName": "Sorniotti",
+        "suffix": ""
+      },
+      {
+        "prefix": "Chrysoula",
+        "lastName": "Stathakopoulou",
+        "suffix": ""
+      },
+      {
+        "prefix": "Marko",
+        "lastName": "Vukolić",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sharon Weed",
+        "lastName": "Cocco",
+        "suffix": ""
+      },
+      {
+        "prefix": "Jason",
+        "lastName": "Yellick",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "blockchain",
+      "software engineering"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/3190508.3190538",
+    "notes": "",
+    "published": "2018-04-01",
+    "read": false,
+    "doi": "10.1145/3190508.3190538",
+    "citationCount": 1684,
+    "citationsUpdated": "2023-05-21T05:12:32.726Z"
+  },
+  {
+    "id": "e9b4a3ea-161b-445c-86be-37bd1c49d67c",
+    "title": "The weakest failure detector for solving consensus",
+    "authors": [
+      {
+        "prefix": "Tushar Deepak",
+        "lastName": "Chandra",
+        "suffix": ""
+      },
+      {
+        "prefix": "Vassos",
+        "lastName": "Hadzilacos",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sam",
+        "lastName": "Toueg",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "system models"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/234533.234549",
+    "notes": "",
+    "published": "1996-07-01",
+    "read": false,
+    "doi": "10.1145/234533.234549",
+    "citationCount": 552,
+    "citationsUpdated": "2023-05-21T05:23:36.134Z"
+  },
+  {
+    "id": "e6070549-d5db-43cd-9c67-afa914360821",
+    "title": "Blockchain in Dynamic Networks",
+    "authors": [
+      {
+        "prefix": "Rachel",
+        "lastName": "Bricker",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mikhail",
+        "lastName": "Nesterenko",
+        "suffix": ""
+      },
+      {
+        "prefix": "Gokarna",
+        "lastName": "Sharma",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "blockchain",
+      "unread",
+      "in-house"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/2208.03355.pdf",
+    "notes": "",
+    "published": "2022-01-01",
+    "read": false,
+    "doi": "10.1007/978-3-031-21017-4_8",
+    "citationCount": 0,
+    "citationsUpdated": "2023-05-22T02:02:11.167Z"
+  },
+  {
+    "id": "3e3e779c-90c6-4cf5-98a0-b4e489d78ff5",
+    "title": "RIDL: Robust Intermittent-connectivity Distributed Ledger (Grant Proposal, Private)",
+    "authors": [
+      {
+        "prefix": "Mikhail",
+        "lastName": "Nesterenko",
+        "suffix": ""
+      },
+      {
+        "prefix": "Gokarna",
+        "lastName": "Sharma",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "in-house",
+      "blockchain"
+    ],
+    "summary": "",
+    "link": "http://localhost:3000/RIDL.pdf",
+    "notes": "<h1>RIDL: Robust Intermittent-connectivity Distributed Ledger (Grant Proposal, Private)</h1><h3>Authors: Mikhail Nesterenko, Gokarna Sharma</h3><p><br></p><p>The preliminary results on intermittent-connectivity ledgers are Rachel's Blockchain in Dynamic Networks paper. The preliminary results on simulating distributed algorithms are the original QUANTAS paper.</p><p><br></p><p>\"The project will model intermittent connectivity as a directed dynamic network.\" Does the term \"intermittent connectivity\" imply any more reliability than \"dynamic network\"?</p><p><br></p><p>Is the knot-based quorum identification research published?</p><p><br></p><h3>Simulating Intermittent Connectivity</h3><p><br></p><p>Apparently the dynamic network topology currently implemented in QUANTAS is just a source pool/everyone else kind of thing that doesn't actually change. A todo item says: \"add dynamic networks: configuration, potentially arbitrary topology configuration per round. Or, alternatively, change topology according to user-supplied function.\"</p><p><br></p><p>It should not be very hard to have a function that calls removeNeighbor and addNeighbor on various peers between rounds. It could call a callback function that returns pairs of interface IDs to remove or create links between. The transmit function in the NetworkInterface class as well as the broadcast/unicast/multicast functions in the same will not propagate messages that are not to a neighbor. The behavior of messages that are en route might need to be cleaned up, though, since they will not be dropped if a neighbor relationship disappears and then reappears while they are delayed. Should en route messages be dropped in this situation? It's probably not super important</p><p><br></p><h3>Tracing Food Supply Chains</h3><p><br></p><p>An append-only, fully-distributed blockchain database is as good a place to record information about things that happen to food products as any.</p><p><br></p><p>One challenge would be setting expectations correctly - consumers can see how long it's been since a food item has been packaged, but how do they know what the right best-by date should be? This is especially true when considering more detailed data like the temperature in a freezer that food is stored in. This information could be stored in the blockchain, potentially in smart contracts that produce alerts or take some other action when food is placed in a suboptimal situation, but it would have to come from somewhere. Wikipedia?</p><p><br></p><p>Also, the ability to add data to the blockchain would have to be carefully guarded - only the connected participants that are actually part of the supply network should be able to add data. The system could not be completely permissionless.</p><p><br></p><p>Also, how will consumers view this information? Do clients connect to a trusted data provider (easy) or gather information from the whole network (hard)?</p><p><br></p><p>The benefit would be that a unified information-sharing protocol would allow many entities from many parts of the supply chain to distribute information in a uniform way, rather than all having their own database.</p><p><br></p><p><a href=\"https://ieeexplore.ieee.org/abstract/document/8373021\" rel=\"noopener noreferrer\" target=\"_blank\">AgriBlockIOT</a>:</p><p><br></p><p>\"...instead of requiring connectivity to a central cloud, sensor networks in a blockchain-based traceability solution would only require stable connection to their closely located peer. Thus, blockchains exposes all the required properties for decentralizing food traceability systems, while making traceable data available at every step of the supply chain.\" Relevant to intermittent connectivity</p><p><br></p><p>Section 3 has a very plausible-sounding model of the steps taken by food products from farm to fork at which they should be tracked.</p><p><br></p><p><a href=\"https://www.fastcompany.com/40515999/in-china-you-can-track-your-chicken-on-you-guessed-it-the-blockchain\" rel=\"noopener noreferrer\" target=\"_blank\">In China, You Can Track Your Chicken On–You Guessed It–The Blockchain</a> (news article)</p><p><br></p><p>In China, Gogochicken is a real service subscribed to by farmers that records information about chickens on the blockchain. Apparently this allows them to charge much higher prices (<a href=\"https://www.sixthtone.com/news/1002804\" rel=\"noopener noreferrer\" target=\"_blank\">other news article</a>.) However, it does not have much of a recent online presence.</p><p><br></p><p><a href=\"https://jbba.scholasticahq.com/article/3712.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Food Traceability on Blockchain: Walmart’s Pork and Mango Pilots with IBM</a></p><p><br></p><p>This article does a very thorough job of motivating the problem of determining food provenance, listing past problems with contaminated food. It gives a non-technical overview of two pilot programs that tracked Walmart food products.</p><p><br></p><p>The FDA has a long list <a href=\"https://www.fda.gov/media/163132/download\" rel=\"noopener noreferrer\" target=\"_blank\">here</a> of the Key Data Elements it wants to be recorded at each Critical Tracking Event (i.e. step on the supply chain)</p>",
+    "published": "2023-05-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-05-22T03:55:36.438Z"
+  },
+  {
+    "id": "d6877e6d-77f6-41ac-806b-2db276a1f023",
+    "title": "Approximation Algorithms for Drone Delivery Scheduling Problem",
+    "authors": [
+      {
+        "prefix": "Saswata",
+        "lastName": "Jana",
+        "suffix": ""
+      },
+      {
+        "prefix": "Partha Sarathi",
+        "lastName": "Mandal",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/2211.06636.pdf",
+    "notes": "<h1>Approximation Algorithms for Drone Delivery Scheduling Problem</h1><h3>Authors: Saswata Jana, Partha Sarathi Mandal</h3><h3>Published: November 2022</h3><p><br></p><p>Joseph saw this paper in Morocco and thought the general problem was interesting.</p><p><br></p><h3>Terms</h3><p>SDSP - single drone scheduling problem</p><p>MDSP - multiple drone scheduling problem</p><p><br></p><p>FPTAS - fully polynomial time approximation scheme</p><p>1/4-approximation algorithm - gives a result that is not off by more than 25%, I think. This is a constant-factor approximation, meaning that the \"approximation ratio\" is bounded by a constant (wikipedia)</p><p><br></p><p>Flying sidekicks traveling salesman problem - great name.</p><p><br></p><p>MILP - mixed integer linear programming. Wikpedia again:</p><ul><li>An <strong>integer programming</strong> problem is a mathematical optimization or feasibility program in which some or all of the variables are restricted to be integers. In many settings the term refers to <strong>integer linear programming</strong> (ILP), in which the objective function and the constraints (other than the integer constraints) are linear.</li><li><strong>Linear programming</strong> (<strong>LP</strong>), also called <strong>linear optimization</strong>, is a method to achieve the best outcome (such as maximum profit or lowest cost) in a mathematical model whose requirements are represented by linear relationships. Linear programming is a special case of mathematical programming (also known as mathematical optimization).</li><li><strong>Mixed-integer linear programming</strong> (<strong>MILP</strong>) involves problems in which only some of the variables, x<sub>i</sub>, are constrained to be integers, while other variables are allowed to be non-integers.</li></ul><p><br></p><p>Apparently a backslash (\\) can mean \"set difference,\" as in {1,2} \\ {2, 3} = {1}.</p><p><br></p><h3>Related work</h3><p>Papers referenced by this paper talk about combining truck and drone deliveries, recharging drones when they land on the roofs of trucks, and multiple deliveries per drone takeoff. <span style=\"color: rgb(161, 0, 0);\">Does this paper relate to any of those things?</span></p><p><br></p><h3>Contributions</h3><ul><li>This paper formulates the drone scheduling optimization problem in the MILP form, stating the objective function and several constraints.</li><li class=\"ql-indent-1\">It appears that each delivery is represented by the interval of time it would take and the profit that would result from it, and these solutions just choose the optimal set of intervals that are compatible (don't overlap) and are feasible (the drone battery will not run out across all of them, I think just meaning that the sum of the durations of the intervals is below a certain threshold.)</li><li class=\"ql-indent-1\">Finding the optimal solution for these equations is apparently NP-hard (meaning it belongs to a class of problems for which no polynomial-time solution is known) \"even for the single drone case.\"</li><li>It then finds a pseudo-polynomial time approximation algorithm for the single drone case, then an FPTAS for the single drone case that calls the pseudo-polynomial algorithm.</li><li>The multiple drone problem does not have a FPTAS; it is a generalization of the multiple knapsack problem, which has been proven not to have one. However, they still have a constant factor approximation algorithm for it.</li><li>The algorithms have many single-letter variables.</li></ul><p><img src=\"/uploads/8185ced39ca9a8dc77182b311217c9a2\"></p><p><br></p><p><br></p>",
+    "published": "2022-11-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-05-26T21:07:45.745Z"
+  },
+  {
+    "id": "b377c49e-dc5c-488f-97d3-aef39373d090",
+    "title": "Asynchronous Byzantine agreement protocols",
+    "authors": [
+      {
+        "prefix": "Gabriel",
+        "lastName": "Bracha",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "BFT",
+      "algorithms",
+      "system models"
+    ],
+    "summary": "",
+    "link": "https://core.ac.uk/download/pdf/82523202.pdf",
+    "notes": "<h1>Asynchronous Byzantine agreement protocols</h1><h3>Authors: Gabriel Bracha</h3><h3>Published: November 1987</h3><p><br></p><p>The plan: transmute t&lt;n/3 Byzantine processes into simple failed/stopped processes using a broadcast protocol, then use an agreement protocol for \"Fail-Stop\" processes to produce consensus.</p><p><br></p><h3>Background</h3><p><br></p><p>Explains the concept of a Byzantine Generals protocol: it is one in which a transmitter broadcasts its local value <em>v</em> and the processes have to decide on the same <em>v</em> and that <em>v</em> must be the actual local value of the transmitter if it is correct and thus has a meaningful local value.</p><p><br></p><p>An asynchronous network is conceptualized as being controlled by a \"scheduler\" that decides when messages will be delivered; and sure, why not, it's acting adversarial today.</p><p><br></p><p>Also, in asynchronous networks, due to FLP deterministic termination is impossible. However, we can have randomized protocols in which the probability that a correct process is undecided approaches 0 as the number of \"rounds\" approaches infinity. I'm not sure if this is particularly relevant but it's interesting.</p><p><br></p><h3>Reliable Broadcast</h3><p><br></p><p>A reliable broadcast protocol allows a process <em>p</em> to send a message to all other processes, with the guarantee that all correct processes will agree on the message if <em>p</em> is correct, and all processes will agree on the same message or give up completely if <em>p</em> is not correct.</p><p><br></p><p>In this protocol, values are bounced back and forth in messages of types initial, echo, and ready. Values are originally sent in \"initial\" messages; echo and ready messages both indicate receipt of other types of messages.</p><p><br></p><p>In the step 0, the \"initial\" message is sent by the transmitter <em>p</em>. Then, each process waits for the initial message, a certain number of echo messages, or a certain number of ready messages, and then sends an echo message. Then, after receiving enough echo or ready messages, it sends a ready message; apparently, an initial message isn't enough for a \"ready\" response, but the thresholds for echo and ready messages received are the same for this step as the last. Then, after receiving even more ready messages, the message value is accepted. This protocol is neatly expressed and proven correct.</p><p><br></p><h3>Correctness Enforcement</h3><p><br></p><p>There is apparently such a thing as a \"protocol function\" that determines the value stored by the whole system based on n-t messages that have been received in a given round of communication. We can apparently force faulty processes to only send messages \"according to the protocol.\" To do this, we abstract instances of Send and Receive into the aggregate Broadcast and Accept actions, and then we switch Accept out for Validate. This seems to just be grouping and evaluating messages differently.</p>",
+    "published": "1987-11-01",
+    "read": false,
+    "doi": "10.1016/0890-5401(87)90054-X",
+    "citationCount": 157,
+    "citationsUpdated": "2023-06-15T03:50:50.301Z"
+  },
+  {
+    "id": "f0ed6908-f827-491a-8194-47ebb30eb607",
+    "title": "Fast Byzantine Consensus",
+    "authors": [
+      {
+        "prefix": "J.-P.",
+        "lastName": "Martin",
+        "suffix": ""
+      },
+      {
+        "prefix": "L.",
+        "lastName": "Alvisi",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "BFT",
+      "algorithms"
+    ],
+    "summary": "",
+    "link": "https://www.cs.cornell.edu/lorenzo/papers/Martin06Fast.pdf",
+    "notes": "<h1>Fast Byzantine Consensus</h1><h3>Authors: J.-P. Martin, L. Alvisi</h3><h3>Published: July 2006</h3><p><br></p><p>This is like Paxos, meaning it's siblings with PBFT, but with one fewer round of communication than PBFT (in the \"common case\")?</p><p><br></p><p>Apparently \"building a replicated state machine from consensus adds a single communication step\"</p><p><br></p><p>State machine consensus involves proposers, of course, and also acceptors and also learners/executors. Well, those last two roles are usually combined, but in this algorithm we have agreement replicas that produce a linearizable stream of client requests and execution replicas that actually execute them. Since the agreement replicas don't have to do much, they can be built in large quantities out of balsa wood.</p><p><br></p><p>For some reason, we have normal FaB (Fast Byzantine) Paxos that requires 5f+1 acceptors to tolerate f faults but also Parameterized FaB Paxos that requires 3f+2t+1 acceptors to tolerate f Byzantine faults and is two-step as long as at most t acceptors fail. I guess f and t can be varied independently, then? Fun. I guess we're not supposed to worry about the &gt;3f+1 requirement because of the balsa wood thing. We also need 3f+1 proposers and 3f+1 learners around (there can be overlap between all of these, though).</p><p><br></p><p>\"FaB Paxos does not use digital signatures in the common case; however, it does rely on digital signatures [and permissioned PKI] when electing a new leader.\" Again, like PBFT</p><p><br></p><p>Uses the word \"regency\" instead of \"view\" - massive improvement</p>",
+    "published": "2006-07-01",
+    "read": false,
+    "doi": "10.1109/TDSC.2006.35",
+    "citationCount": 153,
+    "citationsUpdated": "2023-06-15T18:37:15.771Z"
+  },
+  {
+    "id": "4b149a84-ed4c-4117-95d2-dc6d08c02266",
+    "title": "Early Adapting to Trends: Self-Stabilizing Information Spread using Passive Communication",
+    "authors": [
+      {
+        "prefix": "Amos",
+        "lastName": "Korman",
+        "suffix": ""
+      },
+      {
+        "prefix": "Robin",
+        "lastName": "Vacus",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "self-stabilization",
+      "algorithms",
+      "probability"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/2203.11522.pdf",
+    "notes": "<h1>Early Adapting to Trends: Self-Stabilizing Information Spread using Passive Communication</h1><h3>Authors: Amos Korman, Robin Vacus</h3><h3>Published: July 2022</h3><p><br></p><p>We have a field with some deer. A few of them know that one side of the field is preferable (1 bit of data). Deer cannot talk. Through passive communication, i.e. observing each other, can the \"non-knowledgeable animals\" stabilize their position on the preferable side of the field? (It appears that the non-knowledgeable animals are allowed to \"cooperate.\")</p><p><br></p><p>So, based on the introduction, can't the non-knowledgeable animals just go back and forth across the field for a bit and then choose the side of the field that knowledgeable non-oscillating deer are sticking to? This assumes the knowledgeable animals aren't, like, dissembling, to lure the others onto one side of the field and then promptly switch to the other. (The non-knowledgeable ones could then follow, but this doesn't seem like it would necessarily stabilize.) Also, it seems like each deer can only glean the positions of a sample of the others in the field, not all of them, making it trickier.</p><p><br></p><p>This is the \"self-stabilizing bit-dissemination problem\" from 2019. Gleaning the information held by a uniform random sample of half or less than the other agents is called the (script) PULL model of communication. (We are apparently interested in sampling log(n) agents, for efficiency.) Converging on the correct binary \"opinion\" state despite a random or adversarial initial set of opinions is what makes this self-stabilization. We are supposing there is exactly one \"source agent\" that knows the correct opinion for sure (and knows that it knows this.)</p><p><br></p><p>\"We say that a protocol converges in time T with high probability (w.h.p) if t<sub>con</sub> ≤ T with probability at least (1 − 1/n<sup>c</sup>), for some constant c &gt; 1.\" (t<sub>con</sub> is the time at which the system effectively (but maybe not knowingly) has converged.)</p><p><br></p><p>Previously, people were worried about stabilizing with the smallest possible message size. We don't even HAVE messages. They also used stably synchronized clocks. Deer don't use those. However, there is an extensive proof that a more complicated version of this problem could not be solved with passive communication.</p><p><br></p><p>This paper's algorithm is like, trend-based. If there are more 1s in this round than the last round, we change our opinion to 1; if, on the other hand, the observed number of 0s went up, we flip to 0. If the trend didn't change, we leave our opinion the same. (So, we need two variables; one that indicates the number of 1s (or 0s) seen in the last round and one that indicates the number of 1s (or 0s) currently observed.) What? What about during the first round? If the movement during the first round is arbitrary, won't this cause the system to follow it and converge on something arbitrary? The description claims the average opinion will \"bounce\" back, but how? The only thing I can think of is that there is some kind of weird dynamic surrounding sampling only log(n) opinions that keeps the system from syncing up in the wrong direction. (But come on, what happens in round 1)</p><p><br></p><p>The algorithm takes O(log<sup>5/2</sup>n) rounds with high probability (see definition thereof above.)</p><p><br></p><p>Y<sub>t</sub><sup>(i)</sup> is the opinion of agent i at round t. J<sub>t</sub> is the set of agents an agent sampled at round t. S<sub>t</sub>(J<sub>t</sub>) is the set containing their opinions. For any set A of opinions, COUNT(A) distills it down to the number of 1s. The actual value of t is unimportant and may be unknown to everyone.</p><p><br></p><p>We are concerned with analyzing whatever protocol we come up with. This is apparently difficult when the opinion an agent has is dependent on the opinion it had during the last round. Therefore, we will partition our sample into two random subsets at each step and compare current random subset 1 to last round's random subset 2 when judging the trend that's happening. Therefore, no sampled bits get used twice in each round? It doesn't seem like a big change, practically. We are sampling 2log(n) agents now I think.</p><p><br></p><p>There is a further extensive related work section here. Apparently opinion dynamics is a large and interesting cross-disciplinary field. Information dissemination is studied under many names, such as rumor spreading, gossip, and broadcast. The difference between this paper's problem and setting and existing solved problems in settings seems to be somewhat subtle; I think the difference is just that communication is passive in this paper's case and also something about the single source agent.</p><p><br></p><p>Now we have an \"overview\" of the proof of the theorem (algorithm). Let's assume wlog that 1 is the correct opinion. A fun way to represent a square grid is to take the Cartesian product of the possible coordinate values; a Cartesian grid from a Cartesian product. x<sub>t</sub> denotes the the fraction of agents with opinion 1. Somehow, we can make a point on the grid analyzing what happens at round t+2 in which the x-axis represents x<sub>t</sub> and the y-axis represents x<sub>t+1</sub>. Great. So depending on whether x is greater than y, we can see where the next point will be. I think.</p><p><br></p><p>What I really don't understand is the \"bounce-back\" mechanism. I guess agents can't really get stuck, because even if all except for the source reach 0, they'll keep sampling each other and seeing the same thing, then suddenly sample the source and see a 1, and then they'll get 1s. It's hard to believe that </p>",
+    "published": "2022-07-01",
+    "read": false,
+    "doi": "10.1145/3519270.3538415",
+    "citationCount": 0,
+    "citationsUpdated": "2023-06-19T22:17:59.494Z"
+  },
+  {
+    "id": "febac481-aaf6-4f5f-9b86-daf60430161c",
+    "title": "BunchBFT: Across-Cluster Consensus Protocol",
+    "authors": [
+      {
+        "prefix": "Salem",
+        "lastName": "Alqahtani",
+        "suffix": ""
+      },
+      {
+        "prefix": "Murat",
+        "lastName": "Demirbas",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "meh",
+      "BFT",
+      "sharding"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/2205.10658.pdf",
+    "notes": "<h1>BunchBFT: Across-Cluster Consensus Protocol</h1><h3>Authors: Salem Alqahtani, Murat Demirbas</h3><h3>Published: May 2022</h3><p><br></p><p>We are doing multi-leader PBFT with clusters of replicas, which \"eventually\" share their results with each other. We are inspired by MirBFT, a multi-leader consensus protocol that creates many instances of PBFT and divides up requests among them. The whole thing is permissioned and uses PKI and signatures. In addition to plain BunchBFT (terrible name), we have a framework called PaxiBFT that runs it, a version with more efficient (hierarchical, hashed) communications called BunchBFT-X, and a pipelined version.</p><p><br></p><p>The client submits transactions to all replicas. The leader for a particular request volunteers based on \"the clients' votes and the replica's ranking.\" What was wrong with the bucket/hash-based solution from Mir? It seems like clients vote for leaders and this \"moves leader elections to the network edge\"? And maybe this obviates the need for view changes to some extent? But, there are still \"sub-round-changes\" (where a sub-round is a round carried out by one cluster, I believe) that switch from the current leader to the one with the second most votes from the client for the block.</p><p><br></p><p>Reminder about pipelining: It's this, where the horizontal axis is time and messages and quorum certificates (certifications of votes) are combined along columns:</p><p><br></p><p><img src=\"/uploads/a63854dfc376f746671aa4cdac550517\"></p><p><br></p><p>In BunchBFT-X, once consensus is reached in a cluster, the leader of the cluster broadcasts that fact to the other leaders, who broadcast it to their followers. I'm not sure the basic version of the algorithm does anything for cross-cluster communication.</p><p><br></p><p>Why would the pipelined version scale so much better in their graphs than the others?</p>",
+    "published": "2022-05-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-06-20T23:35:37.734Z"
+  },
+  {
+    "id": "fe40f577-4dff-480c-bfd4-c04f60961243",
+    "title": "Mir-BFT: High-Throughput BFT for Blockchains",
+    "authors": [
+      {
+        "prefix": "Chrysoula",
+        "lastName": "Stathakopoulou",
+        "suffix": ""
+      },
+      {
+        "prefix": "Tudor",
+        "lastName": "David",
+        "suffix": ""
+      },
+      {
+        "prefix": "Marko",
+        "lastName": "Vukolić",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "meh",
+      "BFT",
+      "blockchain"
+    ],
+    "summary": "",
+    "link": "https://allquantor.at/blockchainbib/pdf/stathakopoulou2019mir-bft.pdf",
+    "notes": "<h1>Mir-BFT: High-Throughput BFT for Blockchains</h1><h3>Authors: Chrysoula Stathakopoulou, Tudor David, Marko Vukolić</h3><h3>Published: September 2019</h3><p><br></p><p>This is a generalization of PBFT that can be applied to blockchains; it uses a set of leaders that all propose independent request batches in parallel.</p><p><br></p><p>This paper likes the term \"total order broadcast protocol\" which is the thing that forms the basis for state machine replication. Mir implements a total order broadcast protocol; this disseminates every request to every node, except when using the light total order protocol as an optimization, which distributes hashes and guarantees every request is fully known by at least one correct node.</p><p><br></p><p>\"As its main novelty in the context of BFT TO protocols, Mir partitions the request hash space across replicas, preventing request duplication, while rotating this partitioning assignment across protocol configurations/epochs, addressing request censoring.\" So, it's \"main novelty\" is that it prevents request duplication attacks where every leader is bothered by the same request by specifying which requests should go to which leaders when, and keeping that active.</p><p><br></p><p>Fascinatingly, they care enough to optimize connections between pairs of nodes, using multiple gRPC connections instead of TCP/TLS.</p><p><br></p><p>Using 100 nodes in a WAN, this protocol achieves \"2.5x the alleged peak capacity of VISA (24k tps [8]) and more than 30x faster than the actual average VISA transaction rate (about 2k tps [49]).\" Making it also much better than existing blockchains, obviously. Is this serious? I feel like everyone claims numbers like these</p><p><br></p><p>Instead of views, we here have epochs; each epoch has a primary but also a set of epoch leaders. Epochs can be \"ephemeral\" and transition to each other \"graciously\" once the maximum number of batches have been processed in them. This is a more lightweight reconfiguration than a proper view change. Ungracious epoch-changes occur in cases of failures or asynchrony. Except, apparently, we are setting a parameter StableLeaders such that we don't have ephemeral epochs? If we request 1 StableLeader, we have PBFT; if we have &gt;1 StableLeader, we have Tendermint or \"Spinning\"; if we have n StableLeaders, we have the current version of Mir; if we have StableLeaders &gt; n we have ephemeral epochs, just for the sake of rotating through the available StableLeaders I guess.</p><p><br></p><p>What does having n leaders even mean, though? If they're all leaders, none of them are! I guess it just means that everyone is in charge of batching a subset of the requests and proposing a block based on them.</p><p><br></p><p>The main purpose of the primary seems to just be to choose the epoch leaders (and be one of them.)</p><p><br></p><p>Requests are bucketed by their hashes, dividing them up among leaders. Classic. (Which leader gets which requests is rotated in order to save </p><p><br></p><p>Apparently, even in classic PBFT, you can have multiple batches in parallel using watermarks (the lowest and highest acceptable sequence numbers); this is not immediately evident to me from the paper. I think this just means that PBFT doesn't require sequence numbers to be strictly sequential, and so you can fill the watermarks with requests? That is weird, though, because the sequence numbers are supposed to impose an order and the viability of the next state might depend on the current request.</p>",
+    "published": "2019-09-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-06-20T23:38:24.338Z"
+  },
+  {
+    "id": "5e4aba01-eff9-45c4-a4f3-5349cc9ade43",
+    "title": "A relational model of data for large shared data banks",
+    "authors": [
+      {
+        "prefix": "E. F.",
+        "lastName": "Codd",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "databases"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/362384.362685",
+    "notes": "<h1>A relational model of data for large shared data banks</h1><h3>Authors: E. F. Codd</h3><h3>Published: June 1970</h3><p><br></p><p>June 1970!</p><p><br></p><p>\"Data bank\" was apparently a more common term than \"data base.\" Data was stored in trees (like file systems) or more general graph or network models. The relational model produces a higher-level data storage method where the format is derived from the nature of the data, and not from moment-to-moment application-specific needs, creating \"data independence\" and also reducing the redundancy and inconsistency that ad-hoc optimized representations can create.</p><p><br></p><p>This paper cites one main predecessor: \"Feasibility of a set-theoretical data structure - a general structure based on a reconstituted definition of relation\" (Childs, D. L., 1968.) It also praises \"data description tables\" that emerged in recent information systems, citing some system-specific manuals.</p><p><br></p><p>It criticizes three different types of data dependence, by which it means: applications making assumptions about the way the data they access is stored. \"Order dependence\" occurs when applications assume that records are stored in the order that they need to be displayed. \"Indexing dependence\" occurs when applications are dependent on indexes. Apparently there is already a concept of a \"primary key\" for records. \"Access path dependence\" occurs when users put objects inside other objects, requiring you to go through one object to get to another, resulting in MongoDB.</p><p><br></p><p>A relation is a set of n-tuples of elements, each element being from a specific set according to its index; it is a subset of the Cartesian product of the relevant sets. The degree of a relation is the number of elements (columns) in it; according to their degree, relations can be called unary, binary, ternary, or n-ary. The array (table) representation is used, but remember that the ordering of rows is actually arbitrary and rows must be distinct (and also the other stuff above.) Multiple \"columns\" (tuple elements) can draw from the same set: for example, in a database of parts, you could have one relation element that stores the part you're trying to build and one element that stores a part needed to build that part. However, for ease of use, elements should be labeled using \"relationships\" that don't depend on the order of the tuples; so, in that example, one part might be labeled sub.part and one super.part, so that domains are qualified with \"role names\" and can be ordered freely.</p><p><br></p><p>The set of values actually present in the system under a given name is called the \"active domain.\" A domain or combination of domains whose values uniquely identify a relation is called a primary key; a primary key is non-redundant if every domain in it is used by the unique identification. If there are multiple non-redundant primary keys, we should \"arbitrarily\" select one to be \"the\" primary key.</p><p><br></p><p>Foreign keys are those that cross-reference the primary keys of the same or a different relation.</p><p><br></p><p>Suddenly, we are delving into domains who have relations as elements - in other words, columns that store tables. This seems to effectively induce data path dependence again, although there seems to be an assumption that there are some cases where it is only right and natural to have tables in tables. In any case, we can make this less complicated (\"eliminate nonsimple domains\") by normalizing our data. A sub-relation inside a relation gets the super-relation's primary key dropped into it and then is pulled out into another table reserved for that kind of sub-relation. This process may have to be done recursively. This assumes, reasonably, that no sub-relations are themselves primary keys and that the dependencies between the relations are tree-like. Normalization makes storing and transferring data much easier.</p><p><br></p><p>We now turn to the topic of developing a universal data \"sublanguage\" based on an applied predicate calculus. The use of arithmetic functions, insertions, deletions, and triggers are contemplated. A user is expected to be able to query a relation using any combination of arguments as \"knowns\" and the others as \"unknowns,\" \"because the information (like Everest) is there.\" This was a rare feature which they call symmetric exploitation of relations.</p><p><br></p><p>The named set of relations consists of those created and named by users; the expressible set is a much larger superset thereof and consists of relations identified by names, \"generations\" (migrations?), roles, domains, and logical and mathematical operations.</p><p><br></p><p>Operations on relations are similar to operations on sets, although some set operations like \"union\" can produce weird things; unioning relations of different degrees just gets you a bunch of n-tuples that aren't all the same lengths which is not what a relation is.</p><p><br></p><p>We might want to produce a permutation of a relation by re-ordering the columns, which I guess you can kind of do in SQL. We obviously want to be able to create a projection by selecting certain columns of a relation. When relations have a domain in common, we can sometimes join them, if the elements from the shared domain match up exactly. There is a whole subsection on the different possibilities for joins but I continue to not find join logic very interesting.</p>",
+    "published": "1970-06-01",
+    "read": false,
+    "doi": "10.1145/362384.362685",
+    "citationCount": 4452,
+    "citationsUpdated": "2023-06-21T23:09:06.223Z"
+  },
+  {
+    "id": "3ae8c8ce-cbbd-4e5a-9ebe-81c8bb320f5b",
+    "title": "Unreliable failure detectors for reliable distributed systems",
+    "authors": [
+      {
+        "prefix": "Tushar Deepak",
+        "lastName": "Chandra",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sam",
+        "lastName": "Toueg",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "detectors",
+      "inbox"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/226643.226647",
+    "notes": "<h1>Unreliable failure detectors for reliable distributed systems</h1><h3>Authors: Tushar Deepak Chandra, Sam Toueg</h3><h3>Published: March 1996</h3><p><br></p><h2>1. Introduction</h2><p><br></p><p>Consensus allows processes to reach a common decision, which depends on their initial inputs, despite failures. Atomic Broadcast allows processes to reliably broadcast messages, so that they agree on the contents and order of a set of messages. Somehow failure detectors can interact with these things.</p><p><br></p><p>We are studying asynchronous systems, meaning those in which there is no bound on message delay, clock drift (interesting), or the time necessary to execute a step; no timing assumptions can be made whatsoever. Deterministic solutions to consensus and broadcast cannot be obtained in this setting. However, this paper attempts to ameliorate that with unreliable failure detectors for systems with crash failures.</p><p><br></p><p>\"Failure detector\" seems to literally mean \"module that watches some processes and adds them to a 'suspicious processes' list if they seem suspicious.\" You could just call these, like, \"crash guessers\" or \"timeout modules.\" We still have to act as if the processes it is suspicious of are possibly fine and keep delivering messages to them and stuff. A hilarious approach is mentioned in which every process that a failure detector suspects has crashed is then forced to crash; that's one way of being right.</p><p><br></p><p>Failure detectors can be characterized in terms of completeness (whether they will eventually detect every failure) and their accuracy (how often they will make mistakes (false positives?)). This paper defines two completeness and four accuracy properties, dividing the failure detectors into 8 categories which can be reduced to four.</p><p><br></p><p>A failure detector D' is weaker than any failure detector D which can be \"reduced\" to D' by an algorithm, unless D' can also be reduced to D, in which case the two are equivalent. Weak enough failure detectors require a majority of processes to be correct to solve consensus; stronger ones don't. The weakest class of failure detectors is ◇W. Those in this class can make an infinite number of mistakes as long as: \"eventually\" every process that crashes is permanently suspected by some correct process; and, there is some some correct process that is eventually free from all suspicion. Both of these must apply \"forever\" (until the end of the computation.)</p><p><br></p><p>Assuming a failure detector with the properties of ◇W but actually having an even worse failure detector allegedly leads you to make mistakes that threaten liveness but not safety.</p><p><br></p><p>A practical implementation of a ◇W-class failure detector in a somewhat synchronous network might look like a heartbeat system with timeout detectors that increase their timeout periods each time a process that timed out turned out to be fine actually. However, thinking about practical implementations of these systems is not allowed.</p><p><br></p><p>The weakest failure detector in ◇W is called ◇W<sub>0</sub> and satisfies the bare minimum properties of ◇W and nothing else. According to another paper (the authors are citing themselves), it is the weakest failure detector that can be used to solve consensus in asynchronous systems, requiring that a majority of the processes are correct; any failure detector that can be used to solve consensus can be transformed into it.</p><p><br></p><p>Atomic broadcast can be modeled with consensus. Different models of partial synchrony can be modeled with varying unreliable failure detectors. Using failure detectors gives a model that is asynchronous enough to be generally useful while still allowing deterministic solutions. And algorithms that use them can be quite practical. Allegedly.</p><p><br></p><h2>2. The Model</h2><p><br></p><p>Properties:</p><p><br></p><ul><li>Strong completeness: eventually, every process that crashes is permanently suspected by every correct process.</li><li>Weak completeness: eventually, every process that crashes is permanently suspected by some correct process.</li><li>(Perpetual) strong accuracy: no process is suspected before it crashes. Not practical.</li><li>(Perpetual) weak accuracy: some correct process is never suspected. Also kind of hard to achieve.</li><li>Eventual strong accuracy: there is a time after which correct processes are not suspected by any correct process.</li><li>Eventual weak accuracy: there is a time after which some correct process is never suspected by anyone.</li></ul><p><br></p><p>The corresponding detector classes:</p><p><br></p><p><img src=\"/uploads/c310761db2039f0f2797ecb5b29a9b2f\"></p><p><br></p><p>They give an \"algorithm\" for transforming weak completeness into strong completeness that just broadcasts the suspicions of the weak detector to everyone. The only interesting point is that it stops suspecting processes when receiving these messages from them - but shouldn't that be a low-level event occurring when any message is received?</p>",
+    "published": "1996-03-01",
+    "read": false,
+    "doi": "10.1145/226643.226647",
+    "citationCount": 1557,
+    "citationsUpdated": "2023-06-28T21:44:45.899Z"
+  },
+  {
+    "id": "a52dbe5f-5a78-445e-9436-5e9602182a6c",
+    "title": "The weakest failure detector for solving consensus",
+    "authors": [
+      {
+        "prefix": "Tushar Deepak",
+        "lastName": "Chandra",
+        "suffix": ""
+      },
+      {
+        "prefix": "Vassos",
+        "lastName": "Hadzilacos",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sam",
+        "lastName": "Toueg",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "inbox",
+      "detectors"
+    ],
+    "summary": "",
+    "link": "https://dl.acm.org/doi/pdf/10.1145/234533.234549",
+    "notes": "<h1>The weakest failure detector for solving consensus</h1><h3>Authors: Tushar Deepak Chandra, Vassos Hadzilacos, Sam Toueg</h3><h3>Published: July 1996</h3><p><br></p><p>Necessary and sufficient!</p>",
+    "published": "1996-07-01",
+    "read": false,
+    "doi": "10.1145/234533.234549",
+    "citationCount": 553,
+    "citationsUpdated": "2023-06-28T21:45:56.770Z"
+  },
+  {
+    "id": "73681e4d-1bf8-408a-8994-90a436fefe17",
+    "title": "Language models are few-shot learners",
+    "authors": [
+      {
+        "prefix": "Tom B.",
+        "lastName": "Brown",
+        "suffix": ""
+      },
+      {
+        "prefix": "Benjamin",
+        "lastName": "Mann",
+        "suffix": ""
+      },
+      {
+        "prefix": "Nick",
+        "lastName": "Ryder",
+        "suffix": ""
+      },
+      {
+        "prefix": "Melanie",
+        "lastName": "Subbiah",
+        "suffix": ""
+      },
+      {
+        "prefix": "Jared",
+        "lastName": "Kaplan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Prafulla",
+        "lastName": "Dhariwal",
+        "suffix": ""
+      },
+      {
+        "prefix": "Arvind",
+        "lastName": "Neelakantan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Pranav",
+        "lastName": "Shyam",
+        "suffix": ""
+      },
+      {
+        "prefix": "Girish",
+        "lastName": "Sastry",
+        "suffix": ""
+      },
+      {
+        "prefix": "Amanda",
+        "lastName": "Askell",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sandhini",
+        "lastName": "Agarwal",
+        "suffix": ""
+      },
+      {
+        "prefix": "Ariel",
+        "lastName": "Herbert-Voss",
+        "suffix": ""
+      },
+      {
+        "prefix": "Gretchen",
+        "lastName": "Krueger",
+        "suffix": ""
+      },
+      {
+        "prefix": "Tom",
+        "lastName": "Henighan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Rewon",
+        "lastName": "Child",
+        "suffix": ""
+      },
+      {
+        "prefix": "Aditya",
+        "lastName": "Ramesh",
+        "suffix": ""
+      },
+      {
+        "prefix": "Daniel M.",
+        "lastName": "Ziegler",
+        "suffix": ""
+      },
+      {
+        "prefix": "Jeffrey",
+        "lastName": "Wu",
+        "suffix": ""
+      },
+      {
+        "prefix": "Clemens",
+        "lastName": "Winter",
+        "suffix": ""
+      },
+      {
+        "prefix": "Christopher",
+        "lastName": "Hesse",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mark",
+        "lastName": "Chen",
+        "suffix": ""
+      },
+      {
+        "prefix": "Eric",
+        "lastName": "Sigler",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mateusz",
+        "lastName": "Litwin",
+        "suffix": ""
+      },
+      {
+        "prefix": "Scott",
+        "lastName": "Gray",
+        "suffix": ""
+      },
+      {
+        "prefix": "Benjamin",
+        "lastName": "Chess",
+        "suffix": ""
+      },
+      {
+        "prefix": "Jack",
+        "lastName": "Clark",
+        "suffix": ""
+      },
+      {
+        "prefix": "Christopher",
+        "lastName": "Berner",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sam",
+        "lastName": "McCandlish",
+        "suffix": ""
+      },
+      {
+        "prefix": "Alec",
+        "lastName": "Radford",
+        "suffix": ""
+      },
+      {
+        "prefix": "Ilya",
+        "lastName": "Sutskever",
+        "suffix": ""
+      },
+      {
+        "prefix": "Dario",
+        "lastName": "Amodei",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "industry",
+      "ML",
+      "LLM"
+    ],
+    "summary": "",
+    "link": "https://proceedings.neurips.cc/paper_files/paper/2020/file/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf",
+    "notes": "<h1>Language models are few-shot learners</h1><h3>Authors: Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel M. Ziegler, Jeffrey Wu, Clemens Winter, Christopher Hesse, Mark Chen, Eric Sigler, Mateusz Litwin, Scott Gray, Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford, Ilya Sutskever, Dario Amodei</h3><h3>Published: December 2020</h3><p><br></p><p>This is the GPT-3 paper.</p>",
+    "published": "2020-12-01",
+    "read": false,
+    "doi": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-07-03T02:34:49.388Z"
+  },
+  {
+    "id": "1cf7ec40-91eb-4cfa-b967-d0b3ae5eddbe",
+    "title": "U2-Net: Going deeper with nested U-structure for salient object detection",
+    "authors": [
+      {
+        "prefix": "Xuebin",
+        "lastName": "Qin",
+        "suffix": ""
+      },
+      {
+        "prefix": "Zichen",
+        "lastName": "Zhang",
+        "suffix": ""
+      },
+      {
+        "prefix": "Chenyang",
+        "lastName": "Huang",
+        "suffix": ""
+      },
+      {
+        "prefix": "Masood",
+        "lastName": "Dehghan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Osmar R.",
+        "lastName": "Zaiane",
+        "suffix": ""
+      },
+      {
+        "prefix": "Martin",
+        "lastName": "Jagersand",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "ML",
+      "images"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/2005.09007.pdf",
+    "notes": "",
+    "published": "2020-10-01",
+    "read": false,
+    "doi": "10.1016/j.patcog.2020.107404",
+    "citationCount": 512,
+    "citationsUpdated": "2023-07-03T08:30:30.604Z"
+  },
+  {
+    "id": "67d50da8-7b09-4350-a7b6-aa66a00ac38b",
+    "title": "Deep Residual Learning for Image Recognition",
+    "authors": [
+      {
+        "prefix": "Kaiming",
+        "lastName": "He",
+        "suffix": ""
+      },
+      {
+        "prefix": "Xiangyu",
+        "lastName": "Zhang",
+        "suffix": ""
+      },
+      {
+        "prefix": "Shaoqing",
+        "lastName": "Ren",
+        "suffix": ""
+      },
+      {
+        "prefix": "Jian",
+        "lastName": "Sun",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "images",
+      "ML"
+    ],
+    "summary": "",
+    "link": "https://3dvar.com/He2016Deep.pdf",
+    "notes": "",
+    "published": "2016-06-01",
+    "read": false,
+    "doi": "10.1109/CVPR.2016.90",
+    "citationCount": 75127,
+    "citationsUpdated": "2023-07-03T08:33:43.042Z"
+  },
+  {
+    "id": "349b45f7-b52e-4574-96d6-055f8e355beb",
+    "title": "Attention is All you Need",
+    "authors": [
+      {
+        "prefix": "Ashish",
+        "lastName": "Vaswani",
+        "suffix": ""
+      },
+      {
+        "prefix": "Noam M.",
+        "lastName": "Shazeer",
+        "suffix": ""
+      },
+      {
+        "prefix": "Niki",
+        "lastName": "Parmar",
+        "suffix": ""
+      },
+      {
+        "prefix": "Jakob",
+        "lastName": "Uszkoreit",
+        "suffix": ""
+      },
+      {
+        "prefix": "Llion",
+        "lastName": "Jones",
+        "suffix": ""
+      },
+      {
+        "prefix": "Aidan N.",
+        "lastName": "Gomez",
+        "suffix": ""
+      },
+      {
+        "prefix": "Lukasz",
+        "lastName": "Kaiser",
+        "suffix": ""
+      },
+      {
+        "prefix": "Illia",
+        "lastName": "Polosukhin",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "ML",
+      "LLM",
+      "industry"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/1706.03762.pdf",
+    "notes": "",
+    "published": "2017-06-01",
+    "read": false,
+    "doi": "arXiv:1706.03762",
+    "citationCount": 60615,
+    "citationsUpdated": "2023-07-03T09:37:01.586Z"
+  },
+  {
+    "id": "769c2482-eec9-4e3b-aa83-f263ed62c42d",
+    "title": "Language Models are Few-Shot Learners",
+    "authors": [
+      {
+        "prefix": "Tom B.",
+        "lastName": "Brown",
+        "suffix": ""
+      },
+      {
+        "prefix": "Benjamin",
+        "lastName": "Mann",
+        "suffix": ""
+      },
+      {
+        "prefix": "Nick",
+        "lastName": "Ryder",
+        "suffix": ""
+      },
+      {
+        "prefix": "Melanie",
+        "lastName": "Subbiah",
+        "suffix": ""
+      },
+      {
+        "prefix": "J.",
+        "lastName": "Kaplan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Prafulla",
+        "lastName": "Dhariwal",
+        "suffix": ""
+      },
+      {
+        "prefix": "Arvind",
+        "lastName": "Neelakantan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Pranav",
+        "lastName": "Shyam",
+        "suffix": ""
+      },
+      {
+        "prefix": "Girish",
+        "lastName": "Sastry",
+        "suffix": ""
+      },
+      {
+        "prefix": "Amanda",
+        "lastName": "Askell",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sandhini",
+        "lastName": "Agarwal",
+        "suffix": ""
+      },
+      {
+        "prefix": "Ariel",
+        "lastName": "Herbert-Voss",
+        "suffix": ""
+      },
+      {
+        "prefix": "Gretchen",
+        "lastName": "Krueger",
+        "suffix": ""
+      },
+      {
+        "prefix": "T.",
+        "lastName": "Henighan",
+        "suffix": ""
+      },
+      {
+        "prefix": "Rewon",
+        "lastName": "Child",
+        "suffix": ""
+      },
+      {
+        "prefix": "A.",
+        "lastName": "Ramesh",
+        "suffix": ""
+      },
+      {
+        "prefix": "Daniel M.",
+        "lastName": "Ziegler",
+        "suffix": ""
+      },
+      {
+        "prefix": "Jeff",
+        "lastName": "Wu",
+        "suffix": ""
+      },
+      {
+        "prefix": "Clemens",
+        "lastName": "Winter",
+        "suffix": ""
+      },
+      {
+        "prefix": "Christopher",
+        "lastName": "Hesse",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mark",
+        "lastName": "Chen",
+        "suffix": ""
+      },
+      {
+        "prefix": "Eric",
+        "lastName": "Sigler",
+        "suffix": ""
+      },
+      {
+        "prefix": "Mateusz",
+        "lastName": "Litwin",
+        "suffix": ""
+      },
+      {
+        "prefix": "Scott",
+        "lastName": "Gray",
+        "suffix": ""
+      },
+      {
+        "prefix": "Benjamin",
+        "lastName": "Chess",
+        "suffix": ""
+      },
+      {
+        "prefix": "Jack",
+        "lastName": "Clark",
+        "suffix": ""
+      },
+      {
+        "prefix": "Christopher",
+        "lastName": "Berner",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sam",
+        "lastName": "McCandlish",
+        "suffix": ""
+      },
+      {
+        "prefix": "Alec",
+        "lastName": "Radford",
+        "suffix": ""
+      },
+      {
+        "prefix": "Ilya",
+        "lastName": "Sutskever",
+        "suffix": ""
+      },
+      {
+        "prefix": "Dario",
+        "lastName": "Amodei",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "ML",
+      "LLM"
+    ],
+    "summary": "",
+    "link": "https://arxiv.org/pdf/2005.14165.pdf",
+    "notes": "",
+    "published": "2020-05-01",
+    "read": false,
+    "doi": "6b85b63579a916f705a8e10a49bd8d849d91b1fc",
+    "citationCount": 11776,
+    "citationsUpdated": "2023-07-03T09:38:54.634Z"
   }
 ]
