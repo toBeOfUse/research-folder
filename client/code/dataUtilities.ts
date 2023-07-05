@@ -1,10 +1,38 @@
 import { AuthorName, Paper } from "../../data/entities";
 
-export const lookupPaper = async (
+export const searchPapers = async (keywords: string): Promise<string> => {
+  const resp = await fetch(
+    "https://api.semanticscholar.org/graph/v1/paper/search" +
+      "?limit=1&query=" +
+      // simple regex-based tokenization bc the search api doesn't respond well
+      // to some characters, like "-"
+      keywords.replace(/\W+/g, "+")
+  );
+  if (!resp.ok) {
+    throw (
+      "Request to Semantic Scholar Paper Search failed with status " +
+      resp.status +
+      " " +
+      resp.statusText
+    );
+  }
+  const info = await resp.json();
+  if (!info?.data?.length) {
+    throw (
+      'Search term(s) "' + keywords + '" yielded no results on Semantic Scholar'
+    );
+  }
+  console.log(info);
+  return info.data[0].paperId;
+};
+
+export const lookupPaperID = async (
   identifier: string
 ): Promise<Partial<Paper>> => {
   const resp = await fetch(
-    `https://api.semanticscholar.org/graph/v1/paper/${identifier}?fields=title,citationCount,authors,openAccessPdf,publicationDate`
+    "https://api.semanticscholar.org/graph/v1/paper/" +
+      identifier +
+      "?fields=title,citationCount,authors,openAccessPdf,publicationDate"
   );
   if (!resp.ok) {
     throw (

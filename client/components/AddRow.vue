@@ -3,10 +3,11 @@ import { reactive, ref } from 'vue';
 import { Paper } from '../../data/entities';
 import EditableRow from './EditableRow.vue';
 import contenteditable from 'vue-contenteditable';
-import { lookupPaper } from '../code/dataUtilities';
+import { lookupPaperID, searchPapers } from '../code/dataUtilities';
 defineEmits<{ (event: 'addRow', row: Paper): void }>();
 const adding = ref(false);
 const DOI = ref("");
+const search = ref("");
 const getBlankRow: () => Paper = () => ({
     authors: [],
     id: "new",
@@ -23,16 +24,23 @@ const getBlankRow: () => Paper = () => ({
 });
 const rowInProgress = reactive<Paper>(getBlankRow());
 const initRow = async () => {
-    if (DOI.value.trim().length > 0) {
+    if (DOI.value.trim().length > 0 || search.value.trim().length > 0) {
         try {
-            const info = await lookupPaper(DOI.value);
-            rowInProgress.doi = DOI.value;
+            let idToUse: string;
+            if (DOI.value.trim().length != 0) {
+                idToUse = DOI.value.trim();
+            } else {
+                idToUse = await searchPapers(search.value.trim());
+            }
+            const info = await lookupPaperID(idToUse);
+            rowInProgress.doi = idToUse;
             Object.assign(rowInProgress, info);
             rowInProgress.citationsUpdated = new Date();
-            DOI.value = ""
+            DOI.value = "";
+            search.value = "";
             adding.value = true;
         } catch (e: any) {
-            alert("This DOI didn't work: " + DOI.value + "\n" + e.toString())
+            alert("Paper retrieval failed:" + "\n" + e.toString())
         }
     } else {
         adding.value = true;
@@ -53,7 +61,9 @@ const reset = () => {
         <tr style="background-color: #e6fae7">
             <td />
             <td>
-                <contenteditable style="margin-top: 4px;" v-model="DOI" tag="span" data-ph="DOI (optional)       "
+                <contenteditable style="margin-top: 4px; margin-right: 20px;" v-model="search" tag="span"
+                    data-ph="Title search..." @keypress.enter="initRow" no-html no-nl />
+                <contenteditable style="margin-top: 4px;" v-model="DOI" tag="span" data-ph="DOI lookup..."
                     @keypress.enter="initRow" no-html no-nl />
                 <button class="wide-button" style="float: right" @click="initRow">➕ Add Paper</button>
             </td>
