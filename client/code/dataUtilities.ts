@@ -22,7 +22,6 @@ export const searchPapers = async (keywords: string): Promise<string> => {
       'Search term(s) "' + keywords + '" yielded no results on Semantic Scholar'
     );
   }
-  console.log(info);
   return info.data[0].paperId;
 };
 
@@ -70,6 +69,7 @@ export const lookupPaperID = async (
     authors: info.authors
       ? info.authors.map((a: { name: string }) => sliceName(a.name))
       : [],
+    semanticScholarID: identifier,
   };
 };
 

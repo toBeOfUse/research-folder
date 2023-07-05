@@ -15,12 +15,11 @@ const getBlankRow: () => Paper = () => ({
     notes: "",
     published: new Date(1990, 0, 1),
     read: false,
-    summary: "",
     tags: [],
     title: "",
-    doi: "",
     citationCount: 0,
-    citationsUpdated: undefined
+    citationsUpdated: undefined,
+    semanticScholarID: ""
 });
 const rowInProgress = reactive<Paper>(getBlankRow());
 const initRow = async () => {
@@ -33,7 +32,7 @@ const initRow = async () => {
                 idToUse = await searchPapers(search.value.trim());
             }
             const info = await lookupPaperID(idToUse);
-            rowInProgress.doi = idToUse;
+            rowInProgress.semanticScholarID = idToUse;
             Object.assign(rowInProgress, info);
             rowInProgress.citationsUpdated = new Date();
             DOI.value = "";

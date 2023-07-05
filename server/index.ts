@@ -11,28 +11,6 @@ import { Paper, TagOrder } from "../data/entities";
 
 const db = remultExpress({
   entities: [Paper, TagOrder],
-  async initApi(remult) {
-    const papersRepo = remult.repo(Paper);
-    if ((await papersRepo.find()).length == 0) {
-      papersRepo.insert({
-        title: "The Byzantine Generals Problem",
-        authors: [
-          { prefix: "Leslie", lastName: "Lamport", suffix: "" },
-          { prefix: "Robert", lastName: "Shostak", suffix: "" },
-          { prefix: "Marshall", lastName: "Pease", suffix: "" },
-        ],
-        tags: ["fundamentals", "BFT", "Algorithms"],
-        notes: "",
-        published: new Date(1982, 6, 1), // July 1982 (months are 0-indexed)
-        summary: "Inconsistent senders make consensus very difficult.",
-        link: "https://lamport.azurewebsites.net/pubs/byz.pdf",
-        read: true,
-        doi: "10.1145/357172.357176",
-        citationCount: 3537,
-        citationsUpdated: new Date(2023, 3, 15),
-      });
-    }
-  },
 });
 
 // start vite
@@ -65,10 +43,8 @@ const db = remultExpress({
     } else {
       console.log("proxying request for document " + url);
       console.log("redirects", paper.redirectUrls);
-      console.log(paper.headers["content-type"]);
       res.header("content-type", paper.headers["content-type"] || "");
       const data = paper.body;
-      console.log(data);
       res.send(data);
     }
   });

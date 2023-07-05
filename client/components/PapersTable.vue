@@ -165,7 +165,7 @@ const closeNotes = (newNotes: string) => {
           <ContentEditable v-bind="CEOpts" data-ph="Search..." tag="span" v-model="filters.tags.value"
             style="font-weight:normal" @click="(e: MouseEvent) => e.stopPropagation()" />
         </VTh>
-        <VTh sortKey="citationCount">Crossrefs</VTh>
+        <VTh sortKey="citationCount">Citations</VTh>
         <th />
       </template>
       <template #body="{ rows }">

@@ -24,9 +24,6 @@ export class Paper {
   tags: string[] = [];
 
   @Fields.string()
-  summary = "";
-
-  @Fields.string()
   link = "";
 
   @Fields.string()
@@ -35,11 +32,8 @@ export class Paper {
   @Fields.dateOnly()
   published = new Date(1990, 0, 1);
 
-  @Fields.boolean()
-  read = false;
-
   @Fields.string()
-  doi = "";
+  semanticScholarID = "";
 
   @Fields.number()
   citationCount = 0;
