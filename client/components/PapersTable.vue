@@ -18,8 +18,6 @@ const papersRepo = remult.repo(Paper);
 // for use in rows in the repos if we want to instance the tables later
 const INSTANCE = "mitch";
 
-// stores papers straight from the database; used to populate papersIndex and
-// then revert to originals if necessary
 let papers: Ref<Paper[]> = ref([]);
 
 const tagOrder = new LocalTagOrder(INSTANCE, TagOrderType.ordering);
@@ -32,6 +30,7 @@ async function loadAll() {
 }
 onMounted(loadAll);
 
+// why did i think it was a good idea to be able to edit more than one row at once?
 const wip = reactive(new Set<string>());
 
 const edit = (row: Paper) => wip.add(row.id);
@@ -42,6 +41,7 @@ const cancel = (row: Paper) => {
   wip.delete(row.id);
 }
 
+const lastSavedPaperID = ref("");
 const save = async (row: Paper, insert: boolean = false) => {
   cleanAuthors(row.authors);
   // TODO: more validation? on tags?
@@ -63,6 +63,7 @@ const save = async (row: Paper, insert: boolean = false) => {
     row = await papersRepo.save(row);
   }
   wip.delete(row.id);
+  lastSavedPaperID.value = row.id;
 }
 
 const del = async (row: Paper) => {
@@ -136,7 +137,6 @@ const closeNotes = (newNotes: string) => {
     paper.notes = newNotes;
   }
   takingNotesOn.value = undefined;
-
 }
 
 </script>
@@ -172,7 +172,8 @@ const closeNotes = (newNotes: string) => {
         <component :is="editing(row) ? EditableRow : StaticRow" v-for="row, rowIndex in rows" :key="row.id" :row="row"
           @edit="edit(row)" @save="row => save(row)" @cancel="cancel(row)" @delete="del(row)"
           @notes="takingNotesOn = row.id" :sortedTags="[...row.tags].sort(tagSorter)"
-          :bg="rowIndex % 2 == 1 ? 'white' : '#d7ebf5'" />
+          :bg="row.id == lastSavedPaperID ? '#e6fae7' : rowIndex % 2 == 1 ? 'white' : '#d7ebf5'"
+          :highlighted="row.id == lastSavedPaperID" />
         <AddRow @add-row="(row: Paper) => save(row, true)" />
       </template>
     </VTable>

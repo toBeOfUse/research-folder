@@ -1,26 +1,32 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed, nextTick, onMounted, ref } from 'vue';
 import { AuthorName, Paper } from '../../data/entities';
 import { getPublicationDate } from '../code/dataUtilities';
 
 const fullName = (author: AuthorName) =>
     [author.prefix, author.lastName, author.suffix].filter(a => a).join(' ');
 const authorsToShow = 3;
-const props = defineProps<{ row: Paper, bg: string, sortedTags: string[] }>();
+const props = defineProps<{ row: Paper, bg: string, sortedTags: string[], highlighted: boolean }>();
 const etAl = computed(() => props.row.authors.slice(authorsToShow).map(fullName).join(", "));
 const citationsUpdated = computed(() =>
     props.row.citationsUpdated ?
-        ('Last modified: ' + props.row.citationsUpdated.toLocaleDateString()) :
+        ('Last updated: ' + props.row.citationsUpdated.toLocaleDateString()) :
         ''
 );
 const published = computed(() => getPublicationDate(props.row));
+const el = ref<HTMLElement | null>(null);
+onMounted(() => {
+    if (props.highlighted) {
+        nextTick(() => el.value?.scrollIntoView({ behavior: "smooth", block: "center" }));
+    }
+});
 // this component doesn't use all of these but for it to be interchangable with
 // editablerow without warnings we have to pretend
 defineEmits(['edit', 'save', 'cancel', 'delete', 'notes']);
 </script>
 
 <template>
-    <tr :style="{ backgroundColor: bg }">
+    <tr :style="{ backgroundColor: bg }" ref="el">
         <td style="text-align: right; width: 150px">{{ published }}</td>
         <td><a :class="{ link: row.link }" :href="row.link || undefined" target="_blank">{{ row.title }}</a></td>
         <td>
