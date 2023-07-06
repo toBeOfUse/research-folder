@@ -28,24 +28,32 @@ const db = remultExpress({
     // silly proxy to serve papers that can't be embedded in iframes while
     // ignoring cross-origin policies
     const url = (req.query as any).url;
-    const paper = await got(url, {
-      responseType: "buffer",
-      headers: {
-        "User-Agent": req.header("user-agent")!,
-        Accept: "application/pdf",
-      },
-      cookieJar,
-    });
-    // only proxy if a normal iframe isn't allowed, so that cookies function
-    // normally as often as possible
-    if (!paper.headers["x-frame-options"]) {
-      res.redirect(url);
-    } else {
-      console.log("proxying request for document " + url);
-      console.log("redirects", paper.redirectUrls);
-      res.header("content-type", paper.headers["content-type"] || "");
-      const data = paper.body;
-      res.send(data);
+    try {
+      const paper = await got(url, {
+        responseType: "buffer",
+        headers: {
+          "User-Agent": req.header("user-agent")!,
+          Accept: "application/pdf",
+        },
+        cookieJar,
+      });
+      // only proxy if a normal iframe isn't allowed, so that cookies function
+      // normally as often as possible
+      if (!paper.headers["x-frame-options"]) {
+        res.redirect(url);
+      } else {
+        console.log("proxying request for document " + url);
+        console.log("redirects", paper.redirectUrls);
+        res.header("content-type", paper.headers["content-type"] || "");
+        const data = paper.body;
+        res.send(data);
+      }
+    } catch (e: any) {
+      console.error("could not get paper at url", url);
+      console.error(e);
+      res.status(500);
+      res.send(e.toString());
+      res.end();
     }
   });
   app.post(
