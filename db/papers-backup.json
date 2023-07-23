@@ -49,8 +49,7 @@
       }
     ],
     "tags": [
-      "system models",
-      "distributed"
+      "system models"
     ],
     "summary": "",
     "link": "https://www.cs.cornell.edu/fbs/publications/DefLiveness.pdf",
@@ -74,8 +73,7 @@
     ],
     "tags": [
       "seminal",
-      "system models",
-      "distributed"
+      "system models"
     ],
     "summary": "",
     "link": "https://lamport.azurewebsites.net/pubs/time-clocks.pdf",
@@ -108,8 +106,7 @@
       }
     ],
     "tags": [
-      "system models",
-      "distributed"
+      "system models"
     ],
     "summary": "",
     "link": "https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf",
@@ -372,8 +369,7 @@
     "tags": [
       "routing",
       "algorithms",
-      "in-house",
-      "distributed"
+      "in-house"
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/3154273.3154314",
@@ -452,7 +448,6 @@
     ],
     "tags": [
       "algorithms",
-      "distributed",
       "fault-tolerance"
     ],
     "summary": "",
@@ -477,7 +472,6 @@
     ],
     "tags": [
       "algorithms",
-      "distributed",
       "fault-tolerance"
     ],
     "summary": "",
@@ -507,8 +501,7 @@
     ],
     "tags": [
       "algorithms",
-      "fault-tolerance",
-      "distributed"
+      "fault-tolerance"
     ],
     "summary": "",
     "link": "https://www.usenix.org/system/files/conference/atc14/atc14-paper-ongaro.pdf",
@@ -531,8 +524,7 @@
       }
     ],
     "tags": [
-      "system models",
-      "distributed"
+      "system models"
     ],
     "summary": "",
     "link": "https://www.freehaven.net/anonbib/cache/sybil.pdf",
@@ -566,8 +558,7 @@
     ],
     "tags": [
       "system models",
-      "algorithms",
-      "unread"
+      "algorithms"
     ],
     "summary": "",
     "link": "https://link.springer.com/content/pdf/10.1007/s00446-010-0099-z.pdf",
@@ -745,7 +736,6 @@
       }
     ],
     "tags": [
-      "unread",
       "algorithms",
       "industry"
     ],
@@ -758,52 +748,6 @@
     "citationCount": 1445,
     "citationsUpdated": "2023-07-05T07:11:24.307Z",
     "semanticScholarID": "20c31b7a5d64ce111e6808a261e09d4a9a24f6c0"
-  },
-  {
-    "id": "b3a2f783-422d-4653-baea-e6783631f3eb",
-    "title": "The Case for Learned Index Structures",
-    "authors": [
-      {
-        "prefix": "Tim",
-        "lastName": "Kraska",
-        "suffix": ""
-      },
-      {
-        "prefix": "Alex",
-        "lastName": "Beutel",
-        "suffix": ""
-      },
-      {
-        "prefix": "Ed H.",
-        "lastName": "Chi",
-        "suffix": ""
-      },
-      {
-        "prefix": "Jeffrey",
-        "lastName": "Dean",
-        "suffix": ""
-      },
-      {
-        "prefix": "Neoklis",
-        "lastName": "Polyzotis",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "ML",
-      "industry",
-      "unread",
-      "databases"
-    ],
-    "summary": "",
-    "link": "https://dl.acm.org/doi/pdf/10.1145/3183713.3196909",
-    "notes": "",
-    "published": "2018-05-01",
-    "read": false,
-    "doi": "10.1145/3183713.3196909",
-    "citationCount": 730,
-    "citationsUpdated": "2023-07-05T07:11:24.574Z",
-    "semanticScholarID": "f6eee02a2f4c74c2b543bf419f76cef60d5752f8"
   },
   {
     "id": "b91b0523-779f-467c-ad20-63e5d651f818",
@@ -841,7 +785,6 @@
       }
     ],
     "tags": [
-      "unread",
       "software engineering"
     ],
     "summary": "",
@@ -853,30 +796,6 @@
     "citationCount": 59,
     "citationsUpdated": "2023-07-05T07:11:25.030Z",
     "semanticScholarID": "3c3b8ee97b1f5082a0ea91bf2539607e52212e43"
-  },
-  {
-    "id": "9df403f2-dfd7-4cfe-89ea-96b64cbde33d",
-    "title": "Smooth, easy to compute interpolating splines",
-    "authors": [
-      {
-        "prefix": "John D.",
-        "lastName": "Hobby",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "geometry"
-    ],
-    "summary": "",
-    "link": "https://link.springer.com/content/pdf/10.1007/BF02187690.pdf",
-    "notes": "",
-    "published": "1986-06-01",
-    "read": false,
-    "doi": "",
-    "citationCount": 52,
-    "citationsUpdated": "2023-07-05T07:11:25.312Z",
-    "semanticScholarID": "62692c157e30ffe305ff8f4db980c976b821c5cf"
   },
   {
     "id": "f10c4328-7fb3-48d1-9816-b70f79f373c6",
@@ -945,8 +864,7 @@
     ],
     "tags": [
       "in-house",
-      "blockchain",
-      "unread"
+      "blockchain"
     ],
     "summary": "",
     "link": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9461080",
@@ -969,7 +887,6 @@
       }
     ],
     "tags": [
-      "unread",
       "self-stabilization",
       "survey"
     ],
@@ -1022,50 +939,6 @@
     "citationCount": 0,
     "citationsUpdated": "2023-07-05T07:11:26.384Z",
     "semanticScholarID": "fd014e4f09983246387f16c033cd9b3ead185daa"
-  },
-  {
-    "id": "7050093f-1aa3-4bbf-8529-13346c29c2ad",
-    "title": "Generative Agents: Interactive Simulacra of Human Behavior",
-    "authors": [
-      {
-        "prefix": "Joon Sung",
-        "lastName": "Park",
-        "suffix": ""
-      },
-      {
-        "prefix": "Joseph C.",
-        "lastName": "O'Brien",
-        "suffix": ""
-      },
-      {
-        "prefix": "Carrie J.",
-        "lastName": "Cai",
-        "suffix": ""
-      },
-      {
-        "prefix": "Percy",
-        "lastName": "Liang",
-        "suffix": ""
-      },
-      {
-        "prefix": "Michael S.",
-        "lastName": "Bernstein",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "ML"
-    ],
-    "summary": "",
-    "link": "https://arxiv.org/pdf/2304.03442.pdf",
-    "notes": "",
-    "published": "2023-04-01",
-    "read": false,
-    "doi": "",
-    "citationCount": 49,
-    "citationsUpdated": "2023-07-05T07:11:26.503Z",
-    "semanticScholarID": "9ac1486988c7fc05bb4ff5c738ee222ec7e15a33"
   },
   {
     "id": "2de88f1c-a642-4ee5-ab09-4e264c50de0a",
@@ -1158,7 +1031,6 @@
       }
     ],
     "tags": [
-      "unread",
       "blockchain",
       "BFT",
       "survey"
@@ -1204,7 +1076,6 @@
       }
     ],
     "tags": [
-      "unread",
       "BFT",
       "algorithms",
       "survey"
@@ -1250,7 +1121,6 @@
       }
     ],
     "tags": [
-      "unread",
       "BFT",
       "algorithms"
     ],
@@ -1320,8 +1190,7 @@
       }
     ],
     "tags": [
-      "cryptography",
-      "mostly unread"
+      "cryptography"
     ],
     "summary": "",
     "link": "https://link.springer.com/content/pdf/10.1007/3-540-45682-1_32.pdf",
@@ -1349,8 +1218,7 @@
       }
     ],
     "tags": [
-      "cryptography",
-      "mostly unread"
+      "cryptography"
     ],
     "summary": "",
     "link": "https://link.springer.com/content/pdf/10.1007/978-3-540-71677-8_13.pdf",
@@ -1389,8 +1257,7 @@
     ],
     "tags": [
       "system models",
-      "in-house",
-      "distributed"
+      "in-house"
     ],
     "summary": "",
     "link": "https://arxiv.org/pdf/2205.04930",
@@ -1429,8 +1296,7 @@
     ],
     "tags": [
       "blockchain",
-      "BFT",
-      "unread"
+      "BFT"
     ],
     "summary": "",
     "link": "https://link.springer.com/content/pdf/10.1007/978-3-319-63688-7_12.pdf",
@@ -1441,45 +1307,6 @@
     "citationCount": 1248,
     "citationsUpdated": "2023-07-05T07:11:29.327Z",
     "semanticScholarID": "44dacdec625e31df66736a385e7001ef33756c5f"
-  },
-  {
-    "id": "114a630d-aa9c-466c-8268-4cb055418a5f",
-    "title": "SoK: Eternal War in Memory",
-    "authors": [
-      {
-        "prefix": "L.",
-        "lastName": "Szekeres",
-        "suffix": ""
-      },
-      {
-        "prefix": "M.",
-        "lastName": "Payer",
-        "suffix": ""
-      },
-      {
-        "prefix": "Tao",
-        "lastName": "Wei",
-        "suffix": ""
-      },
-      {
-        "prefix": "Dawn",
-        "lastName": "Song",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "software engineering"
-    ],
-    "summary": "",
-    "link": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6547101",
-    "notes": "",
-    "published": "2013-05-01",
-    "read": false,
-    "doi": "10.1109/SP.2013.13",
-    "citationCount": 629,
-    "citationsUpdated": "2023-07-05T07:11:29.632Z",
-    "semanticScholarID": "602e4c977664087e5629a40637a1b97a381d28c9"
   },
   {
     "id": "7c2b23f4-6f47-4f74-b222-e91df2360415",
@@ -1507,7 +1334,6 @@
       }
     ],
     "tags": [
-      "unread",
       "sharding",
       "blockchain",
       "BFT"
@@ -1633,7 +1459,6 @@
       }
     ],
     "tags": [
-      "unread",
       "blockchain",
       "software engineering"
     ],
@@ -1669,7 +1494,6 @@
     ],
     "tags": [
       "blockchain",
-      "unread",
       "in-house"
     ],
     "summary": "",
@@ -1900,9 +1724,7 @@
       }
     ],
     "tags": [
-      "detectors",
-      "inbox",
-      "distributed"
+      "detectors"
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/226643.226647",
@@ -1935,9 +1757,7 @@
       }
     ],
     "tags": [
-      "inbox",
-      "detectors",
-      "distributed"
+      "detectors"
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/234533.234549",
@@ -1948,333 +1768,6 @@
     "citationCount": 830,
     "citationsUpdated": "2023-07-05T07:11:31.793Z",
     "semanticScholarID": "fac4f0cbbbde09b7f937abdf9b2fe03f2d023f34"
-  },
-  {
-    "id": "1cf7ec40-91eb-4cfa-b967-d0b3ae5eddbe",
-    "title": "U2-Net: Going deeper with nested U-structure for salient object detection",
-    "authors": [
-      {
-        "prefix": "Xuebin",
-        "lastName": "Qin",
-        "suffix": ""
-      },
-      {
-        "prefix": "Zichen",
-        "lastName": "Zhang",
-        "suffix": ""
-      },
-      {
-        "prefix": "Chenyang",
-        "lastName": "Huang",
-        "suffix": ""
-      },
-      {
-        "prefix": "Masood",
-        "lastName": "Dehghan",
-        "suffix": ""
-      },
-      {
-        "prefix": "Osmar R.",
-        "lastName": "Zaiane",
-        "suffix": ""
-      },
-      {
-        "prefix": "Martin",
-        "lastName": "Jagersand",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "ML",
-      "images"
-    ],
-    "summary": "",
-    "link": "https://arxiv.org/pdf/2005.09007.pdf",
-    "notes": "",
-    "published": "2020-10-01",
-    "read": false,
-    "doi": "10.1016/j.patcog.2020.107404",
-    "citationCount": 551,
-    "citationsUpdated": "2023-07-05T07:11:32.295Z",
-    "semanticScholarID": "3f5539ec77ae04623ddadf95eec32ad3f17d1487"
-  },
-  {
-    "id": "67d50da8-7b09-4350-a7b6-aa66a00ac38b",
-    "title": "Deep Residual Learning for Image Recognition",
-    "authors": [
-      {
-        "prefix": "Kaiming",
-        "lastName": "He",
-        "suffix": ""
-      },
-      {
-        "prefix": "Xiangyu",
-        "lastName": "Zhang",
-        "suffix": ""
-      },
-      {
-        "prefix": "Shaoqing",
-        "lastName": "Ren",
-        "suffix": ""
-      },
-      {
-        "prefix": "Jian",
-        "lastName": "Sun",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "images",
-      "ML"
-    ],
-    "summary": "",
-    "link": "https://3dvar.com/He2016Deep.pdf",
-    "notes": "",
-    "published": "2016-06-01",
-    "read": false,
-    "doi": "10.1109/CVPR.2016.90",
-    "citationCount": 132466,
-    "citationsUpdated": "2023-07-05T07:11:32.429Z",
-    "semanticScholarID": "2c03df8b48bf3fa39054345bafabfeff15bfd11d"
-  },
-  {
-    "id": "349b45f7-b52e-4574-96d6-055f8e355beb",
-    "title": "Attention is All you Need",
-    "authors": [
-      {
-        "prefix": "Ashish",
-        "lastName": "Vaswani",
-        "suffix": ""
-      },
-      {
-        "prefix": "Noam M.",
-        "lastName": "Shazeer",
-        "suffix": ""
-      },
-      {
-        "prefix": "Niki",
-        "lastName": "Parmar",
-        "suffix": ""
-      },
-      {
-        "prefix": "Jakob",
-        "lastName": "Uszkoreit",
-        "suffix": ""
-      },
-      {
-        "prefix": "Llion",
-        "lastName": "Jones",
-        "suffix": ""
-      },
-      {
-        "prefix": "Aidan N.",
-        "lastName": "Gomez",
-        "suffix": ""
-      },
-      {
-        "prefix": "Lukasz",
-        "lastName": "Kaiser",
-        "suffix": ""
-      },
-      {
-        "prefix": "Illia",
-        "lastName": "Polosukhin",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "ML",
-      "LLM",
-      "industry",
-      "seminal"
-    ],
-    "summary": "",
-    "link": "https://arxiv.org/pdf/1706.03762.pdf",
-    "notes": "",
-    "published": "2017-06-01",
-    "read": false,
-    "doi": "arXiv:1706.03762",
-    "citationCount": 60747,
-    "citationsUpdated": "2023-07-05T07:11:32.555Z",
-    "semanticScholarID": "204e3073870fae3d05bcbc2f6a8e263d9b72e776"
-  },
-  {
-    "id": "769c2482-eec9-4e3b-aa83-f263ed62c42d",
-    "title": "Language Models are Few-Shot Learners",
-    "authors": [
-      {
-        "prefix": "Tom B.",
-        "lastName": "Brown",
-        "suffix": ""
-      },
-      {
-        "prefix": "Benjamin",
-        "lastName": "Mann",
-        "suffix": ""
-      },
-      {
-        "prefix": "Nick",
-        "lastName": "Ryder",
-        "suffix": ""
-      },
-      {
-        "prefix": "Melanie",
-        "lastName": "Subbiah",
-        "suffix": ""
-      },
-      {
-        "prefix": "J.",
-        "lastName": "Kaplan",
-        "suffix": ""
-      },
-      {
-        "prefix": "Prafulla",
-        "lastName": "Dhariwal",
-        "suffix": ""
-      },
-      {
-        "prefix": "Arvind",
-        "lastName": "Neelakantan",
-        "suffix": ""
-      },
-      {
-        "prefix": "Pranav",
-        "lastName": "Shyam",
-        "suffix": ""
-      },
-      {
-        "prefix": "Girish",
-        "lastName": "Sastry",
-        "suffix": ""
-      },
-      {
-        "prefix": "Amanda",
-        "lastName": "Askell",
-        "suffix": ""
-      },
-      {
-        "prefix": "Sandhini",
-        "lastName": "Agarwal",
-        "suffix": ""
-      },
-      {
-        "prefix": "Ariel",
-        "lastName": "Herbert-Voss",
-        "suffix": ""
-      },
-      {
-        "prefix": "Gretchen",
-        "lastName": "Krueger",
-        "suffix": ""
-      },
-      {
-        "prefix": "T.",
-        "lastName": "Henighan",
-        "suffix": ""
-      },
-      {
-        "prefix": "Rewon",
-        "lastName": "Child",
-        "suffix": ""
-      },
-      {
-        "prefix": "A.",
-        "lastName": "Ramesh",
-        "suffix": ""
-      },
-      {
-        "prefix": "Daniel M.",
-        "lastName": "Ziegler",
-        "suffix": ""
-      },
-      {
-        "prefix": "Jeff",
-        "lastName": "Wu",
-        "suffix": ""
-      },
-      {
-        "prefix": "Clemens",
-        "lastName": "Winter",
-        "suffix": ""
-      },
-      {
-        "prefix": "Christopher",
-        "lastName": "Hesse",
-        "suffix": ""
-      },
-      {
-        "prefix": "Mark",
-        "lastName": "Chen",
-        "suffix": ""
-      },
-      {
-        "prefix": "Eric",
-        "lastName": "Sigler",
-        "suffix": ""
-      },
-      {
-        "prefix": "Mateusz",
-        "lastName": "Litwin",
-        "suffix": ""
-      },
-      {
-        "prefix": "Scott",
-        "lastName": "Gray",
-        "suffix": ""
-      },
-      {
-        "prefix": "Benjamin",
-        "lastName": "Chess",
-        "suffix": ""
-      },
-      {
-        "prefix": "Jack",
-        "lastName": "Clark",
-        "suffix": ""
-      },
-      {
-        "prefix": "Christopher",
-        "lastName": "Berner",
-        "suffix": ""
-      },
-      {
-        "prefix": "Sam",
-        "lastName": "McCandlish",
-        "suffix": ""
-      },
-      {
-        "prefix": "Alec",
-        "lastName": "Radford",
-        "suffix": ""
-      },
-      {
-        "prefix": "Ilya",
-        "lastName": "Sutskever",
-        "suffix": ""
-      },
-      {
-        "prefix": "Dario",
-        "lastName": "Amodei",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "ML",
-      "LLM"
-    ],
-    "summary": "",
-    "link": "https://arxiv.org/pdf/2005.14165.pdf",
-    "notes": "",
-    "published": "2020-05-01",
-    "read": false,
-    "doi": "6b85b63579a916f705a8e10a49bd8d849d91b1fc",
-    "citationCount": 11853,
-    "citationsUpdated": "2023-07-05T07:11:32.697Z",
-    "semanticScholarID": "6b85b63579a916f705a8e10a49bd8d849d91b1fc"
   },
   {
     "id": "85751fbe-f47b-4063-8e17-02a85f381fd2",
@@ -2293,8 +1786,7 @@
     ],
     "tags": [
       "algorithms",
-      "BFT",
-      "unread"
+      "BFT"
     ],
     "summary": "",
     "link": "https://eprint.iacr.org/2006/065.pdf",
@@ -2305,60 +1797,6 @@
     "citationCount": 205,
     "citationsUpdated": "2023-07-05T07:11:32.910Z",
     "semanticScholarID": "1a61eff8d669693d8678d6739d7a4dc4af56b308"
-  },
-  {
-    "id": "db03ba6c-c776-41bc-a591-bfc0c6d6b8f1",
-    "title": "Computing Machinery and Intelligence",
-    "authors": [
-      {
-        "prefix": "A.",
-        "lastName": "Turing",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "ML",
-      "seminal"
-    ],
-    "link": "https://colinallen.dnsalias.org/Readings/1950%20Turing.pdf",
-    "notes": "",
-    "published": "1950-10-01",
-    "semanticScholarID": "2d5673caa9e6af3a7b82a43f19ee920992db07ad",
-    "citationCount": 8985,
-    "citationsUpdated": "2023-07-05T07:19:27.924Z"
-  },
-  {
-    "id": "cb2ce0c6-04e4-4023-8dcf-738ca8568bce",
-    "title": "Learning representations by back-propagating errors",
-    "authors": [
-      {
-        "prefix": "D.",
-        "lastName": "Rumelhart",
-        "suffix": ""
-      },
-      {
-        "prefix": "Geoffrey E.",
-        "lastName": "Hinton",
-        "suffix": ""
-      },
-      {
-        "prefix": "Ronald J.",
-        "lastName": "Williams",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "ML",
-      "seminal"
-    ],
-    "link": "https://www.nature.com/articles/323533a0.pdf",
-    "notes": "",
-    "published": "1986-10-01",
-    "semanticScholarID": "052b1d8ce63b07fec3de9dbb583772d860b7c769",
-    "citationCount": 22791,
-    "citationsUpdated": "2023-07-05T07:21:52.855Z"
   },
   {
     "id": "515fdd4a-3b44-4050-8041-7b204d3758f1",
@@ -2406,7 +1844,6 @@
       }
     ],
     "tags": [
-      "inbox",
       "BFT"
     ],
     "link": "http://w3.cs.huji.ac.il/~dolev/pubs/tdsc-steward-8-2008.pdf",
@@ -2442,7 +1879,6 @@
       }
     ],
     "tags": [
-      "inbox",
       "BFT",
       "blockchain",
       "survey"
@@ -2453,102 +1889,6 @@
     "semanticScholarID": "6421eb27a243151d4ac5fd0a0aeb5080eb5f1621",
     "citationCount": 7,
     "citationsUpdated": "2023-07-06T01:13:27.832Z"
-  },
-  {
-    "id": "4a418806-5955-4de2-b361-d31ee7412968",
-    "title": "On the Expressive Power of Programming Languages",
-    "authors": [
-      {
-        "prefix": "M.",
-        "lastName": "Felleisen",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "software engineering",
-      "languages"
-    ],
-    "link": "https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=27985884a1947b656424b0956f82caeddde546a1",
-    "notes": "",
-    "published": "1991-12-01",
-    "semanticScholarID": "269e1c68c2d6b64befc9a30969bc2d686abcd191",
-    "citationCount": 364,
-    "citationsUpdated": "2023-07-09T01:05:13.034Z"
-  },
-  {
-    "id": "283d9914-d364-4e0d-98ea-da6cf5dc54b1",
-    "title": "Backpropagation Applied to Handwritten Zip Code Recognition",
-    "authors": [
-      {
-        "prefix": "Yann",
-        "lastName": "LeCun",
-        "suffix": ""
-      },
-      {
-        "prefix": "B.",
-        "lastName": "Boser",
-        "suffix": ""
-      },
-      {
-        "prefix": "J.",
-        "lastName": "Denker",
-        "suffix": ""
-      },
-      {
-        "prefix": "D.",
-        "lastName": "Henderson",
-        "suffix": ""
-      },
-      {
-        "prefix": "R.",
-        "lastName": "Howard",
-        "suffix": ""
-      },
-      {
-        "prefix": "W.",
-        "lastName": "Hubbard",
-        "suffix": ""
-      },
-      {
-        "prefix": "L.",
-        "lastName": "Jackel",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "ML",
-      "images"
-    ],
-    "link": "https://web.archive.org/web/20100730053801id_/http://srl.csdl.tamu.edu/courses/SR2008/papers/others/LeCun.pdf",
-    "notes": "<h1>Backpropagation Applied to Handwritten Zip Code Recognition</h1><h3>Authors: Yann LeCun, B. Boser, J. Denker, D. Henderson, R. Howard, W. Hubbard, L. Jackel</h3><h3>Published: December 1989</h3><p><br></p><p>Andrej Karpathy says this was possibly the first modern, practical example of training a neural network with backpropagation. He updated this paper's results <a href=\"http://karpathy.github.io/2022/03/14/lecun1989/\" rel=\"noopener noreferrer\" target=\"_blank\">here</a>.</p>",
-    "published": "1989-12-01",
-    "semanticScholarID": "a8e8f3c8d4418c8d62e306538c9c1292635e9d27",
-    "citationCount": 9241,
-    "citationsUpdated": "2023-07-09T01:07:08.538Z"
-  },
-  {
-    "id": "e4091fc5-2140-4d2e-9b2e-2a532d2b6e0d",
-    "title": "The Unreasonable Effectiveness of Recurrent Neural Networks",
-    "authors": [
-      {
-        "prefix": "Andrej",
-        "lastName": "Karpathy",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "ml",
-      "not a paper"
-    ],
-    "link": "http://karpathy.github.io/2015/05/21/rnn-effectiveness/",
-    "notes": "<h1>The Unreasonable Effectiveness of Recurrent Neural Networks</h1><h3>Authors: Andrej Karpathy</h3><h3>Published: May 2015</h3><p><br></p><p>According to Wikipedia, recurrent neural networks were important for a long time but have been outmoded by attention-based transformers for many tasks. It's interesting that this author had a transformer do the same \"generate Shakespeare character-by-character\" task in his later Let's Built ChatGPT video.</p>",
-    "published": "2015-05-01",
-    "semanticScholarID": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-07-09T01:11:05.982Z"
   },
   {
     "id": "c5b6445a-068b-4a5d-8285-8be86a8bf0b4",
@@ -2567,8 +1907,7 @@
     ],
     "tags": [
       "BFT",
-      "algorithms",
-      "inbox"
+      "algorithms"
     ],
     "link": "http://arxiv.org/pdf/2109.12664",
     "notes": "<h1>BigBFT: A Multileader Byzantine Fault Tolerance Protocol for High Throughput</h1><h3>Authors: S. Alqahtani, M. Demirbas</h3><h3>Published: September 2021</h3><p><br></p><p>\"reliable\" messages</p>",
