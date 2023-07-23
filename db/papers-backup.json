@@ -20,7 +20,7 @@
       }
     ],
     "tags": [
-      "reading list",
+      "seminal",
       "BFT"
     ],
     "summary": "",
@@ -29,8 +29,9 @@
     "published": "1982-07-01",
     "read": false,
     "doi": "10.1145/357172.357176",
-    "citationCount": 3537,
-    "citationsUpdated": "2023-04-16T00:08:52.771Z"
+    "citationCount": 6500,
+    "citationsUpdated": "2023-07-05T07:11:19.204Z",
+    "semanticScholarID": "c1f93428f4275b78bff78cc5beda2a46915a2bce"
   },
   {
     "id": "c585fb82-ab07-4bb6-9cae-f4660602a6fd",
@@ -48,8 +49,8 @@
       }
     ],
     "tags": [
-      "reading list",
-      "system models"
+      "system models",
+      "distributed"
     ],
     "summary": "",
     "link": "https://www.cs.cornell.edu/fbs/publications/DefLiveness.pdf",
@@ -57,8 +58,9 @@
     "published": "1985-10-01",
     "read": false,
     "doi": "10.1016/0020-0190(85)90056-0",
-    "citationCount": 653,
-    "citationsUpdated": "2023-04-16T00:19:56.135Z"
+    "citationCount": 1168,
+    "citationsUpdated": "2023-07-05T07:11:19.494Z",
+    "semanticScholarID": "8865f54fcb89d8646ec390208d9ef310aec25b25"
   },
   {
     "id": "90b3d241-433c-415d-b397-64046e575799",
@@ -71,8 +73,9 @@
       }
     ],
     "tags": [
-      "reading list",
-      "system models"
+      "seminal",
+      "system models",
+      "distributed"
     ],
     "summary": "",
     "link": "https://lamport.azurewebsites.net/pubs/time-clocks.pdf",
@@ -80,8 +83,9 @@
     "published": "1978-07-01",
     "read": true,
     "doi": "10.1145/359545.359563",
-    "citationCount": 5567,
-    "citationsUpdated": "2023-04-16T00:35:43.321Z"
+    "citationCount": 9952,
+    "citationsUpdated": "2023-07-05T07:11:19.803Z",
+    "semanticScholarID": "593619c2a69391454eae1f5ebe75fb8fc7e77e9d"
   },
   {
     "id": "bc0cd5b7-1c77-4252-8730-7fa237714915",
@@ -104,8 +108,8 @@
       }
     ],
     "tags": [
-      "reading list",
-      "system models"
+      "system models",
+      "distributed"
     ],
     "summary": "",
     "link": "https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf",
@@ -113,8 +117,9 @@
     "published": "1985-04-01",
     "read": false,
     "doi": "10.1145/3149.214121",
-    "citationCount": 2591,
-    "citationsUpdated": "2023-04-16T00:47:33.322Z"
+    "citationCount": 3003,
+    "citationsUpdated": "2023-07-05T07:11:19.941Z",
+    "semanticScholarID": "3ae6f73649ecb6666a49dcb86034b8486bda1298"
   },
   {
     "id": "01c12706-708f-4b77-b46b-04700378dd25",
@@ -127,7 +132,7 @@
       }
     ],
     "tags": [
-      "reading list",
+      "seminal",
       "blockchain",
       "algorithms"
     ],
@@ -137,8 +142,9 @@
     "published": "2008-10-01",
     "read": false,
     "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-04-16T00:55:19.611Z"
+    "citationCount": 12873,
+    "citationsUpdated": "2023-07-05T07:11:20.215Z",
+    "semanticScholarID": "4e9ec92a90c5d571d2f1d496f8df01f0a8f38596"
   },
   {
     "id": "c5b964fd-2857-40ec-acd7-819fa64fe641",
@@ -156,7 +162,7 @@
       }
     ],
     "tags": [
-      "reading list",
+      "seminal",
       "BFT",
       "algorithms"
     ],
@@ -166,8 +172,9 @@
     "published": "1999-02-01",
     "read": false,
     "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-04-16T00:58:47.515Z"
+    "citationCount": 3701,
+    "citationsUpdated": "2023-07-05T07:11:20.523Z",
+    "semanticScholarID": "8132164f0fad260a12733b9b09cacc5fff970530"
   },
   {
     "id": "81280174-2184-43be-b910-435e0fea13a6",
@@ -195,7 +202,6 @@
       }
     ],
     "tags": [
-      "reading list",
       "BFT",
       "algorithms"
     ],
@@ -205,8 +211,9 @@
     "published": "2017-04-01",
     "read": true,
     "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-04-16T00:58:47.515Z"
+    "citationCount": 35,
+    "citationsUpdated": "2023-07-05T07:11:20.804Z",
+    "semanticScholarID": "f07cb045e782c9b88afded46c8e85cfee0d967d7"
   },
   {
     "id": "9535e249-1ec9-413c-9451-fbc3506b4a2d",
@@ -239,7 +246,6 @@
       }
     ],
     "tags": [
-      "reading list",
       "algorithms",
       "blockchain"
     ],
@@ -249,8 +255,9 @@
     "published": "2017-10-01",
     "read": false,
     "doi": "10.1145/3132747.3132757",
-    "citationCount": 609,
-    "citationsUpdated": "2023-04-16T01:01:42.582Z"
+    "citationCount": 1198,
+    "citationsUpdated": "2023-07-05T07:11:21.031Z",
+    "semanticScholarID": "8319bff063be53e6672ad31c53ac3680d2871e30"
   },
   {
     "id": "9942764c-4b9a-45d3-a751-1d2ec9f90b86",
@@ -290,7 +297,6 @@
     "tags": [
       "algorithms",
       "blockchain",
-      "reading list",
       "sharding"
     ],
     "summary": "",
@@ -299,8 +305,9 @@
     "published": "2018-05-01",
     "read": false,
     "doi": "10.1109/SP.2018.000-5",
-    "citationCount": 437,
-    "citationsUpdated": "2023-04-16T01:02:52.763Z"
+    "citationCount": 688,
+    "citationsUpdated": "2023-07-05T07:11:21.345Z",
+    "semanticScholarID": "f4601c9ad468b7316bf84c41e72dcf86935eb06e"
   },
   {
     "id": "79f8a7f4-daa6-42fb-8dfd-c1a3af149c02",
@@ -325,7 +332,6 @@
     "tags": [
       "algorithms",
       "blockchain",
-      "reading list",
       "sharding"
     ],
     "summary": "",
@@ -334,8 +340,9 @@
     "published": "2018-10-01",
     "read": false,
     "doi": "10.1145/3243734.3243853",
-    "citationCount": 368,
-    "citationsUpdated": "2023-04-16T01:03:57.829Z"
+    "citationCount": 556,
+    "citationsUpdated": "2023-07-05T07:11:21.574Z",
+    "semanticScholarID": "160995fa72e82bdde408fe0a554575c67ad6e888"
   },
   {
     "id": "39219773-3183-4ffd-ba54-0924d382513b",
@@ -365,7 +372,8 @@
     "tags": [
       "routing",
       "algorithms",
-      "in-house"
+      "in-house",
+      "distributed"
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/3154273.3154314",
@@ -373,8 +381,9 @@
     "published": "2018-01-01",
     "read": false,
     "doi": "10.1145/3154273.3154314",
-    "citationCount": 2,
-    "citationsUpdated": "2023-04-16T01:08:09.350Z"
+    "citationCount": 5,
+    "citationsUpdated": "2023-07-05T07:11:21.854Z",
+    "semanticScholarID": "2eb7b280ff87922b1d1e29bfd9bc0b6f77030f16"
   },
   {
     "id": "471c5ab1-e561-4655-bc3f-d3eb6ff3ced7",
@@ -427,8 +436,9 @@
     "published": "2003-02-01",
     "read": false,
     "doi": "10.1109/TNET.2002.808407",
-    "citationCount": 1912,
-    "citationsUpdated": "2023-04-16T01:16:23.466Z"
+    "citationCount": 11757,
+    "citationsUpdated": "2023-07-05T07:11:22.160Z",
+    "semanticScholarID": "daa42319fca392d68fd98bb82b7c09bcf787441b"
   },
   {
     "id": "1d3f7314-5a1e-47b9-9193-ec0705686d09",
@@ -441,7 +451,9 @@
       }
     ],
     "tags": [
-      "algorithms"
+      "algorithms",
+      "distributed",
+      "fault-tolerance"
     ],
     "summary": "",
     "link": "https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf",
@@ -449,8 +461,9 @@
     "published": "1998-05-01",
     "read": false,
     "doi": "10.1145/279227.279229",
-    "citationCount": 1571,
-    "citationsUpdated": "2023-04-16T01:18:02.292Z"
+    "citationCount": 3031,
+    "citationsUpdated": "2023-07-05T07:11:22.466Z",
+    "semanticScholarID": "ebefbee5e96fc2217d651266eb35a0759672e7ca"
   },
   {
     "id": "1438268f-9bef-493d-b6d5-68aa8bd194ee",
@@ -463,7 +476,9 @@
       }
     ],
     "tags": [
-      "algorithms"
+      "algorithms",
+      "distributed",
+      "fault-tolerance"
     ],
     "summary": "",
     "link": "https://lamport.azurewebsites.net/pubs/paxos-simple.pdf",
@@ -471,8 +486,9 @@
     "published": "2001-11-01",
     "read": false,
     "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-04-16T01:19:25.440Z"
+    "citationCount": 1563,
+    "citationsUpdated": "2023-07-05T07:11:22.772Z",
+    "semanticScholarID": "02b1103e592fa6bf0499e27f1519692441fad557"
   },
   {
     "id": "f297bec4-9679-4267-b51d-c7813358a938",
@@ -490,7 +506,9 @@
       }
     ],
     "tags": [
-      "algorithms"
+      "algorithms",
+      "fault-tolerance",
+      "distributed"
     ],
     "summary": "",
     "link": "https://www.usenix.org/system/files/conference/atc14/atc14-paper-ongaro.pdf",
@@ -498,8 +516,9 @@
     "published": "2014-06-01",
     "read": false,
     "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-04-16T01:23:40.037Z"
+    "citationCount": 1892,
+    "citationsUpdated": "2023-07-05T07:11:23.078Z",
+    "semanticScholarID": "9979809e4106b29d920094be265b33524cde8a40"
   },
   {
     "id": "bec4de0b-aa69-4e04-926c-85d4d5658f0c",
@@ -512,16 +531,18 @@
       }
     ],
     "tags": [
-      "system models"
+      "system models",
+      "distributed"
     ],
     "summary": "",
     "link": "https://www.freehaven.net/anonbib/cache/sybil.pdf",
-    "notes": "",
+    "notes": "<h1>The Sybil Attack</h1><h3>Authors: John R. Douceur</h3><h3>Published: January 2002</h3><p><br></p><p>A Sybil attack is when a single entity represents themselves using many allegedly-distinct identities in order to gain influence over a distributed systems. This paper proves that even resource-constraint-based identity validation schemes are impractical to implement in large decentralized systems.</p>",
     "published": "2002-01-01",
     "read": false,
     "doi": "10.1007/3-540-45748-8_24",
-    "citationCount": 1729,
-    "citationsUpdated": "2023-04-16T01:32:28.254Z"
+    "citationCount": 5123,
+    "citationsUpdated": "2023-07-05T07:11:23.359Z",
+    "semanticScholarID": "35516916cd8840566acc05d0226f711bee1b563b"
   },
   {
     "id": "44fa8a62-2425-48d1-bfb2-99eddcd66069",
@@ -554,8 +575,9 @@
     "published": "2010-03-01",
     "read": false,
     "doi": "10.1007/s00446-010-0099-z",
-    "citationCount": 31,
-    "citationsUpdated": "2023-04-16T01:34:58.406Z"
+    "citationCount": 48,
+    "citationsUpdated": "2023-07-05T07:11:23.693Z",
+    "semanticScholarID": "a5db27e956b3422b34fad475667b43d05b21c62c"
   },
   {
     "id": "aa561c13-b395-4983-96d6-774ea939d82a",
@@ -583,8 +605,9 @@
     "published": "2006-07-01",
     "read": false,
     "doi": "10.1145/1148109.1148163",
-    "citationCount": 41,
-    "citationsUpdated": "2023-04-16T01:40:14.178Z"
+    "citationCount": 156,
+    "citationsUpdated": "2023-07-05T07:11:24.001Z",
+    "semanticScholarID": "bb8b9bcee5af0c08be0fb381a2e3c2028cfd0e80"
   },
   {
     "id": "633b91b1-e0af-4051-9e2f-a1fe370d7b19",
@@ -732,8 +755,9 @@
     "published": "2013-08-01",
     "read": false,
     "doi": "10.1145/2491245",
-    "citationCount": 186,
-    "citationsUpdated": "2023-05-17T03:50:06.142Z"
+    "citationCount": 1445,
+    "citationsUpdated": "2023-07-05T07:11:24.307Z",
+    "semanticScholarID": "20c31b7a5d64ce111e6808a261e09d4a9a24f6c0"
   },
   {
     "id": "b3a2f783-422d-4653-baea-e6783631f3eb",
@@ -777,8 +801,9 @@
     "published": "2018-05-01",
     "read": false,
     "doi": "10.1145/3183713.3196909",
-    "citationCount": 293,
-    "citationsUpdated": "2023-05-17T23:30:46.032Z"
+    "citationCount": 730,
+    "citationsUpdated": "2023-07-05T07:11:24.574Z",
+    "semanticScholarID": "f6eee02a2f4c74c2b543bf419f76cef60d5752f8"
   },
   {
     "id": "b91b0523-779f-467c-ad20-63e5d651f818",
@@ -825,8 +850,9 @@
     "published": "2017-05-01",
     "read": false,
     "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-05-17T23:35:26.234Z"
+    "citationCount": 59,
+    "citationsUpdated": "2023-07-05T07:11:25.030Z",
+    "semanticScholarID": "3c3b8ee97b1f5082a0ea91bf2539607e52212e43"
   },
   {
     "id": "9df403f2-dfd7-4cfe-89ea-96b64cbde33d",
@@ -848,8 +874,9 @@
     "published": "1986-06-01",
     "read": false,
     "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-05-17T23:38:02.216Z"
+    "citationCount": 52,
+    "citationsUpdated": "2023-07-05T07:11:25.312Z",
+    "semanticScholarID": "62692c157e30ffe305ff8f4db980c976b821c5cf"
   },
   {
     "id": "f10c4328-7fb3-48d1-9816-b70f79f373c6",
@@ -887,8 +914,9 @@
     "published": "2021-01-01",
     "read": false,
     "doi": "10.1007/978-3-030-91014-3_2",
-    "citationCount": 0,
-    "citationsUpdated": "2023-05-17T23:39:36.710Z"
+    "citationCount": 1,
+    "citationsUpdated": "2023-07-05T07:11:25.636Z",
+    "semanticScholarID": "23aa40ecaf48fb44910abba776c83b25bd0fe7f0"
   },
   {
     "id": "4edf6358-07c6-4b27-a36d-b93fa2ac8974",
@@ -927,7 +955,8 @@
     "read": false,
     "doi": "10.1109/ICBC51069.2021.9461080",
     "citationCount": 2,
-    "citationsUpdated": "2023-05-17T23:41:07.948Z"
+    "citationsUpdated": "2023-07-05T07:11:25.947Z",
+    "semanticScholarID": "8731417bc30edbf4ff70128b9933e38062af3f7c"
   },
   {
     "id": "98575a59-a05c-46ca-918c-8cfeab11c227",
@@ -950,8 +979,9 @@
     "published": "1993-03-01",
     "read": false,
     "doi": "10.1145/151254.151256",
-    "citationCount": 222,
-    "citationsUpdated": "2023-05-17T23:42:02.179Z"
+    "citationCount": 136,
+    "citationsUpdated": "2023-07-05T07:11:26.253Z",
+    "semanticScholarID": "d9b8e1457c64411d78f1b73061b15a6d2922150b"
   },
   {
     "id": "913659bc-f0ef-4484-bf56-878cfe5c329e",
@@ -990,7 +1020,8 @@
     "read": false,
     "doi": "",
     "citationCount": 0,
-    "citationsUpdated": "2023-05-17T23:44:45.777Z"
+    "citationsUpdated": "2023-07-05T07:11:26.384Z",
+    "semanticScholarID": "fd014e4f09983246387f16c033cd9b3ead185daa"
   },
   {
     "id": "7050093f-1aa3-4bbf-8529-13346c29c2ad",
@@ -1032,8 +1063,9 @@
     "published": "2023-04-01",
     "read": false,
     "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-05-18T00:00:40.550Z"
+    "citationCount": 49,
+    "citationsUpdated": "2023-07-05T07:11:26.503Z",
+    "semanticScholarID": "9ac1486988c7fc05bb4ff5c738ee222ec7e15a33"
   },
   {
     "id": "2de88f1c-a642-4ee5-ab09-4e264c50de0a",
@@ -1081,8 +1113,9 @@
     "published": "2016-10-01",
     "read": false,
     "doi": "10.1145/2976749.2978389",
-    "citationCount": 590,
-    "citationsUpdated": "2023-05-18T00:02:31.250Z"
+    "citationCount": 908,
+    "citationsUpdated": "2023-07-05T07:11:26.866Z",
+    "semanticScholarID": "94cf401c112e409b63077be177e7b3d80a0bbfd7"
   },
   {
     "id": "68b10660-052c-4566-bbde-2d22b61a0468",
@@ -1136,8 +1169,9 @@
     "published": "2019-10-01",
     "read": false,
     "doi": "10.1145/3318041.3355458",
-    "citationCount": 77,
-    "citationsUpdated": "2023-05-18T00:04:43.003Z"
+    "citationCount": 201,
+    "citationsUpdated": "2023-07-05T07:11:26.993Z",
+    "semanticScholarID": "a37facbe13d9988ad32816cbcc34962235e11f62"
   },
   {
     "id": "d5db52af-2d7b-4e2b-9a1c-ce103351a563",
@@ -1181,8 +1215,9 @@
     "published": "2009-04-01",
     "read": false,
     "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-05-18T00:11:52.906Z"
+    "citationCount": 439,
+    "citationsUpdated": "2023-07-05T07:11:27.114Z",
+    "semanticScholarID": "4981d4e3e60f21c2334e2595f4ee37f2510f01f4"
   },
   {
     "id": "11af269a-f8bc-485f-ac1f-6622d0a50417",
@@ -1225,8 +1260,9 @@
     "published": "2007-10-01",
     "read": false,
     "doi": "10.1145/1294261.1294267",
-    "citationCount": 227,
-    "citationsUpdated": "2023-05-18T00:12:50.455Z"
+    "citationCount": 969,
+    "citationsUpdated": "2023-07-05T07:11:27.483Z",
+    "semanticScholarID": "363325e7e0cafd0211e79d0ad29440867e85cf7f"
   },
   {
     "id": "b1fa4a8e-8f61-4bd0-b9da-ced19d3c27e1",
@@ -1250,7 +1286,8 @@
     ],
     "tags": [
       "industry",
-      "hardware"
+      "hardware",
+      "mostly unread"
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/50202.50214",
@@ -1258,8 +1295,9 @@
     "published": "1988-01-01",
     "read": false,
     "doi": "10.1145/50202.50214",
-    "citationCount": 1160,
-    "citationsUpdated": "2023-05-18T00:27:49.058Z"
+    "citationCount": 2861,
+    "citationsUpdated": "2023-07-05T07:11:28.198Z",
+    "semanticScholarID": "0b1ab05104712cb14d2ea648e843fad7fd91cfc0"
   },
   {
     "id": "f88ec399-6a85-4513-a0d9-198ec8d3bb31",
@@ -1282,7 +1320,8 @@
       }
     ],
     "tags": [
-      "cryptography"
+      "cryptography",
+      "mostly unread"
     ],
     "summary": "",
     "link": "https://link.springer.com/content/pdf/10.1007/3-540-45682-1_32.pdf",
@@ -1290,8 +1329,9 @@
     "published": "2001-01-01",
     "read": false,
     "doi": "10.1007/3-540-45682-1_32",
-    "citationCount": 714,
-    "citationsUpdated": "2023-05-18T00:30:53.671Z"
+    "citationCount": 106,
+    "citationsUpdated": "2023-07-05T07:11:28.505Z",
+    "semanticScholarID": "4d4590e3f2613bdfd90da197260971e3fb724534"
   },
   {
     "id": "8c4930d4-6c7a-4292-bf5c-99b647280e1c",
@@ -1309,7 +1349,8 @@
       }
     ],
     "tags": [
-      "cryptography"
+      "cryptography",
+      "mostly unread"
     ],
     "summary": "",
     "link": "https://link.springer.com/content/pdf/10.1007/978-3-540-71677-8_13.pdf",
@@ -1317,12 +1358,13 @@
     "published": "2007-04-01",
     "read": false,
     "doi": "10.1007/978-3-540-71677-8_13",
-    "citationCount": 108,
-    "citationsUpdated": "2023-05-18T00:32:50.718Z"
+    "citationCount": 204,
+    "citationsUpdated": "2023-07-05T07:11:28.814Z",
+    "semanticScholarID": "4d5caa53187a2501a7be0ca6b2b759ca4f8f9a6e"
   },
   {
     "id": "60558cdf-96f3-4acb-b573-2ac6c452384e",
-    "title": "QUANTAS",
+    "title": "QUANTAS: Quantitative User-friendly Adaptable Networked Things Abstract Simulator",
     "authors": [
       {
         "prefix": "Joseph",
@@ -1346,9 +1388,9 @@
       }
     ],
     "tags": [
-      "algorithms",
       "system models",
-      "in-house"
+      "in-house",
+      "distributed"
     ],
     "summary": "",
     "link": "https://arxiv.org/pdf/2205.04930",
@@ -1356,8 +1398,9 @@
     "published": "2022-05-01",
     "read": false,
     "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-05-18T00:35:18.841Z"
+    "citationCount": 1,
+    "citationsUpdated": "2023-07-05T07:11:29.016Z",
+    "semanticScholarID": "2f1122226970278fea8d9584cb69fbb1cbe4da87"
   },
   {
     "id": "c9a65f70-4ced-4991-923c-ac202f77e69e",
@@ -1386,7 +1429,8 @@
     ],
     "tags": [
       "blockchain",
-      "BFT"
+      "BFT",
+      "unread"
     ],
     "summary": "",
     "link": "https://link.springer.com/content/pdf/10.1007/978-3-319-63688-7_12.pdf",
@@ -1394,8 +1438,9 @@
     "published": "2017-01-01",
     "read": false,
     "doi": "10.1007/978-3-319-63688-7_12",
-    "citationCount": 513,
-    "citationsUpdated": "2023-05-21T01:48:25.056Z"
+    "citationCount": 1248,
+    "citationsUpdated": "2023-07-05T07:11:29.327Z",
+    "semanticScholarID": "44dacdec625e31df66736a385e7001ef33756c5f"
   },
   {
     "id": "114a630d-aa9c-466c-8268-4cb055418a5f",
@@ -1432,8 +1477,9 @@
     "published": "2013-05-01",
     "read": false,
     "doi": "10.1109/SP.2013.13",
-    "citationCount": 337,
-    "citationsUpdated": "2023-05-21T04:10:43.531Z"
+    "citationCount": 629,
+    "citationsUpdated": "2023-07-05T07:11:29.632Z",
+    "semanticScholarID": "602e4c977664087e5629a40637a1b97a381d28c9"
   },
   {
     "id": "7c2b23f4-6f47-4f74-b222-e91df2360415",
@@ -1472,8 +1518,9 @@
     "published": "2019-10-01",
     "read": false,
     "doi": "10.1145/3318041.3355457",
-    "citationCount": 86,
-    "citationsUpdated": "2023-05-21T04:22:50.246Z"
+    "citationCount": 118,
+    "citationsUpdated": "2023-07-05T07:11:29.752Z",
+    "semanticScholarID": "db7d19cd64dcd2ebd637ebf9f0b53b58bd808460"
   },
   {
     "id": "cee7fef3-b9ed-413a-99ab-c2d48b34da2e",
@@ -1596,41 +1643,9 @@
     "published": "2018-04-01",
     "read": false,
     "doi": "10.1145/3190508.3190538",
-    "citationCount": 1684,
-    "citationsUpdated": "2023-05-21T05:12:32.726Z"
-  },
-  {
-    "id": "e9b4a3ea-161b-445c-86be-37bd1c49d67c",
-    "title": "The weakest failure detector for solving consensus",
-    "authors": [
-      {
-        "prefix": "Tushar Deepak",
-        "lastName": "Chandra",
-        "suffix": ""
-      },
-      {
-        "prefix": "Vassos",
-        "lastName": "Hadzilacos",
-        "suffix": ""
-      },
-      {
-        "prefix": "Sam",
-        "lastName": "Toueg",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "unread",
-      "system models"
-    ],
-    "summary": "",
-    "link": "https://dl.acm.org/doi/pdf/10.1145/234533.234549",
-    "notes": "",
-    "published": "1996-07-01",
-    "read": false,
-    "doi": "10.1145/234533.234549",
-    "citationCount": 552,
-    "citationsUpdated": "2023-05-21T05:23:36.134Z"
+    "citationCount": 2671,
+    "citationsUpdated": "2023-07-05T07:11:29.881Z",
+    "semanticScholarID": "7e00418545f3a8839eecd906dba167d85bd6e509"
   },
   {
     "id": "e6070549-d5db-43cd-9c67-afa914360821",
@@ -1664,7 +1679,8 @@
     "read": false,
     "doi": "10.1007/978-3-031-21017-4_8",
     "citationCount": 0,
-    "citationsUpdated": "2023-05-22T02:02:11.167Z"
+    "citationsUpdated": "2023-07-05T07:11:30.216Z",
+    "semanticScholarID": "b1c241cd0b1bdbdfa383f56afc9dd892583b9943"
   },
   {
     "id": "3e3e779c-90c6-4cf5-98a0-b4e489d78ff5",
@@ -1692,34 +1708,8 @@
     "read": false,
     "doi": "",
     "citationCount": 0,
-    "citationsUpdated": "2023-05-22T03:55:36.438Z"
-  },
-  {
-    "id": "d6877e6d-77f6-41ac-806b-2db276a1f023",
-    "title": "Approximation Algorithms for Drone Delivery Scheduling Problem",
-    "authors": [
-      {
-        "prefix": "Saswata",
-        "lastName": "Jana",
-        "suffix": ""
-      },
-      {
-        "prefix": "Partha Sarathi",
-        "lastName": "Mandal",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "algorithms"
-    ],
-    "summary": "",
-    "link": "https://arxiv.org/pdf/2211.06636.pdf",
-    "notes": "<h1>Approximation Algorithms for Drone Delivery Scheduling Problem</h1><h3>Authors: Saswata Jana, Partha Sarathi Mandal</h3><h3>Published: November 2022</h3><p><br></p><p>Joseph saw this paper in Morocco and thought the general problem was interesting.</p><p><br></p><h3>Terms</h3><p>SDSP - single drone scheduling problem</p><p>MDSP - multiple drone scheduling problem</p><p><br></p><p>FPTAS - fully polynomial time approximation scheme</p><p>1/4-approximation algorithm - gives a result that is not off by more than 25%, I think. This is a constant-factor approximation, meaning that the \"approximation ratio\" is bounded by a constant (wikipedia)</p><p><br></p><p>Flying sidekicks traveling salesman problem - great name.</p><p><br></p><p>MILP - mixed integer linear programming. Wikpedia again:</p><ul><li>An <strong>integer programming</strong> problem is a mathematical optimization or feasibility program in which some or all of the variables are restricted to be integers. In many settings the term refers to <strong>integer linear programming</strong> (ILP), in which the objective function and the constraints (other than the integer constraints) are linear.</li><li><strong>Linear programming</strong> (<strong>LP</strong>), also called <strong>linear optimization</strong>, is a method to achieve the best outcome (such as maximum profit or lowest cost) in a mathematical model whose requirements are represented by linear relationships. Linear programming is a special case of mathematical programming (also known as mathematical optimization).</li><li><strong>Mixed-integer linear programming</strong> (<strong>MILP</strong>) involves problems in which only some of the variables, x<sub>i</sub>, are constrained to be integers, while other variables are allowed to be non-integers.</li></ul><p><br></p><p>Apparently a backslash (\\) can mean \"set difference,\" as in {1,2} \\ {2, 3} = {1}.</p><p><br></p><h3>Related work</h3><p>Papers referenced by this paper talk about combining truck and drone deliveries, recharging drones when they land on the roofs of trucks, and multiple deliveries per drone takeoff. <span style=\"color: rgb(161, 0, 0);\">Does this paper relate to any of those things?</span></p><p><br></p><h3>Contributions</h3><ul><li>This paper formulates the drone scheduling optimization problem in the MILP form, stating the objective function and several constraints.</li><li class=\"ql-indent-1\">It appears that each delivery is represented by the interval of time it would take and the profit that would result from it, and these solutions just choose the optimal set of intervals that are compatible (don't overlap) and are feasible (the drone battery will not run out across all of them, I think just meaning that the sum of the durations of the intervals is below a certain threshold.)</li><li class=\"ql-indent-1\">Finding the optimal solution for these equations is apparently NP-hard (meaning it belongs to a class of problems for which no polynomial-time solution is known) \"even for the single drone case.\"</li><li>It then finds a pseudo-polynomial time approximation algorithm for the single drone case, then an FPTAS for the single drone case that calls the pseudo-polynomial algorithm.</li><li>The multiple drone problem does not have a FPTAS; it is a generalization of the multiple knapsack problem, which has been proven not to have one. However, they still have a constant factor approximation algorithm for it.</li><li>The algorithms have many single-letter variables.</li></ul><p><img src=\"/uploads/8185ced39ca9a8dc77182b311217c9a2\"></p><p><br></p><p><br></p>",
-    "published": "2022-11-01",
-    "read": false,
-    "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-05-26T21:07:45.745Z"
+    "citationsUpdated": "2023-05-22T03:55:36.438Z",
+    "semanticScholarID": ""
   },
   {
     "id": "b377c49e-dc5c-488f-97d3-aef39373d090",
@@ -1742,8 +1732,9 @@
     "published": "1987-11-01",
     "read": false,
     "doi": "10.1016/0890-5401(87)90054-X",
-    "citationCount": 157,
-    "citationsUpdated": "2023-06-15T03:50:50.301Z"
+    "citationCount": 375,
+    "citationsUpdated": "2023-07-05T07:11:30.658Z",
+    "semanticScholarID": "510e071390c7fbd166bee9359e79d8a68a273f66"
   },
   {
     "id": "f0ed6908-f827-491a-8194-47ebb30eb607",
@@ -1770,8 +1761,9 @@
     "published": "2006-07-01",
     "read": false,
     "doi": "10.1109/TDSC.2006.35",
-    "citationCount": 153,
-    "citationsUpdated": "2023-06-15T18:37:15.771Z"
+    "citationCount": 363,
+    "citationsUpdated": "2023-07-05T07:11:30.796Z",
+    "semanticScholarID": "a59d3e0f0ceaf4b35959e13863f9c304a461567e"
   },
   {
     "id": "4b149a84-ed4c-4117-95d2-dc6d08c02266",
@@ -1791,7 +1783,7 @@
     "tags": [
       "self-stabilization",
       "algorithms",
-      "probability"
+      "meh"
     ],
     "summary": "",
     "link": "https://arxiv.org/pdf/2203.11522.pdf",
@@ -1799,8 +1791,9 @@
     "published": "2022-07-01",
     "read": false,
     "doi": "10.1145/3519270.3538415",
-    "citationCount": 0,
-    "citationsUpdated": "2023-06-19T22:17:59.494Z"
+    "citationCount": 1,
+    "citationsUpdated": "2023-07-05T07:11:31.168Z",
+    "semanticScholarID": "f129744df39fc0e34a356a892982c85323d3f2cb"
   },
   {
     "id": "febac481-aaf6-4f5f-9b86-daf60430161c",
@@ -1829,7 +1822,8 @@
     "read": false,
     "doi": "",
     "citationCount": 0,
-    "citationsUpdated": "2023-06-20T23:35:37.734Z"
+    "citationsUpdated": "2023-07-05T07:11:31.294Z",
+    "semanticScholarID": "0139112d2aa9f8e81d55aab18b3a48c8167a941a"
   },
   {
     "id": "fe40f577-4dff-480c-bfd4-c04f60961243",
@@ -1857,13 +1851,14 @@
       "blockchain"
     ],
     "summary": "",
-    "link": "https://allquantor.at/blockchainbib/pdf/stathakopoulou2019mir-bft.pdf",
+    "link": "https://arxiv.org/pdf/1906.05552.pdf",
     "notes": "<h1>Mir-BFT: High-Throughput BFT for Blockchains</h1><h3>Authors: Chrysoula Stathakopoulou, Tudor David, Marko Vukolić</h3><h3>Published: September 2019</h3><p><br></p><p>This is a generalization of PBFT that can be applied to blockchains; it uses a set of leaders that all propose independent request batches in parallel.</p><p><br></p><p>This paper likes the term \"total order broadcast protocol\" which is the thing that forms the basis for state machine replication. Mir implements a total order broadcast protocol; this disseminates every request to every node, except when using the light total order protocol as an optimization, which distributes hashes and guarantees every request is fully known by at least one correct node.</p><p><br></p><p>\"As its main novelty in the context of BFT TO protocols, Mir partitions the request hash space across replicas, preventing request duplication, while rotating this partitioning assignment across protocol configurations/epochs, addressing request censoring.\" So, it's \"main novelty\" is that it prevents request duplication attacks where every leader is bothered by the same request by specifying which requests should go to which leaders when, and keeping that active.</p><p><br></p><p>Fascinatingly, they care enough to optimize connections between pairs of nodes, using multiple gRPC connections instead of TCP/TLS.</p><p><br></p><p>Using 100 nodes in a WAN, this protocol achieves \"2.5x the alleged peak capacity of VISA (24k tps [8]) and more than 30x faster than the actual average VISA transaction rate (about 2k tps [49]).\" Making it also much better than existing blockchains, obviously. Is this serious? I feel like everyone claims numbers like these</p><p><br></p><p>Instead of views, we here have epochs; each epoch has a primary but also a set of epoch leaders. Epochs can be \"ephemeral\" and transition to each other \"graciously\" once the maximum number of batches have been processed in them. This is a more lightweight reconfiguration than a proper view change. Ungracious epoch-changes occur in cases of failures or asynchrony. Except, apparently, we are setting a parameter StableLeaders such that we don't have ephemeral epochs? If we request 1 StableLeader, we have PBFT; if we have &gt;1 StableLeader, we have Tendermint or \"Spinning\"; if we have n StableLeaders, we have the current version of Mir; if we have StableLeaders &gt; n we have ephemeral epochs, just for the sake of rotating through the available StableLeaders I guess.</p><p><br></p><p>What does having n leaders even mean, though? If they're all leaders, none of them are! I guess it just means that everyone is in charge of batching a subset of the requests and proposing a block based on them.</p><p><br></p><p>The main purpose of the primary seems to just be to choose the epoch leaders (and be one of them.)</p><p><br></p><p>Requests are bucketed by their hashes, dividing them up among leaders. Classic. (Which leader gets which requests is rotated in order to save </p><p><br></p><p>Apparently, even in classic PBFT, you can have multiple batches in parallel using watermarks (the lowest and highest acceptable sequence numbers); this is not immediately evident to me from the paper. I think this just means that PBFT doesn't require sequence numbers to be strictly sequential, and so you can fill the watermarks with requests? That is weird, though, because the sequence numbers are supposed to impose an order and the viability of the next state might depend on the current request.</p>",
     "published": "2019-09-01",
     "read": false,
     "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-06-20T23:38:24.338Z"
+    "citationCount": 72,
+    "citationsUpdated": "2023-07-05T07:11:31.413Z",
+    "semanticScholarID": "3db215ad27045e224f0688b507d5f00df77eeabe"
   },
   {
     "id": "5e4aba01-eff9-45c4-a4f3-5349cc9ade43",
@@ -1876,8 +1871,8 @@
       }
     ],
     "tags": [
-      "unread",
-      "databases"
+      "databases",
+      "seminal"
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/362384.362685",
@@ -1885,8 +1880,9 @@
     "published": "1970-06-01",
     "read": false,
     "doi": "10.1145/362384.362685",
-    "citationCount": 4452,
-    "citationsUpdated": "2023-06-21T23:09:06.223Z"
+    "citationCount": 2361,
+    "citationsUpdated": "2023-07-05T07:11:31.539Z",
+    "semanticScholarID": "d798cb0ef57f71958e900c2a95723b7ef1ff2a34"
   },
   {
     "id": "3ae8c8ce-cbbd-4e5a-9ebe-81c8bb320f5b",
@@ -1905,16 +1901,18 @@
     ],
     "tags": [
       "detectors",
-      "inbox"
+      "inbox",
+      "distributed"
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/226643.226647",
-    "notes": "<h1>Unreliable failure detectors for reliable distributed systems</h1><h3>Authors: Tushar Deepak Chandra, Sam Toueg</h3><h3>Published: March 1996</h3><p><br></p><h2>1. Introduction</h2><p><br></p><p>Consensus allows processes to reach a common decision, which depends on their initial inputs, despite failures. Atomic Broadcast allows processes to reliably broadcast messages, so that they agree on the contents and order of a set of messages. Somehow failure detectors can interact with these things.</p><p><br></p><p>We are studying asynchronous systems, meaning those in which there is no bound on message delay, clock drift (interesting), or the time necessary to execute a step; no timing assumptions can be made whatsoever. Deterministic solutions to consensus and broadcast cannot be obtained in this setting. However, this paper attempts to ameliorate that with unreliable failure detectors for systems with crash failures.</p><p><br></p><p>\"Failure detector\" seems to literally mean \"module that watches some processes and adds them to a 'suspicious processes' list if they seem suspicious.\" You could just call these, like, \"crash guessers\" or \"timeout modules.\" We still have to act as if the processes it is suspicious of are possibly fine and keep delivering messages to them and stuff. A hilarious approach is mentioned in which every process that a failure detector suspects has crashed is then forced to crash; that's one way of being right.</p><p><br></p><p>Failure detectors can be characterized in terms of completeness (whether they will eventually detect every failure) and their accuracy (how often they will make mistakes (false positives?)). This paper defines two completeness and four accuracy properties, dividing the failure detectors into 8 categories which can be reduced to four.</p><p><br></p><p>A failure detector D' is weaker than any failure detector D which can be \"reduced\" to D' by an algorithm, unless D' can also be reduced to D, in which case the two are equivalent. Weak enough failure detectors require a majority of processes to be correct to solve consensus; stronger ones don't. The weakest class of failure detectors is ◇W. Those in this class can make an infinite number of mistakes as long as: \"eventually\" every process that crashes is permanently suspected by some correct process; and, there is some some correct process that is eventually free from all suspicion. Both of these must apply \"forever\" (until the end of the computation.)</p><p><br></p><p>Assuming a failure detector with the properties of ◇W but actually having an even worse failure detector allegedly leads you to make mistakes that threaten liveness but not safety.</p><p><br></p><p>A practical implementation of a ◇W-class failure detector in a somewhat synchronous network might look like a heartbeat system with timeout detectors that increase their timeout periods each time a process that timed out turned out to be fine actually. However, thinking about practical implementations of these systems is not allowed.</p><p><br></p><p>The weakest failure detector in ◇W is called ◇W<sub>0</sub> and satisfies the bare minimum properties of ◇W and nothing else. According to another paper (the authors are citing themselves), it is the weakest failure detector that can be used to solve consensus in asynchronous systems, requiring that a majority of the processes are correct; any failure detector that can be used to solve consensus can be transformed into it.</p><p><br></p><p>Atomic broadcast can be modeled with consensus. Different models of partial synchrony can be modeled with varying unreliable failure detectors. Using failure detectors gives a model that is asynchronous enough to be generally useful while still allowing deterministic solutions. And algorithms that use them can be quite practical. Allegedly.</p><p><br></p><h2>2. The Model</h2><p><br></p><p>Properties:</p><p><br></p><ul><li>Strong completeness: eventually, every process that crashes is permanently suspected by every correct process.</li><li>Weak completeness: eventually, every process that crashes is permanently suspected by some correct process.</li><li>(Perpetual) strong accuracy: no process is suspected before it crashes. Not practical.</li><li>(Perpetual) weak accuracy: some correct process is never suspected. Also kind of hard to achieve.</li><li>Eventual strong accuracy: there is a time after which correct processes are not suspected by any correct process.</li><li>Eventual weak accuracy: there is a time after which some correct process is never suspected by anyone.</li></ul><p><br></p><p>The corresponding detector classes:</p><p><br></p><p><img src=\"/uploads/c310761db2039f0f2797ecb5b29a9b2f\"></p><p><br></p><p>They give an \"algorithm\" for transforming weak completeness into strong completeness that just broadcasts the suspicions of the weak detector to everyone. The only interesting point is that it stops suspecting processes when receiving these messages from them - but shouldn't that be a low-level event occurring when any message is received?</p>",
+    "notes": "<h1>Unreliable failure detectors for reliable distributed systems</h1><h3>Authors: Tushar Deepak Chandra, Sam Toueg</h3><h3>Published: March 1996</h3><p><br></p><h2>1. Introduction</h2><p><br></p><p>Consensus allows processes to reach a common decision, which depends on their initial inputs, despite failures. Atomic Broadcast allows processes to reliably broadcast messages, so that they agree on the contents and order of a set of messages. Somehow failure detectors can interact with these things.</p><p><br></p><p>We are studying asynchronous systems, meaning those in which there is no bound on message delay, clock drift (interesting), or the time necessary to execute a step; no timing assumptions can be made whatsoever. Deterministic solutions to consensus and broadcast cannot be obtained in this setting. However, this paper attempts to ameliorate that with unreliable failure detectors for systems with crash failures.</p><p><br></p><p>\"Failure detector\" seems to literally mean \"module that watches some processes and adds them to a 'suspicious processes' list if they seem suspicious.\" You could just call these, like, \"crash guessers\" or \"timeout modules.\" We still have to act as if the processes it is suspicious of are possibly fine and keep delivering messages to them and stuff. A hilarious approach is mentioned in which every process that a failure detector suspects to have crashed is then forced to crash; that's one way of being right.</p><p><br></p><p>Failure detectors can be characterized in terms of completeness (whether they will eventually detect every failure) and their accuracy (how often they will make mistakes (false positives?)). This paper defines two completeness and four accuracy properties, dividing the failure detectors into 8 categories which can be reduced to four.</p><p><br></p><p>A failure detector D' is weaker than any failure detector D which can be \"reduced\" to D' by an algorithm, unless D' can also be reduced to D, in which case the two are equivalent. Weak enough failure detectors require a majority of processes to be correct to solve consensus; stronger ones don't. The weakest class of failure detectors is ◇W. Those in this class can make an infinite number of mistakes as long as: \"eventually\" every process that crashes is permanently suspected by some correct process (weak completeness); and, there is some some correct process that is eventually free from all suspicion (eventual weak accuracy). Both of these must apply \"forever\" (until the end of the computation.)</p><p><br></p><p>Assuming a failure detector with the properties of ◇W but actually having an even worse failure detector allegedly leads you to make mistakes that threaten liveness but not safety.</p><p><br></p><p>A practical implementation of a ◇W-class failure detector in a somewhat synchronous network might look like a heartbeat system with timeout detectors that increase their timeout periods each time a process that timed out turned out to be fine actually. However, thinking about practical implementations of these systems is not allowed.</p><p><br></p><p>The weakest failure detector in ◇W is called ◇W<sub>0</sub> and satisfies the bare minimum properties of ◇W and nothing else. According to another paper (the authors are citing themselves), it is the weakest failure detector that can be used to solve consensus in asynchronous systems, requiring that a majority of the processes are correct; any failure detector that can be used to solve consensus can be transformed into it.</p><p><br></p><p>Atomic broadcast can be modeled with consensus. Different models of partial synchrony can be modeled with varying unreliable failure detectors. Using failure detectors gives a model that is asynchronous enough to be generally useful while still allowing deterministic solutions. And algorithms that use them can be quite practical. Allegedly.</p><p><br></p><h2>2. The Model</h2><p><br></p><p>Properties:</p><p><br></p><p>Completeness avoids false negatives; accuracy avoids false positives.</p><p><br></p><ul><li>Strong completeness: eventually, every process that crashes is permanently suspected by every correct process.</li><li>Weak completeness: eventually, every process that crashes is permanently suspected by some correct process.</li><li>(Perpetual) strong accuracy: no process is suspected before it crashes. Not practical.</li><li>(Perpetual) weak accuracy: some correct process is never suspected. Also kind of hard to achieve.</li><li>Eventual strong accuracy: there is a time after which correct processes are not suspected by any correct process.</li><li>Eventual weak accuracy: there is a time after which some correct process is never suspected by anyone.</li></ul><p><br></p><p>The corresponding detector classes:</p><p><br></p><p><img src=\"/uploads/c310761db2039f0f2797ecb5b29a9b2f\"></p><p><br></p><p>They formalize what a run of an algorithm is and make up concepts like \"failure pattern\" and \"initial configuration.\" If a failure detector D' is reducible to a failure detector D, there is an algorithm T<sub>D-&gt;D'</sub> and we write D &gt;= D' and say that D' is weaker than D. If D&gt;=D' and D'&gt;=D, D=D'. Weakness is a transitive relationship. Whole classes of failure detector can also be weaker than or equivalent to each other.</p><p><br></p><p>They give an \"algorithm\" for transforming weak completeness into strong completeness that just broadcasts the suspicions of the weak detector to everyone. The only other point is that it stops suspecting processes when receiving these messages from them - but shouldn't that be a low-level event occurring when any message is received? They then extensively prove this algorithm and some relationships between the existing classes.</p><p><br></p><p>They give a trivial reliable broadcast algorithm, in which every process repeats every message it receives for the first time to everyone but the sender and then \"delivers\" it itself.</p><p><br></p><p>We then moving on to solving consensus using the \"Strong (S)\" class of detectors, which will transfer to P. This class of detector can tolerate any number of failures; in contrast, ◇S failure detectors require a majority of processes to be correct. The algorithm that solve consensus using S proceeds in three phases; in the first, they exchange proposed values in n-1 asynchronous rounds, then they agree on a vector of each other's proposed values (with nulls present for (apparently) failed processes), then they decide on the result, which is the first non-null component of the vector, apparently. This algorithm is then proved.</p><p><br></p><p>Solving consensus with ◇S requires a more lengthy algorithm, in addition to the majority of correct processes. We use a round-robin \"rotating coordinator.\" The proofs are only getting more extensive.</p><p><br></p><p>Atomic broadcast is a problem that adds ordering to reliable broadcast; no two correct processes can deliver a message in a different order. Consensus and atomic broadcast are shown to be equivalent and reducible to each other.</p><p><br></p><p><img src=\"/uploads/8e90836c4eb7f8116b87afadc33246b9\"></p>",
     "published": "1996-03-01",
     "read": false,
     "doi": "10.1145/226643.226647",
-    "citationCount": 1557,
-    "citationsUpdated": "2023-06-28T21:44:45.899Z"
+    "citationCount": 2829,
+    "citationsUpdated": "2023-07-05T07:11:31.667Z",
+    "semanticScholarID": "9bdd1ee918c171b541c616704447b1e06b88f14a"
   },
   {
     "id": "a52dbe5f-5a78-445e-9436-5e9602182a6c",
@@ -1938,190 +1936,18 @@
     ],
     "tags": [
       "inbox",
-      "detectors"
+      "detectors",
+      "distributed"
     ],
     "summary": "",
     "link": "https://dl.acm.org/doi/pdf/10.1145/234533.234549",
-    "notes": "<h1>The weakest failure detector for solving consensus</h1><h3>Authors: Tushar Deepak Chandra, Vassos Hadzilacos, Sam Toueg</h3><h3>Published: July 1996</h3><p><br></p><p>Necessary and sufficient!</p>",
+    "notes": "<h1>The weakest failure detector for solving consensus</h1><h3>Authors: Tushar Deepak Chandra, Vassos Hadzilacos, Sam Toueg</h3><h3>Published: July 1996</h3><p><br></p><p>Necessary and sufficient! The other paper proves that the W failure detector class is <em>sufficient </em>to prove consensus. This paper proves that the weakest failure detector class really is the weakest useful one because its properties are <em>necessary </em>for consensus.</p><p><br></p>",
     "published": "1996-07-01",
     "read": false,
     "doi": "10.1145/234533.234549",
-    "citationCount": 553,
-    "citationsUpdated": "2023-06-28T21:45:56.770Z"
-  },
-  {
-    "id": "73681e4d-1bf8-408a-8994-90a436fefe17",
-    "title": "Language models are few-shot learners",
-    "authors": [
-      {
-        "prefix": "Tom B.",
-        "lastName": "Brown",
-        "suffix": ""
-      },
-      {
-        "prefix": "Benjamin",
-        "lastName": "Mann",
-        "suffix": ""
-      },
-      {
-        "prefix": "Nick",
-        "lastName": "Ryder",
-        "suffix": ""
-      },
-      {
-        "prefix": "Melanie",
-        "lastName": "Subbiah",
-        "suffix": ""
-      },
-      {
-        "prefix": "Jared",
-        "lastName": "Kaplan",
-        "suffix": ""
-      },
-      {
-        "prefix": "Prafulla",
-        "lastName": "Dhariwal",
-        "suffix": ""
-      },
-      {
-        "prefix": "Arvind",
-        "lastName": "Neelakantan",
-        "suffix": ""
-      },
-      {
-        "prefix": "Pranav",
-        "lastName": "Shyam",
-        "suffix": ""
-      },
-      {
-        "prefix": "Girish",
-        "lastName": "Sastry",
-        "suffix": ""
-      },
-      {
-        "prefix": "Amanda",
-        "lastName": "Askell",
-        "suffix": ""
-      },
-      {
-        "prefix": "Sandhini",
-        "lastName": "Agarwal",
-        "suffix": ""
-      },
-      {
-        "prefix": "Ariel",
-        "lastName": "Herbert-Voss",
-        "suffix": ""
-      },
-      {
-        "prefix": "Gretchen",
-        "lastName": "Krueger",
-        "suffix": ""
-      },
-      {
-        "prefix": "Tom",
-        "lastName": "Henighan",
-        "suffix": ""
-      },
-      {
-        "prefix": "Rewon",
-        "lastName": "Child",
-        "suffix": ""
-      },
-      {
-        "prefix": "Aditya",
-        "lastName": "Ramesh",
-        "suffix": ""
-      },
-      {
-        "prefix": "Daniel M.",
-        "lastName": "Ziegler",
-        "suffix": ""
-      },
-      {
-        "prefix": "Jeffrey",
-        "lastName": "Wu",
-        "suffix": ""
-      },
-      {
-        "prefix": "Clemens",
-        "lastName": "Winter",
-        "suffix": ""
-      },
-      {
-        "prefix": "Christopher",
-        "lastName": "Hesse",
-        "suffix": ""
-      },
-      {
-        "prefix": "Mark",
-        "lastName": "Chen",
-        "suffix": ""
-      },
-      {
-        "prefix": "Eric",
-        "lastName": "Sigler",
-        "suffix": ""
-      },
-      {
-        "prefix": "Mateusz",
-        "lastName": "Litwin",
-        "suffix": ""
-      },
-      {
-        "prefix": "Scott",
-        "lastName": "Gray",
-        "suffix": ""
-      },
-      {
-        "prefix": "Benjamin",
-        "lastName": "Chess",
-        "suffix": ""
-      },
-      {
-        "prefix": "Jack",
-        "lastName": "Clark",
-        "suffix": ""
-      },
-      {
-        "prefix": "Christopher",
-        "lastName": "Berner",
-        "suffix": ""
-      },
-      {
-        "prefix": "Sam",
-        "lastName": "McCandlish",
-        "suffix": ""
-      },
-      {
-        "prefix": "Alec",
-        "lastName": "Radford",
-        "suffix": ""
-      },
-      {
-        "prefix": "Ilya",
-        "lastName": "Sutskever",
-        "suffix": ""
-      },
-      {
-        "prefix": "Dario",
-        "lastName": "Amodei",
-        "suffix": ""
-      }
-    ],
-    "tags": [
-      "industry",
-      "ML",
-      "LLM"
-    ],
-    "summary": "",
-    "link": "https://proceedings.neurips.cc/paper_files/paper/2020/file/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf",
-    "notes": "<h1>Language models are few-shot learners</h1><h3>Authors: Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel M. Ziegler, Jeffrey Wu, Clemens Winter, Christopher Hesse, Mark Chen, Eric Sigler, Mateusz Litwin, Scott Gray, Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford, Ilya Sutskever, Dario Amodei</h3><h3>Published: December 2020</h3><p><br></p><p>This is the GPT-3 paper.</p>",
-    "published": "2020-12-01",
-    "read": false,
-    "doi": "",
-    "citationCount": 0,
-    "citationsUpdated": "2023-07-03T02:34:49.388Z"
+    "citationCount": 830,
+    "citationsUpdated": "2023-07-05T07:11:31.793Z",
+    "semanticScholarID": "fac4f0cbbbde09b7f937abdf9b2fe03f2d023f34"
   },
   {
     "id": "1cf7ec40-91eb-4cfa-b967-d0b3ae5eddbe",
@@ -2169,8 +1995,9 @@
     "published": "2020-10-01",
     "read": false,
     "doi": "10.1016/j.patcog.2020.107404",
-    "citationCount": 512,
-    "citationsUpdated": "2023-07-03T08:30:30.604Z"
+    "citationCount": 551,
+    "citationsUpdated": "2023-07-05T07:11:32.295Z",
+    "semanticScholarID": "3f5539ec77ae04623ddadf95eec32ad3f17d1487"
   },
   {
     "id": "67d50da8-7b09-4350-a7b6-aa66a00ac38b",
@@ -2208,8 +2035,9 @@
     "published": "2016-06-01",
     "read": false,
     "doi": "10.1109/CVPR.2016.90",
-    "citationCount": 75127,
-    "citationsUpdated": "2023-07-03T08:33:43.042Z"
+    "citationCount": 132466,
+    "citationsUpdated": "2023-07-05T07:11:32.429Z",
+    "semanticScholarID": "2c03df8b48bf3fa39054345bafabfeff15bfd11d"
   },
   {
     "id": "349b45f7-b52e-4574-96d6-055f8e355beb",
@@ -2260,7 +2088,8 @@
       "unread",
       "ML",
       "LLM",
-      "industry"
+      "industry",
+      "seminal"
     ],
     "summary": "",
     "link": "https://arxiv.org/pdf/1706.03762.pdf",
@@ -2268,8 +2097,9 @@
     "published": "2017-06-01",
     "read": false,
     "doi": "arXiv:1706.03762",
-    "citationCount": 60615,
-    "citationsUpdated": "2023-07-03T09:37:01.586Z"
+    "citationCount": 60747,
+    "citationsUpdated": "2023-07-05T07:11:32.555Z",
+    "semanticScholarID": "204e3073870fae3d05bcbc2f6a8e263d9b72e776"
   },
   {
     "id": "769c2482-eec9-4e3b-aa83-f263ed62c42d",
@@ -2442,7 +2272,309 @@
     "published": "2020-05-01",
     "read": false,
     "doi": "6b85b63579a916f705a8e10a49bd8d849d91b1fc",
-    "citationCount": 11776,
-    "citationsUpdated": "2023-07-03T09:38:54.634Z"
+    "citationCount": 11853,
+    "citationsUpdated": "2023-07-05T07:11:32.697Z",
+    "semanticScholarID": "6b85b63579a916f705a8e10a49bd8d849d91b1fc"
+  },
+  {
+    "id": "85751fbe-f47b-4063-8e17-02a85f381fd2",
+    "title": "On expected constant-round protocols for Byzantine agreement",
+    "authors": [
+      {
+        "prefix": "Jonathan",
+        "lastName": "Katz",
+        "suffix": ""
+      },
+      {
+        "prefix": "C.",
+        "lastName": "Koo",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "BFT",
+      "unread"
+    ],
+    "summary": "",
+    "link": "https://eprint.iacr.org/2006/065.pdf",
+    "notes": "",
+    "published": "2006-08-01",
+    "read": false,
+    "doi": "1a61eff8d669693d8678d6739d7a4dc4af56b308",
+    "citationCount": 205,
+    "citationsUpdated": "2023-07-05T07:11:32.910Z",
+    "semanticScholarID": "1a61eff8d669693d8678d6739d7a4dc4af56b308"
+  },
+  {
+    "id": "db03ba6c-c776-41bc-a591-bfc0c6d6b8f1",
+    "title": "Computing Machinery and Intelligence",
+    "authors": [
+      {
+        "prefix": "A.",
+        "lastName": "Turing",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "ML",
+      "seminal"
+    ],
+    "link": "https://colinallen.dnsalias.org/Readings/1950%20Turing.pdf",
+    "notes": "",
+    "published": "1950-10-01",
+    "semanticScholarID": "2d5673caa9e6af3a7b82a43f19ee920992db07ad",
+    "citationCount": 8985,
+    "citationsUpdated": "2023-07-05T07:19:27.924Z"
+  },
+  {
+    "id": "cb2ce0c6-04e4-4023-8dcf-738ca8568bce",
+    "title": "Learning representations by back-propagating errors",
+    "authors": [
+      {
+        "prefix": "D.",
+        "lastName": "Rumelhart",
+        "suffix": ""
+      },
+      {
+        "prefix": "Geoffrey E.",
+        "lastName": "Hinton",
+        "suffix": ""
+      },
+      {
+        "prefix": "Ronald J.",
+        "lastName": "Williams",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "ML",
+      "seminal"
+    ],
+    "link": "https://www.nature.com/articles/323533a0.pdf",
+    "notes": "",
+    "published": "1986-10-01",
+    "semanticScholarID": "052b1d8ce63b07fec3de9dbb583772d860b7c769",
+    "citationCount": 22791,
+    "citationsUpdated": "2023-07-05T07:21:52.855Z"
+  },
+  {
+    "id": "515fdd4a-3b44-4050-8041-7b204d3758f1",
+    "title": "Steward: Scaling Byzantine Fault-Tolerant Replication to Wide Area Networks",
+    "authors": [
+      {
+        "prefix": "Y.",
+        "lastName": "Amir",
+        "suffix": ""
+      },
+      {
+        "prefix": "C.",
+        "lastName": "Danilov",
+        "suffix": ""
+      },
+      {
+        "prefix": "D.",
+        "lastName": "Dolev",
+        "suffix": ""
+      },
+      {
+        "prefix": "J.",
+        "lastName": "Kirsch",
+        "suffix": ""
+      },
+      {
+        "prefix": "John",
+        "lastName": "Lane",
+        "suffix": ""
+      },
+      {
+        "prefix": "C.",
+        "lastName": "Nita-Rotaru",
+        "suffix": ""
+      },
+      {
+        "prefix": "Josh",
+        "lastName": "Olsen",
+        "suffix": ""
+      },
+      {
+        "prefix": "D.",
+        "lastName": "Zage",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "inbox",
+      "BFT"
+    ],
+    "link": "http://w3.cs.huji.ac.il/~dolev/pubs/tdsc-steward-8-2008.pdf",
+    "notes": "<h1>Steward: Scaling Byzantine Fault-Tolerant Replication to Wide Area Networks</h1><h3>Authors: Y. Amir, C. Danilov, D. Dolev, J. Kirsch, John Lane, C. Nita-Rotaru, Josh Olsen, D. Zage</h3><h3>Published: September 2008</h3><p><br></p><p>Seems suspiciously practical.</p><p><br></p><p>This is a hierarchical setup that divides servers up among sites, has them run a Byzantine agreement protocol within sites, and then sends messages between sites that contain threshold signatures that show that enough servers in each site have signed on to the message. The between-sites algorithm is one that only tolerates benign faults and only need half to reach consensus.</p><p><br></p><p>A site can locally serve read-only queries. These provide one-copy serializability, which is weaker than linearizability semantics but which can tolerate partitions, whatever that means. These are <a href=\"http://www.bailis.org/blog/linearizability-versus-serializability/\" rel=\"noopener noreferrer\" target=\"_blank\">apparently</a> database terms where serializability means there's a partial/causal order for the transactions and linearizability indicates total order.</p><p><br></p><p>This seems to only replicate only one state across multiple sites (as opposed to sharding data.)</p><p><br></p><p>We assume a lot of connections: \"two sites are connected if every correct server in one site is connected to every correct server in the other site\" and \"a client is connected to a site if it can communicate with all servers in that site.\" Why do sites need to be completely connected to each other and to clients if we're using threshold signature and representatives? I guess to stop censorship attacks (and/or client request forgery, if the client isn't signing its messages, which it presumably doesn't have to in this case)</p><p><br></p><p>This algorithm operates under conditions. A stable site has 2f+1 correct and connected servers. A stable system has a majority of stable sites past a certain time T. Global progress occurs when some stable server (? that's not one of the terms) executes an update. This system has a liveness property where global progress eventually occurs if a stable server receives a new update.</p><p><br></p><p>Each site runs PBFT and uses threshold signatures with each message to become a trusted participant in the across-sites Paxos-like protocol. One whole site is a leader in the Paxos-like protocol, and view changes are performed to depose it if necessary.</p><p><br></p><p><br></p>",
+    "published": "2008-09-01",
+    "semanticScholarID": "58972bb97d5c7715a5a9fda32ad9a96c19e02094",
+    "citationCount": 92,
+    "citationsUpdated": "2023-07-05T20:37:52.691Z"
+  },
+  {
+    "id": "f89eab63-05ec-4ad7-aece-187bd0c9bd75",
+    "title": "BFT in Blockchains: From Protocols to Use Cases",
+    "authors": [
+      {
+        "prefix": "Xin",
+        "lastName": "Wang",
+        "suffix": ""
+      },
+      {
+        "prefix": "Sisi",
+        "lastName": "Duan",
+        "suffix": ""
+      },
+      {
+        "prefix": "James R.",
+        "lastName": "Clavin",
+        "suffix": ""
+      },
+      {
+        "prefix": "Haibin",
+        "lastName": "Zhang",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "inbox",
+      "BFT",
+      "blockchain",
+      "survey"
+    ],
+    "link": "https://mdsoar.org/bitstream/handle/11603/24091/3503042.pdf",
+    "notes": "<h1>BFT in Blockchains: From Protocols to Use Cases</h1><h3>Authors: Xin Wang, Sisi Duan, James R. Clavin, Haibin Zhang</h3><h3>Published: December 2021</h3><p><br></p><p>The description of smart contracts is not very good</p>",
+    "published": "2021-12-01",
+    "semanticScholarID": "6421eb27a243151d4ac5fd0a0aeb5080eb5f1621",
+    "citationCount": 7,
+    "citationsUpdated": "2023-07-06T01:13:27.832Z"
+  },
+  {
+    "id": "4a418806-5955-4de2-b361-d31ee7412968",
+    "title": "On the Expressive Power of Programming Languages",
+    "authors": [
+      {
+        "prefix": "M.",
+        "lastName": "Felleisen",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "software engineering",
+      "languages"
+    ],
+    "link": "https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=27985884a1947b656424b0956f82caeddde546a1",
+    "notes": "",
+    "published": "1991-12-01",
+    "semanticScholarID": "269e1c68c2d6b64befc9a30969bc2d686abcd191",
+    "citationCount": 364,
+    "citationsUpdated": "2023-07-09T01:05:13.034Z"
+  },
+  {
+    "id": "283d9914-d364-4e0d-98ea-da6cf5dc54b1",
+    "title": "Backpropagation Applied to Handwritten Zip Code Recognition",
+    "authors": [
+      {
+        "prefix": "Yann",
+        "lastName": "LeCun",
+        "suffix": ""
+      },
+      {
+        "prefix": "B.",
+        "lastName": "Boser",
+        "suffix": ""
+      },
+      {
+        "prefix": "J.",
+        "lastName": "Denker",
+        "suffix": ""
+      },
+      {
+        "prefix": "D.",
+        "lastName": "Henderson",
+        "suffix": ""
+      },
+      {
+        "prefix": "R.",
+        "lastName": "Howard",
+        "suffix": ""
+      },
+      {
+        "prefix": "W.",
+        "lastName": "Hubbard",
+        "suffix": ""
+      },
+      {
+        "prefix": "L.",
+        "lastName": "Jackel",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "ML",
+      "images"
+    ],
+    "link": "https://web.archive.org/web/20100730053801id_/http://srl.csdl.tamu.edu/courses/SR2008/papers/others/LeCun.pdf",
+    "notes": "<h1>Backpropagation Applied to Handwritten Zip Code Recognition</h1><h3>Authors: Yann LeCun, B. Boser, J. Denker, D. Henderson, R. Howard, W. Hubbard, L. Jackel</h3><h3>Published: December 1989</h3><p><br></p><p>Andrej Karpathy says this was possibly the first modern, practical example of training a neural network with backpropagation. He updated this paper's results <a href=\"http://karpathy.github.io/2022/03/14/lecun1989/\" rel=\"noopener noreferrer\" target=\"_blank\">here</a>.</p>",
+    "published": "1989-12-01",
+    "semanticScholarID": "a8e8f3c8d4418c8d62e306538c9c1292635e9d27",
+    "citationCount": 9241,
+    "citationsUpdated": "2023-07-09T01:07:08.538Z"
+  },
+  {
+    "id": "e4091fc5-2140-4d2e-9b2e-2a532d2b6e0d",
+    "title": "The Unreasonable Effectiveness of Recurrent Neural Networks",
+    "authors": [
+      {
+        "prefix": "Andrej",
+        "lastName": "Karpathy",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "unread",
+      "ml",
+      "not a paper"
+    ],
+    "link": "http://karpathy.github.io/2015/05/21/rnn-effectiveness/",
+    "notes": "<h1>The Unreasonable Effectiveness of Recurrent Neural Networks</h1><h3>Authors: Andrej Karpathy</h3><h3>Published: May 2015</h3><p><br></p><p>According to Wikipedia, recurrent neural networks were important for a long time but have been outmoded by attention-based transformers for many tasks. It's interesting that this author had a transformer do the same \"generate Shakespeare character-by-character\" task in his later Let's Built ChatGPT video.</p>",
+    "published": "2015-05-01",
+    "semanticScholarID": "",
+    "citationCount": 0,
+    "citationsUpdated": "2023-07-09T01:11:05.982Z"
+  },
+  {
+    "id": "c5b6445a-068b-4a5d-8285-8be86a8bf0b4",
+    "title": "BigBFT: A Multileader Byzantine Fault Tolerance Protocol for High Throughput",
+    "authors": [
+      {
+        "prefix": "S.",
+        "lastName": "Alqahtani",
+        "suffix": ""
+      },
+      {
+        "prefix": "M.",
+        "lastName": "Demirbas",
+        "suffix": ""
+      }
+    ],
+    "tags": [
+      "BFT",
+      "algorithms",
+      "inbox"
+    ],
+    "link": "http://arxiv.org/pdf/2109.12664",
+    "notes": "<h1>BigBFT: A Multileader Byzantine Fault Tolerance Protocol for High Throughput</h1><h3>Authors: S. Alqahtani, M. Demirbas</h3><h3>Published: September 2021</h3><p><br></p><p>\"reliable\" messages</p>",
+    "published": "2021-09-01",
+    "semanticScholarID": "0e8bf74d1394cc57e3e7d5a2ad386ae3b4659a94",
+    "citationCount": 9,
+    "citationsUpdated": "2023-07-18T17:06:28.480Z"
   }
 ]
