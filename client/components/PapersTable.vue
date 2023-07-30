@@ -125,8 +125,10 @@ const filters: Filters = reactive({
   tags: {
     value: "",
     custom(value, row) {
-      const words = (value as string).trim().split(' ');
-      return (row as Paper).tags.some(t => words.some(w => t.includes(w)));
+      const words = (value as string).trim().toLowerCase().split(' ');
+      return (row as Paper).tags.some(
+        t => words.some(w => t.toLowerCase().includes(w))
+      );
     }
   }
 });
