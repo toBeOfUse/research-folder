@@ -68,6 +68,7 @@ span[contenteditable="true"] {
   text-decoration-thickness: 1px;
   cursor: text;
   overflow: hidden;
+  white-space: nowrap;
 }
 span[contenteditable="true"]:empty:before {
   /* fixes firefox span vpos bug: https://stackoverflow.com/a/48260743 */

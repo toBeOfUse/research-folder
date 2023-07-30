@@ -4,8 +4,9 @@ import { Paper } from '../../data/entities';
 import EditableRow from './EditableRow.vue';
 import contenteditable from 'vue-contenteditable';
 import { lookupPaperID, searchPapers } from '../code/dataUtilities';
+
 defineEmits<{ (event: 'addRow', row: Paper): void }>();
-const adding = ref(false);
+const editorOpen = ref(false);
 const DOI = ref("");
 const search = ref("");
 const getBlankRow: () => Paper = () => ({
@@ -21,10 +22,15 @@ const getBlankRow: () => Paper = () => ({
     citationsUpdated: undefined,
     semanticScholarID: ""
 });
+
 const rowInProgress = reactive<Paper>(getBlankRow());
+
+const loadingPaper = ref(false);
+
 const initRow = async () => {
     if (DOI.value.trim().length > 0 || search.value.trim().length > 0) {
         try {
+            loadingPaper.value = true;
             let idToUse: string;
             if (DOI.value.trim().length != 0) {
                 idToUse = DOI.value.trim();
@@ -37,22 +43,24 @@ const initRow = async () => {
             rowInProgress.citationsUpdated = new Date();
             DOI.value = "";
             search.value = "";
-            adding.value = true;
+            editorOpen.value = true;
+            loadingPaper.value = false;
         } catch (e: any) {
             alert("Paper retrieval failed:" + "\n" + e.toString())
         }
     } else {
-        adding.value = true;
+        editorOpen.value = true;
     }
 };
+
 const reset = () => {
     Object.assign(rowInProgress, getBlankRow());
-    adding.value = false;
+    editorOpen.value = false;
 }
 </script>
 
 <template>
-    <template v-if="adding">
+    <template v-if="editorOpen">
         <EditableRow bg="#e6fae7" :row="rowInProgress" @cancel="reset" @delete="reset"
             @save="row => { $emit('addRow', row); reset() }" />
     </template>
@@ -64,7 +72,10 @@ const reset = () => {
                     @keypress.enter="initRow" no-html no-nl />
                 <contenteditable style="margin-top: 4px;flex-shrink: 0;" v-model="DOI" tag="span" data-ph="Add from DOI..."
                     @keypress.enter="initRow" no-html no-nl />
-                <button class="wide-button" style="margin-left:auto; min-width:125px" @click="initRow">➕ Add Paper</button>
+                <button class="wide-button" style="margin-left:auto; min-width:125px" @click="initRow">
+                    <span :class="{ spinning: loadingPaper }">➕</span>
+                    Add Paper
+                </button>
             </td>
             <td v-for="i in 5" />
         </tr>
@@ -83,5 +94,23 @@ td {
     overflow: hidden;
     margin-top: 4px;
     margin-right: 20px
+}
+
+@keyframes spin {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(180deg);
+    }
+}
+
+.spinning {
+    display: inline-block;
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.425, 0.2, 0.495, 0.810);
 }
 </style>

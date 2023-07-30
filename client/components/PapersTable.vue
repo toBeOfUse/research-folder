@@ -225,6 +225,8 @@ $tableWidth: 95vw;
 #the-table {
   width: 100%;
   margin-bottom: 20px;
+  // html table with column sizing determined by css grid properties, based on:
+  // https://adamlynch.com/flexible-data-tables-with-css-grid/
   display: grid;
   grid-template-columns: 160px minmax(0, 1fr) minmax(0, 0.6fr) 65px 0.5fr 80px 40px;
 }

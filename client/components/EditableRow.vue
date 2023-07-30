@@ -99,26 +99,44 @@ const drag = ref(false);
 const leftPosReference = ref<HTMLElement | null>(null);
 const rightPosReference = ref<HTMLElement | null>(null);
 const bgPos = ref({ left: "", top: "", width: "", height: "" });
+const naturalHeight = ref(0);
 
+// when mounted: get natural height; store in variable; play expanding animation
+// on contents and bg, from 40 to that natural height; keep it around to use in
+// the contracting animation when closing
 onMounted(() => {
     if (leftPosReference.value && rightPosReference.value) {
         const leftBB = leftPosReference.value.getBoundingClientRect();
-        const rightBB = rightPosReference.value?.getBoundingClientRect();
-        console.log("pr bbox", leftBB);
+        const rightBB = rightPosReference.value.getBoundingClientRect();
         bgPos.value = {
             left: leftBB.left + "px",
             top: (leftBB.top + window.scrollY) + "px",
             width: (rightBB.right - leftBB.left) + "px",
             height: leftBB.height + "px",
         }
+        naturalHeight.value = leftBB.height;
     }
-})
+    opening.value = true;
+});
 
-defineEmits(["save", "cancel", "edit", "delete"]);
+const emit = defineEmits(["save", "cancel", "edit", "delete"]);
+
+const closing = ref(false);
+const opening = ref(false);
+const animationDuration = 250;
+const save = () => {
+    closing.value = true;
+    setTimeout(() => emit('save', workingCopy.value), animationDuration);
+}
+
+const cancel = () => {
+    closing.value = true;
+    setTimeout(() => emit('cancel'), animationDuration);
+}
 </script>
 
 <template>
-    <tr class="row-container">
+    <tr class="row-container" :class="{ opening: opening, closing: closing }">
         <div class="row-container-bg" :style="bgPos" />
         <td class="parent" ref="leftPosReference">
             <table style="width: 165px">
@@ -227,8 +245,8 @@ defineEmits(["save", "cancel", "edit", "delete"]);
             <table>
                 <tr v-for="i in rowsNeeded">
                     <td class="button">
-                        <button title="save changes" v-if="i == 1" @click="$emit('save', workingCopy)">💾</button>
-                        <button title="cancel changes" v-if="i == 2" @click="$emit('cancel')">↩</button>
+                        <button title="save changes" v-if="i == 1" @click="save">💾</button>
+                        <button title="cancel changes" v-if="i == 2" @click="cancel">↩</button>
                         <button title="delete row" v-if="i == 3" @click="$emit('delete')">❌</button>
                     </td>
                 </tr>
@@ -239,10 +257,6 @@ defineEmits(["save", "cancel", "edit", "delete"]);
 
 <style scoped>
 @import "../styles/tables.scss";
-
-.row-container {
-    position: relative;
-}
 
 .row-container-bg {
     background-image: linear-gradient(to bottom right, white 0%, white 45%, lightgray 45%, lightgray 55%, white 55%, white 100%);
@@ -277,6 +291,41 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
     appearance: textfield;
+}
+
+.opening .parent {
+    animation-name: expand;
+    animation-duration: v-bind("animationDuration + 'ms'");
+    animation-timing-function: ease-in;
+    overflow: hidden;
+}
+
+.closing .parent {
+    animation-name: contract;
+    animation-duration: v-bind("animationDuration + 'ms'");
+    animation-timing-function: ease-in;
+    overflow: hidden;
+    animation-fill-mode: both;
+}
+
+@keyframes expand {
+    from {
+        max-height: 40px;
+    }
+
+    to {
+        max-height: v-bind("naturalHeight + 'px'");
+    }
+}
+
+@keyframes contract {
+    to {
+        max-height: 40px;
+    }
+
+    from {
+        max-height: v-bind("naturalHeight + 'px'");
+    }
 }
 </style>
 

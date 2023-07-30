@@ -26,8 +26,8 @@ defineEmits(['edit', 'save', 'cancel', 'delete', 'notes']);
 </script>
 
 <template>
-    <tr ref="el">
-        <td style="justify-content: flex-end">{{ published }}</td>
+    <tr>
+        <td ref="el" style="justify-content: flex-end">{{ published }}</td>
         <td><a :class="{ link: row.link }" :href="row.link || undefined" target="_blank">{{ row.title }}</a></td>
         <td>
             <div class="authors-container">
