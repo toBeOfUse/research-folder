@@ -96,12 +96,31 @@ const addTagVisibility = (index: number) => {
 
 const drag = ref(false);
 
+const leftPosReference = ref<HTMLElement | null>(null);
+const rightPosReference = ref<HTMLElement | null>(null);
+const bgPos = ref({ left: "", top: "", width: "", height: "" });
+
+onMounted(() => {
+    if (leftPosReference.value && rightPosReference.value) {
+        const leftBB = leftPosReference.value.getBoundingClientRect();
+        const rightBB = rightPosReference.value?.getBoundingClientRect();
+        console.log("pr bbox", leftBB);
+        bgPos.value = {
+            left: leftBB.left + "px",
+            top: (leftBB.top + window.scrollY) + "px",
+            width: (rightBB.right - leftBB.left) + "px",
+            height: leftBB.height + "px",
+        }
+    }
+})
+
 defineEmits(["save", "cancel", "edit", "delete"]);
 </script>
 
 <template>
     <tr class="row-container">
-        <td class="parent">
+        <div class="row-container-bg" :style="bgPos" />
+        <td class="parent" ref="leftPosReference">
             <table style="width: 165px">
                 <tr v-for="r in rowsNeeded" :key="r">
                     <td style="padding: 0">
@@ -204,7 +223,7 @@ defineEmits(["save", "cancel", "edit", "delete"]);
                 </tr>
             </table>
         </td>
-        <td class="parent">
+        <td class="parent" ref="rightPosReference">
             <table>
                 <tr v-for="i in rowsNeeded">
                     <td class="button">
@@ -222,9 +241,14 @@ defineEmits(["save", "cancel", "edit", "delete"]);
 @import "../styles/tables.scss";
 
 .row-container {
-    border: 2px solid black;
+    position: relative;
+}
+
+.row-container-bg {
     background-image: linear-gradient(to bottom right, white 0%, white 45%, lightgray 45%, lightgray 55%, white 55%, white 100%);
     background-size: 10px 10px;
+    position: absolute;
+    z-index: -1;
 }
 
 td:not(:empty, .parent) {
@@ -233,6 +257,11 @@ td:not(:empty, .parent) {
 
 td:empty {
     background: transparent;
+    border: none;
+}
+
+td.parent {
+    border: none;
 }
 
 /* Hide inrement/decrement arrows on citations field: */

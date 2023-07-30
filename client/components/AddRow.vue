@@ -60,9 +60,9 @@ const reset = () => {
         <tr>
             <td />
             <td>
-                <contenteditable id="title-input" v-model="search" tag="span" data-ph="Title search..."
+                <contenteditable id="title-input" v-model="search" tag="span" data-ph="Add from title..."
                     @keypress.enter="initRow" no-html no-nl />
-                <contenteditable style="margin-top: 4px;flex-shrink: 0;" v-model="DOI" tag="span" data-ph="DOI lookup..."
+                <contenteditable style="margin-top: 4px;flex-shrink: 0;" v-model="DOI" tag="span" data-ph="Add from DOI..."
                     @keypress.enter="initRow" no-html no-nl />
                 <button class="wide-button" style="margin-left:auto; min-width:125px" @click="initRow">➕ Add Paper</button>
             </td>
