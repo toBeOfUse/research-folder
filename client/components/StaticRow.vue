@@ -30,10 +30,12 @@ defineEmits(['edit', 'save', 'cancel', 'delete', 'notes']);
         <td style="justify-content: flex-end">{{ published }}</td>
         <td><a :class="{ link: row.link }" :href="row.link || undefined" target="_blank">{{ row.title }}</a></td>
         <td>
-            <span v-for="author, i in row.authors.slice(0, authorsToShow)" :key="i" :title="fullName(author)">
-                {{ author.lastName + (i != row.authors.length - 1 ? ', ' : '') }}
-            </span>
-            <span v-if="row.authors.length > authorsToShow" :title="etAl"> et al.</span>
+            <div class="authors-container">
+                <span v-for="author, i in row.authors.slice(0, authorsToShow)" :key="i" :title="fullName(author)">
+                    {{ author.lastName + (i != row.authors.length - 1 ? ', ' : '') }}
+                </span>
+                <span v-if="row.authors.length > authorsToShow" :title="etAl">et al.</span>
+            </div>
         </td>
         <td><button class="link" @click="$emit('notes')">View</button>
         </td>

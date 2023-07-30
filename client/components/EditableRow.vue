@@ -87,7 +87,7 @@ watch(workingCopy.value.tags, ensureTag);
 onMounted(ensureTag);
 
 const addAuthorVisibility = (index: number) => {
-    return index == workingCopy.value.authors.length - 1 ? 'visible' : 'hidden'
+    return index == workingCopy.value.authors.length - 1 ? 'initial' : 'none'
 };
 
 const addTagVisibility = (index: number) => {
@@ -147,9 +147,8 @@ defineEmits(["save", "cancel", "edit", "delete"]);
                                     @keypress.enter="addAuthor" />
                                 <ContentEditable data-ph="jr/sr" tag="span" v-model="element.suffix" v-bind="CEOpts"
                                     @keypress.enter="addAuthor" />
-                                <div style="display: inline; float: right;">
-                                    <button :style="{ visibility: addAuthorVisibility(index) }"
-                                        @click="addAuthor">➕</button>
+                                <div style="margin-left: auto; display: flex">
+                                    <button :style="{ display: addAuthorVisibility(index) }" @click="addAuthor">➕</button>
                                     <button @click="removeAuthor(index)">❌</button>
                                     <button class="handle" style="cursor:grab">⇳</button>
                                 </div>
@@ -181,7 +180,7 @@ defineEmits(["save", "cancel", "edit", "delete"]);
                                 <ContentEditable @keypress="handleTagPress"
                                     :ref="el => index == workingCopy.tags.length - 1 && (lastTag = el)" data-ph="new tag"
                                     tag="span" v-model="workingCopy.tags[index]" v-bind="CEOpts" />
-                                <div style="display: inline; float: right;">
+                                <div style="margin-left: auto; display: flex">
                                     <button :style="{ visibility: addTagVisibility(index) }" @click="addTag">➕</button>
                                     <button @click="removeTag(index)">❌</button>
                                     <button class="handle" style="cursor:grab">⇳</button>
@@ -248,6 +247,7 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 </style>
 

@@ -226,7 +226,7 @@ $tableWidth: 95vw;
   width: 100%;
   margin-bottom: 20px;
   display: grid;
-  grid-template-columns: 150px 1fr 0.4fr 65px 0.5fr 80px 40px;
+  grid-template-columns: 160px minmax(0, 1fr) minmax(0, 0.6fr) 65px 0.5fr 80px 40px;
 }
 
 :deep(thead),

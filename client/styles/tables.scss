@@ -2,33 +2,27 @@ table {
   text-align: left;
   vertical-align: top;
 }
-td {
-  border: 1px solid white;
-  height: 40px;
-}
-td:not(.button) {
-  padding-left: 10px;
-  padding-right: 15px;
-  vertical-align: middle;
-}
 th {
   padding: 5px 10px;
+}
+td {
+  padding: 0;
+  border: 1px solid white;
 }
 td.button {
   padding: 0 7px;
   text-align: center;
   width: 40px;
 }
-button:not(.wide-button) {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  width: 40px;
+td:not(.button) {
+  padding-left: 10px;
+  padding-right: 15px;
+  vertical-align: middle;
 }
-td {
-  padding: 0;
+td:not(.parent) {
   display: flex;
   align-items: center;
+  height: 40px;
 }
 td.parent {
   padding: 0;
@@ -38,9 +32,16 @@ td.parent {
 }
 td.parent table {
   width: 100%;
+  table-layout: fixed;
 }
 table {
   border-collapse: collapse;
+}
+button:not(.wide-button) {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 25px;
 }
 .notes-container {
   margin: 10px auto;
@@ -66,6 +67,7 @@ span[contenteditable="true"] {
   text-decoration-style: dashed;
   text-decoration-thickness: 1px;
   cursor: text;
+  overflow: hidden;
 }
 span[contenteditable="true"]:empty:before {
   /* fixes firefox span vpos bug: https://stackoverflow.com/a/48260743 */

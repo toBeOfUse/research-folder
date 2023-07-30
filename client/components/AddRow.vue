@@ -60,11 +60,11 @@ const reset = () => {
         <tr>
             <td />
             <td>
-                <contenteditable style="margin-top: 4px; margin-right: 20px;" v-model="search" tag="span"
-                    data-ph="Title search..." @keypress.enter="initRow" no-html no-nl />
-                <contenteditable style="margin-top: 4px;" v-model="DOI" tag="span" data-ph="DOI lookup..."
+                <contenteditable id="title-input" v-model="search" tag="span" data-ph="Title search..."
                     @keypress.enter="initRow" no-html no-nl />
-                <button class="wide-button" style="float: right" @click="initRow">➕ Add Paper</button>
+                <contenteditable style="margin-top: 4px;flex-shrink: 0;" v-model="DOI" tag="span" data-ph="DOI lookup..."
+                    @keypress.enter="initRow" no-html no-nl />
+                <button class="wide-button" style="margin-left:auto; min-width:125px" @click="initRow">➕ Add Paper</button>
             </td>
             <td v-for="i in 5" />
         </tr>
@@ -76,5 +76,12 @@ const reset = () => {
 
 td {
     background-color: #e6fae7
+}
+
+#title-input {
+    white-space: nowrap;
+    overflow: hidden;
+    margin-top: 4px;
+    margin-right: 20px
 }
 </style>
