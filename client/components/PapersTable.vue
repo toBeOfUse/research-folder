@@ -145,7 +145,7 @@ const closeNotes = (newNotes: string) => {
   <div id="page-container">
     <NoteTaker v-if="takingNotesOn" :paper="papers.find(p => p.id == takingNotesOn)!" @close="closeNotes" />
     <h1 id="table-header">Mitch's Research Paper Index</h1>
-    <VTable :filters="filters" :data="papers" sortHeaderClass="spaced-header" style="width: 100%; margin-bottom: 20px"
+    <VTable :filters="filters" :data="papers" sortHeaderClass="spaced-header" id="the-table"
       :style="takingNotesOn && { display: 'none' }">
       <template #head>
         <VTh :sortKey="({ published }: Paper) => published.toISOString()">Published</VTh>
@@ -169,12 +169,12 @@ const closeNotes = (newNotes: string) => {
         <th />
       </template>
       <template #body="{ rows }">
+        <AddRow @add-row="(row: Paper) => save(row, true)" />
         <component :is="editing(row) ? EditableRow : StaticRow" v-for="row, rowIndex in rows" :key="row.id" :row="row"
           @edit="edit(row)" @save="row => save(row)" @cancel="cancel(row)" @delete="del(row)"
           @notes="takingNotesOn = row.id" :sortedTags="[...row.tags].sort(tagSorter)"
           :bg="row.id == lastSavedPaperID ? '#e6fae7' : rowIndex % 2 == 1 ? 'white' : '#d7ebf5'"
           :highlighted="row.id == lastSavedPaperID" />
-        <AddRow @add-row="(row: Paper) => save(row, true)" />
       </template>
     </VTable>
     <TagOrderer :type="TagOrderType.precedence" :local="tagPrecedence" />
@@ -212,12 +212,27 @@ button.link {
 <style scoped lang="scss">
 @import "../styles/tables.scss";
 
+$tableWidth: 95vw;
+
 #page-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin: 0 auto 200px;
-  width: 95%;
+  width: $tableWidth;
+}
+
+#the-table {
+  width: 100%;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 150px 1fr 0.4fr 65px 0.5fr 80px 40px;
+}
+
+:deep(thead),
+:deep(tbody),
+tr {
+  display: contents;
 }
 
 #table-header {

@@ -26,8 +26,8 @@ defineEmits(['edit', 'save', 'cancel', 'delete', 'notes']);
 </script>
 
 <template>
-    <tr :style="{ backgroundColor: bg }" ref="el">
-        <td style="text-align: right; width: 150px">{{ published }}</td>
+    <tr ref="el">
+        <td style="justify-content: flex-end">{{ published }}</td>
         <td><a :class="{ link: row.link }" :href="row.link || undefined" target="_blank">{{ row.title }}</a></td>
         <td>
             <span v-for="author, i in row.authors.slice(0, authorsToShow)" :key="i" :title="fullName(author)">
@@ -45,4 +45,8 @@ defineEmits(['edit', 'save', 'cancel', 'delete', 'notes']);
 
 <style scoped lang="scss">
 @import "../styles/tables.scss";
+
+td {
+    background-color: v-bind("props.bg");
+}
 </style>

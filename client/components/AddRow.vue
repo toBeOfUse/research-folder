@@ -57,7 +57,7 @@ const reset = () => {
             @save="row => { $emit('addRow', row); reset() }" />
     </template>
     <template v-else>
-        <tr style="background-color: #e6fae7">
+        <tr>
             <td />
             <td>
                 <contenteditable style="margin-top: 4px; margin-right: 20px;" v-model="search" tag="span"
@@ -73,4 +73,8 @@ const reset = () => {
 
 <style scoped>
 @import "../styles/tables.scss";
+
+td {
+    background-color: #e6fae7
+}
 </style>
