@@ -22,7 +22,7 @@ onMounted(() => {
 });
 // this component doesn't use all of these but for it to be interchangable with
 // editablerow without warnings we have to pretend
-defineEmits(['edit', 'save', 'cancel', 'delete', 'notes']);
+defineEmits(['edit', 'save', 'cancel', 'delete']);
 </script>
 
 <template>
@@ -37,7 +37,8 @@ defineEmits(['edit', 'save', 'cancel', 'delete', 'notes']);
                 <span v-if="row.authors.length > authorsToShow" :title="etAl">et al.</span>
             </div>
         </td>
-        <td><button class="link" @click="$emit('notes')">View</button>
+        <td>
+            <router-link class="link" :to="'/notes/' + row.id">View</router-link>
         </td>
         <td>{{ sortedTags.join(", ") }}</td>
         <td :title="citationsUpdated">{{ row.citationCount || "-" }}</td>

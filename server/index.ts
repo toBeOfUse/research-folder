@@ -24,7 +24,7 @@ const db = remultExpress({
   app.use(db);
   // proxying ACM PDFs requires us to support redirects that set cookies
   const cookieJar = new CookieJar();
-  app.get("/paper", async (req, res) => {
+  app.get("/pdfProxy", async (req, res) => {
     // silly proxy to serve papers that can't be embedded in iframes while
     // ignoring cross-origin policies
     const url = (req.query as any).url;

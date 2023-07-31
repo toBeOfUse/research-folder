@@ -25,6 +25,7 @@ const save = () => {
             <template #item="{ element, index }">
                 <div class="movable-tag">
                     <contenteditable tag="span" data-ph="add tag..." v-model="local.tags.value[index]" />
+                    <button @click="local.tags.value.splice(index, 1); saved = false">✖</button>
                     <button class="tactile">&nbsp;</button>
                 </div>
             </template>
@@ -41,6 +42,7 @@ const save = () => {
 .tag-order-container {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     margin: 5px 0;
 }
 

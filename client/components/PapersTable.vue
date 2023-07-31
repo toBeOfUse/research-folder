@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { remult } from "remult"
-import { Ref, onMounted, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
 import { Filters } from "vuejs-smart-table";
 import ContentEditable from "vue-contenteditable";
 import { CEOpts } from "../code/settings";
@@ -11,24 +11,15 @@ import AddRow from "./AddRow.vue";
 import TagOrderer from "./TagOrderer.vue";
 import LocalTagOrder from "../code/tagOrder";
 import { cleanAuthors } from "../code/dataUtilities";
-import NoteTaker from "./NoteTaker.vue";
+import { papers } from "../code/tableData";
 
 const papersRepo = remult.repo(Paper);
 
 // for use in rows in the repos if we want to instance the tables later
 const INSTANCE = "mitch";
 
-let papers: Ref<Paper[]> = ref([]);
-
 const tagOrder = new LocalTagOrder(INSTANCE, TagOrderType.ordering);
 const tagPrecedence = new LocalTagOrder(INSTANCE, TagOrderType.precedence);
-
-// load papers and initialize two completely separate reactive copies:
-async function loadAll() {
-  const results = await papersRepo.find();
-  papers.value = results;
-}
-onMounted(loadAll);
 
 // why did i think it was a good idea to be able to edit more than one row at once?
 const wip = reactive(new Set<string>());
@@ -42,6 +33,9 @@ const cancel = (row: Paper) => {
 }
 
 const lastSavedPaperID = ref("");
+
+// for cleanliness, operations like this could possibly be moved to
+// code/tableData.ts
 const save = async (row: Paper, insert: boolean = false) => {
   cleanAuthors(row.authors);
   // TODO: more validation? on tags?
@@ -105,8 +99,6 @@ const tagBasedPaperSorter = (one: Paper, two: Paper, direction: number) => {
   }
 }
 
-const takingNotesOn: Ref<string | undefined> = ref(undefined);
-
 const filters: Filters = reactive({
   title: {
     value: "",
@@ -132,23 +124,12 @@ const filters: Filters = reactive({
     }
   }
 });
-
-const closeNotes = (newNotes: string) => {
-  const paper = papers.value.find(p => p.id == takingNotesOn.value);
-  if (paper) {
-    paper.notes = newNotes;
-  }
-  takingNotesOn.value = undefined;
-}
-
 </script>
 
 <template>
   <div id="page-container">
-    <NoteTaker v-if="takingNotesOn" :paper="papers.find(p => p.id == takingNotesOn)!" @close="closeNotes" />
     <h1 id="table-header">Mitch's Research Paper Index</h1>
-    <VTable :filters="filters" :data="papers" sortHeaderClass="spaced-header" id="the-table"
-      :style="takingNotesOn && { display: 'none' }">
+    <VTable :filters="filters" :data="papers" sortHeaderClass="spaced-header" id="the-table">
       <template #head>
         <VTh :sortKey="({ published }: Paper) => published.toISOString()">Published</VTh>
         <VTh sortKey="title">
@@ -174,7 +155,7 @@ const closeNotes = (newNotes: string) => {
         <AddRow @add-row="(row: Paper) => save(row, true)" />
         <component :is="editing(row) ? EditableRow : StaticRow" v-for="row, rowIndex in rows" :key="row.id" :row="row"
           @edit="edit(row)" @save="row => save(row)" @cancel="cancel(row)" @delete="del(row)"
-          @notes="takingNotesOn = row.id" :sortedTags="[...row.tags].sort(tagSorter)"
+          :sortedTags="[...row.tags].sort(tagSorter)"
           :bg="row.id == lastSavedPaperID ? '#e6fae7' : rowIndex % 2 == 1 ? 'white' : '#d7ebf5'"
           :highlighted="row.id == lastSavedPaperID" />
       </template>

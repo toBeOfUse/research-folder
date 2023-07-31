@@ -8,36 +8,42 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 import { Paper } from '../../data/entities';
 import { getPublicationDate } from '../code/dataUtilities';
 import { remult } from 'remult';
+import { useRoute, useRouter } from "vue-router";
+import { papers } from "../code/tableData";
 
-const props = defineProps<{ paper: Paper }>();
-const emit = defineEmits(["close"]);
-const notes = ref(props.paper.notes);
+const route = useRoute();
+const router = useRouter();
+const paperID = route.params.id;
+const paper = computed(() => papers.value.find(p => p.id == paperID)!);
+const notes = ref(paper.value.notes);
 // savedNotes only updates when a database save succeeds; when the user closes
 // the editor, it lets the parent component know what the local paper object
 // should store (ignoring the unsaved changes that may be present in `notes.value`)
-const savedNotes = ref(props.paper.notes);
+const savedNotes = ref(paper.value.notes);
 if (!notes.value.trim().length) {
-    notes.value += `<h1>${props.paper.title}</h1>`;
-    notes.value += `<h3>Authors: ${props.paper.authors.map(a => [a.prefix, a.lastName, a.suffix]
+    notes.value += `<h1>${paper.value.title}</h1>`;
+    notes.value += `<h3>Authors: ${paper.value.authors.map(a => [a.prefix, a.lastName, a.suffix]
         .filter(a => a.trim().length).join(' ')).join(", ")}</h3>`;
-    notes.value += `<h3>Published: ${getPublicationDate(props.paper)}</h3>`
+    notes.value += `<h3>Published: ${getPublicationDate(paper.value)}</h3>`
     notes.value += "<br><br>"
 }
 const proxyURL = computed(() => {
-    return "/paper?url=" + encodeURIComponent(props.paper.link);
+    return "/pdfProxy?url=" + encodeURIComponent(paper.value.link);
 });
 const saved = ref(true);
 const repo = remult.repo(Paper);
+// TODO: replace "close" with a back button that does router.back() if there is
+// history to go back to or redirects to "/" otherwise
 const close = () => {
     if (!saved.value) {
         if (!confirm("Close without saving?")) {
             return;
         }
     }
-    emit("close", savedNotes.value);
+    router.back();
 }
 const save = () => {
-    repo.update(props.paper.id, { ...props.paper, notes: notes.value })
+    repo.update(paper.value.id, { ...paper.value, notes: notes.value })
         .then(() => { saved.value = true; savedNotes.value = notes.value });
 }
 watch(notes, () => saved.value = false);
