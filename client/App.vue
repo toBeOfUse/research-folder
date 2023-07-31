@@ -3,9 +3,11 @@ import "normalize.css";
 </script>
 
 <template>
-  <KeepAlive include="PapersTable">
-    <RouterView />
-  </KeepAlive>
+  <router-view v-slot="{ Component }">
+    <keep-alive include="PapersTable">
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
 </template>
 
 <style>

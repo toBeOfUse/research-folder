@@ -7,10 +7,10 @@ import got from "got";
 import { CookieJar } from "tough-cookie";
 
 import { remultExpress } from "remult/remult-express";
-import { Paper, TagOrder } from "../data/entities";
+import { Notes, Paper, TagOrder } from "../data/entities";
 
 const db = remultExpress({
-  entities: [Paper, TagOrder],
+  entities: [Paper, TagOrder, Notes],
 });
 
 // start vite

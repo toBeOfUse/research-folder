@@ -1,4 +1,4 @@
-import { Entity, Fields } from "remult";
+import { Entity, Fields, Validators } from "remult";
 
 export interface AuthorName {
   // first name and maybe middle name or initial; not always displayed
@@ -26,9 +26,6 @@ export class Paper {
   @Fields.string()
   link = "";
 
-  @Fields.string()
-  notes = "";
-
   @Fields.dateOnly()
   published = new Date(1990, 0, 1);
 
@@ -40,6 +37,15 @@ export class Paper {
 
   @Fields.date()
   citationsUpdated? = new Date();
+}
+
+@Entity<Notes>("notes", { allowApiCrud: true, id: (e) => e.paperID })
+export class Notes {
+  @Fields.string({ validate: Validators.uniqueOnBackend })
+  paperID!: string;
+
+  @Fields.string()
+  notesHTML = "";
 }
 
 // should have one entity of each type for each instance
