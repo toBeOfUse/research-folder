@@ -9,7 +9,7 @@ import { Notes } from '../../data/entities';
 import { getPublicationDate } from '../code/dataUtilities';
 import { remult } from 'remult';
 import { useRoute, useRouter } from "vue-router";
-import { papers } from "../code/tableData";
+import { papers, papersLoaded } from "../code/tableData";
 
 const route = useRoute();
 const router = useRouter();
@@ -24,7 +24,7 @@ onMounted(async () => {
     notes.value = (await repo.findId(paperID)).notesHTML || "";
     savedNotes.value = notes.value;
     saved.value = true;
-    // TODO: await papers.value!
+    await papersLoaded;
     if (!notes.value.trim().length) {
         notes.value += `<h1>${paper.value.title}</h1>`;
         notes.value += `<h3>Authors: ${paper.value.authors.map(a => [a.prefix, a.lastName, a.suffix]
@@ -35,8 +35,9 @@ onMounted(async () => {
 });
 
 const proxyURL = computed(() => {
-    return "/pdfProxy?url=" + encodeURIComponent(paper.value.link);
+    return paper.value ? ("/pdfProxy?url=" + encodeURIComponent(paper.value.link)) : "";
 });
+
 const close = () => {
     if (!saved.value) {
         if (!confirm("Close without saving?")) {
@@ -50,12 +51,15 @@ const close = () => {
     } else {
         router.push("/");
     }
-}
+};
+
 const save = () => {
     repo.save({ paperID, notesHTML: notes.value })
         .then(() => { saved.value = true; savedNotes.value = notes.value });
-}
+};
+
 watch(notes, () => saved.value = false);
+
 const keys = (e: KeyboardEvent) => {
     if (e.ctrlKey && e.key === 's') {
         e.preventDefault();
@@ -65,6 +69,7 @@ const keys = (e: KeyboardEvent) => {
         close();
     }
 };
+
 onMounted(() => document.addEventListener("keydown", keys));
 onUnmounted(() => document.removeEventListener("keydown", keys));
 
@@ -93,12 +98,12 @@ const uploader = {
                 });
         })
     }
-}
+};
 </script>
 
 <template>
-    <div id="modalContainer">
-        <div id="readingModal">
+    <div id="noteTakerContainer">
+        <div id="readingPane">
             <div id="paperContainer">
                 <LoadingSpinner id="spinner" />
                 <embed id="paper" :src="proxyURL" type="application/pdf" />
@@ -122,7 +127,7 @@ const uploader = {
 
 $buttons-height: 40px;
 
-#readingModal {
+#readingPane {
     display: flex;
     width: 100%;
     height: calc(100% - $buttons-height);
@@ -155,16 +160,11 @@ $buttons-height: 40px;
     flex-direction: column;
 }
 
-#modalContainer {
+#noteTakerContainer {
     display: flex;
     flex-direction: column;
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
+    height: 100vh;
+    width: 100vw;
 }
 
 #buttons {
