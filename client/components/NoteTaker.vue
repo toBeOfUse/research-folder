@@ -18,19 +18,22 @@ const paper = computed(() => papers.value.find(p => p.id == paperID)!);
 const repo = remult.repo(Notes);
 const notes = ref("");
 const savedNotes = ref("");
-const saved = ref(true);
+const saved = computed(() => notes.value == savedNotes.value);
+const saving = ref(false);
+let inDB = false;
 
 onMounted(async () => {
-    notes.value = (await repo.findId(paperID)).notesHTML || "";
+    const fromDB = (await repo.findId(paperID))?.notesHTML;
+    inDB = !!fromDB;
+    notes.value = fromDB || "";
     savedNotes.value = notes.value;
-    saved.value = true;
     await papersLoaded;
     if (!notes.value.trim().length) {
         notes.value += `<h1>${paper.value.title}</h1>`;
         notes.value += `<h3>Authors: ${paper.value.authors.map(a => [a.prefix, a.lastName, a.suffix]
             .filter(a => a.trim().length).join(' ')).join(", ")}</h3>`;
-        notes.value += `<h3>Published: ${getPublicationDate(paper.value)}</h3>`
-        notes.value += "<br><br>"
+        notes.value += `<h3>Published: ${getPublicationDate(paper.value)}</h3>`;
+        notes.value += "<br><br>";
     }
 });
 
@@ -53,12 +56,17 @@ const close = () => {
     }
 };
 
-const save = () => {
-    repo.save({ paperID, notesHTML: notes.value })
-        .then(() => { saved.value = true; savedNotes.value = notes.value });
+const save = async () => {
+    saving.value = true;
+    if (!inDB) {
+        await repo.insert({ paperID, notesHTML: notes.value });
+    } else {
+        await repo.update(paperID, { paperID, notesHTML: notes.value });
+    }
+    savedNotes.value = notes.value;
+    inDB = true;
+    saving.value = false;
 };
-
-watch(notes, () => saved.value = false);
 
 const keys = (e: KeyboardEvent) => {
     if (e.ctrlKey && e.key === 's') {
@@ -115,7 +123,7 @@ const uploader = {
         </div>
         <div id="buttons">
             <button @click="close">Close</button>
-            <button @click="save" :disabled="saved">Save{{ saved ? "d" : "" }}</button>
+            <button @click="save" :disabled="saved || saving">Save{{ saved ? "d" : "" }}</button>
         </div>
     </div>
 </template>
