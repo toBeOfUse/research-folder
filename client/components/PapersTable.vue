@@ -214,14 +214,13 @@ button.link {
 <style scoped lang="scss">
 @import "../styles/tables.scss";
 
-$tableWidth: 95vw;
-
 #page-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin: 0 auto 200px;
-  width: $tableWidth;
+  width: 95vw;
+  min-width: 1250px;
 }
 
 #the-table {
