@@ -5,6 +5,7 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import ImageUploader from "quill-image-uploader";
 import 'quill-image-uploader/dist/quill.imageUploader.min.css';
 import Mention from "quill-mention";
+import "./paper-ref";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import { Notes } from '../../data/entities';
 import { getPublicationDate } from '../code/dataUtilities';
@@ -137,6 +138,7 @@ const modules = [
             mentionDenotationChars: ["ref: "],
             allowedChars: /^[A-Za-z- ():<>\/']*$/,
             showDenotationChar: false,
+            blotName: "mentionLink",
             source: function (
                 searchTerm: string,
                 renderList: (a: { id: string | number, value: string }[], b: string) => void,
@@ -146,7 +148,7 @@ const modules = [
                     papers.value
                         .filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
                         .slice(0, 10)
-                        .map(p => ({ id: p.id, value: p.title, link: "/notes/" + p.id })),
+                        .map(p => ({ id: p.id, value: p.title })),
                     searchTerm
                 );
             }
@@ -164,7 +166,7 @@ function ready(quill: any) {
 function handleMentionClick(event: any) {
     // TODO: replace `confirm()` with modal with built-in "save now" button
     if (saved.value || confirm("Leave notes without saving changes?")) {
-        router.push("/notes/" + event.value.id);
+        router.push("/notes/" + event.detail.id);
     }
 }
 onMounted(() => {
@@ -281,9 +283,6 @@ $buttons-height: 40px;
     padding: 2px;
     border-radius: 5px;
     cursor: pointer;
-}
-
-:deep(.mention a) {
     color: black;
 }
 
