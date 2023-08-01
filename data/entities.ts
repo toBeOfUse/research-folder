@@ -50,6 +50,11 @@ export class Paper {
       mentionsGraph[row.paperID] = row.getMentions();
     }
   },
+  deleted(row) {
+    if (typeof window === "undefined") {
+      delete mentionsGraph[row.paperID];
+    }
+  },
 })
 export class Notes {
   @Fields.string({ validate: Validators.uniqueOnBackend })

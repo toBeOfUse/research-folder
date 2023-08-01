@@ -1,9 +1,24 @@
 <template>
     <div id="home-tag">
         <RouterLink to="/">🏠</RouterLink>
-        <RouterLink to="/">🌎</RouterLink>
+        <a @click="showGraph = true">🌎</a>
+    </div>
+    <div v-if="showGraph" @click="showGraph = false" id="backdrop">
+        <div @click.stop id="graph">
+            <div style="display: flex; padding: 0 20px;">
+                <h2>Graph of mentions in notes</h2>
+                <h2 @click="showGraph = false" style="cursor: pointer;margin-left: auto;">✖</h2>
+            </div>
+            <graph />
+        </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import { ref, defineAsyncComponent } from 'vue';
+const Graph = defineAsyncComponent(() => import('./Graph.vue'));
+const showGraph = ref(false);
+</script>
 
 <style lang="scss" scoped>
 #home-tag {
@@ -22,10 +37,30 @@
     a {
         padding: 3px 10px;
         text-decoration: none;
+        cursor: pointer;
     }
 
     &:hover {
         left: -5px;
     }
+}
+
+#backdrop {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0002;
+}
+
+#graph {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 2px 2px 2px black;
 }
 </style>

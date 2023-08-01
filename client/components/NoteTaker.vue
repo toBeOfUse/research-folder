@@ -20,6 +20,7 @@ const paper = computed(() => papers.value.find(p => p.id == paperID)!);
 const repo = remult.repo(Notes);
 const notes = ref(new Delta());
 const savedNotes = ref(new Delta());
+// TODO: this comparison won't work by default :(
 const saved = computed(() => notes.value == savedNotes.value);
 const saving = ref(false);
 let inDB = false;
