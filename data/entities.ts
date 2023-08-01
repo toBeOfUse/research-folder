@@ -1,5 +1,6 @@
 import { Entity, Fields, Validators } from "remult";
 import { Op } from "quill-delta";
+import { mentionsGraph } from "../server/graph";
 
 export interface AuthorName {
   // first name and maybe middle name or initial; not always displayed
@@ -40,7 +41,16 @@ export class Paper {
   citationsUpdated? = new Date();
 }
 
-@Entity<Notes>("notes", { allowApiCrud: true, id: (e) => e.paperID })
+@Entity<Notes>("notes", {
+  allowApiCrud: true,
+  id: (e) => e.paperID,
+  saved(row) {
+    // hack to only do the work of maintaining the mentions graph on the backend
+    if (typeof window === "undefined") {
+      mentionsGraph[row.paperID] = row.getMentions();
+    }
+  },
+})
 export class Notes {
   @Fields.string({ validate: Validators.uniqueOnBackend })
   paperID!: string;
@@ -50,6 +60,18 @@ export class Notes {
 
   @Fields.json()
   notesDeltaOps: Op[] = [];
+
+  getMentions() {
+    const mentions = [];
+    for (const op of this.notesDeltaOps) {
+      if ((op.insert as Record<string, unknown>)?.mentionLink) {
+        mentions.push(
+          (op.insert as Record<string, { id: string }>).mentionLink.id
+        );
+      }
+    }
+    return mentions;
+  }
 }
 
 // should have one entity of each type for each instance

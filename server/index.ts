@@ -8,9 +8,15 @@ import { CookieJar } from "tough-cookie";
 
 import { remultExpress } from "remult/remult-express";
 import { Notes, Paper, TagOrder } from "../data/entities";
+import { mentionsGraph } from "./graph";
 
 const db = remultExpress({
   entities: [Paper, TagOrder, Notes],
+  async initApi(remult) {
+    for await (const note of remult.repo(Notes).query()) {
+      mentionsGraph[note.paperID] = note.getMentions();
+    }
+  },
 });
 
 // start vite
@@ -68,6 +74,7 @@ const db = remultExpress({
       }
     }
   );
+  app.get("/mentionsgraph", (_, res) => res.json(mentionsGraph));
   app.use(viteServer.middlewares);
   app.listen(3000, () => {
     console.log("listening at http://localhost:3000");

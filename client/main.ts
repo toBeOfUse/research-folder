@@ -7,6 +7,7 @@ import PapersTable from "./components/PapersTable.vue";
 const routes = [
   { path: "/", component: PapersTable },
   { path: "/notes/:id", component: () => import("./components/NoteTaker.vue") },
+  { path: "/graph", component: () => import("./components/Graph.vue") },
 ];
 
 createApp(App)
