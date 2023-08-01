@@ -46,7 +46,8 @@ const initRow = async () => {
             editorOpen.value = true;
             loadingPaper.value = false;
         } catch (e: any) {
-            alert("Paper retrieval failed:" + "\n" + e.toString())
+            alert("Paper retrieval failed:" + "\n" + e.toString());
+            loadingPaper.value = false;
         }
     } else {
         editorOpen.value = true;
