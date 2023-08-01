@@ -1,4 +1,7 @@
 declare module "quill-image-uploader" {
-  import { Module } from "@vueup/vue-quill";
   export default class ImageUploader {}
+}
+
+declare module "quill-mention" {
+  export default class Mention {}
 }

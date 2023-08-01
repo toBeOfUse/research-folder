@@ -1,4 +1,5 @@
 import { Entity, Fields, Validators } from "remult";
+import { Op } from "quill-delta";
 
 export interface AuthorName {
   // first name and maybe middle name or initial; not always displayed
@@ -9,7 +10,7 @@ export interface AuthorName {
   suffix: string;
 }
 
-@Entity("papers", { allowApiCrud: true })
+@Entity<Paper>("papers", { allowApiCrud: true })
 export class Paper {
   @Fields.uuid()
   id!: string;
@@ -46,6 +47,9 @@ export class Notes {
 
   @Fields.string()
   notesHTML = "";
+
+  @Fields.json()
+  notesDeltaOps: Op[] = [];
 }
 
 // should have one entity of each type for each instance

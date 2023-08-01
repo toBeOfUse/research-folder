@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
-import { QuillEditor } from '@vueup/vue-quill';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { Delta, QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import ImageUploader from "quill-image-uploader";
 import 'quill-image-uploader/dist/quill.imageUploader.min.css';
+import Mention from "quill-mention";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import { Notes } from '../../data/entities';
 import { getPublicationDate } from '../code/dataUtilities';
@@ -16,24 +17,43 @@ const router = useRouter();
 const paperID = (route.params.id as string);
 const paper = computed(() => papers.value.find(p => p.id == paperID)!);
 const repo = remult.repo(Notes);
-const notes = ref("");
-const savedNotes = ref("");
+const notes = ref(new Delta());
+const savedNotes = ref(new Delta());
 const saved = computed(() => notes.value == savedNotes.value);
 const saving = ref(false);
 let inDB = false;
 
 onMounted(async () => {
-    const fromDB = (await repo.findId(paperID))?.notesHTML;
+    const fromDB = (await repo.findFirst({ paperID }))?.notesDeltaOps;
     inDB = !!fromDB;
-    notes.value = fromDB || "";
-    savedNotes.value = notes.value;
+    if (inDB) {
+        notes.value = new Delta(fromDB);
+        savedNotes.value = notes.value;
+    }
     await papersLoaded;
-    if (!notes.value.trim().length) {
-        notes.value += `<h1>${paper.value.title}</h1>`;
-        notes.value += `<h3>Authors: ${paper.value.authors.map(a => [a.prefix, a.lastName, a.suffix]
-            .filter(a => a.trim().length).join(' ')).join(", ")}</h3>`;
-        notes.value += `<h3>Published: ${getPublicationDate(paper.value)}</h3>`;
-        notes.value += "<br><br>";
+    if (!notes.value?.ops.length) {
+        notes.value.ops = [{
+            attributes: {
+                header: 1
+            },
+            insert: paper.value.title + "\n"
+        },
+        {
+            attributes: {
+                header: 3
+            },
+            insert: `Authors: ${paper.value.authors
+                .map(a => [a.prefix, a.lastName, a.suffix]
+                    .filter(a => a.trim().length).join(' ')).join(", ")}\n`
+        },
+        {
+            attributes: {
+                header: 3
+            },
+            insert: `Published: ${getPublicationDate(paper.value)}\n`
+        },
+        { insert: "\n\n" }
+        ];
     }
 });
 
@@ -41,7 +61,7 @@ const proxyURL = computed(() => {
     return paper.value ? ("/pdfProxy?url=" + encodeURIComponent(paper.value.link)) : "";
 });
 
-const close = () => {
+const back = () => {
     if (!saved.value) {
         if (!confirm("Close without saving?")) {
             return;
@@ -59,9 +79,9 @@ const close = () => {
 const save = async () => {
     saving.value = true;
     if (!inDB) {
-        await repo.insert({ paperID, notesHTML: notes.value });
+        await repo.insert({ paperID, notesDeltaOps: notes.value.ops });
     } else {
-        await repo.update(paperID, { paperID, notesHTML: notes.value });
+        await repo.update(paperID, { paperID, notesDeltaOps: notes.value.ops });
     }
     savedNotes.value = notes.value;
     inDB = true;
@@ -74,7 +94,7 @@ const keys = (e: KeyboardEvent) => {
         save();
     } else if (e.key == "Escape") {
         e.preventDefault();
-        close();
+        back();
     }
 };
 
@@ -107,6 +127,53 @@ const uploader = {
         })
     }
 };
+
+const modules = [
+    { name: 'imageUploader', module: ImageUploader, options: uploader },
+    {
+        name: "mention",
+        module: Mention,
+        options: {
+            mentionDenotationChars: ["ref: "],
+            allowedChars: /^[A-Za-z- ():<>\/']*$/,
+            showDenotationChar: false,
+            source: function (
+                searchTerm: string,
+                renderList: (a: { id: string | number, value: string }[], b: string) => void,
+                mentionChar: string
+            ) {
+                renderList(
+                    papers.value
+                        .filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
+                        .slice(0, 10)
+                        .map(p => ({ id: p.id, value: p.title, link: "/notes/" + p.id })),
+                    searchTerm
+                );
+            }
+        }
+    }
+];
+
+
+function ready(quill: any) {
+    // fixes html bugs like the redundant nested <span>s around mention text
+    setTimeout(() => quill.setContents(quill.getContents()), 50);
+    (window as any).__q = quill;
+}
+
+function handleMentionClick(event: any) {
+    // TODO: replace `confirm()` with modal with built-in "save now" button
+    if (saved.value || confirm("Leave notes without saving changes?")) {
+        router.push("/notes/" + event.value.id);
+    }
+}
+onMounted(() => {
+    window.addEventListener("mention-clicked", handleMentionClick, false);
+});
+onUnmounted(() => {
+    window.removeEventListener("mention-clicked", handleMentionClick, false);
+});
+
 </script>
 
 <template>
@@ -117,18 +184,18 @@ const uploader = {
                 <embed id="paper" :src="proxyURL" type="application/pdf" />
             </div>
             <div id="notes">
-                <QuillEditor theme="snow" v-model:content="notes" content-type="html" :toolbar="toolbar"
-                    :modules="{ name: 'imageUploader', module: ImageUploader, options: uploader }" />
+                <QuillEditor @ready="ready" theme="snow" v-model:content="notes" content-type="delta" :toolbar="toolbar"
+                    :modules="modules" />
             </div>
         </div>
         <div id="buttons">
-            <button @click="close">Close</button>
+            <button @click="back">Back</button>
             <button @click="save" :disabled="saved || saving">Save{{ saved ? "d" : "" }}</button>
         </div>
     </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 * {
     box-sizing: border-box;
 }
@@ -187,15 +254,45 @@ $buttons-height: 40px;
         margin: 5px;
     }
 }
-</style>
 
-<style>
-div.ql-container {
+:deep(.ql-mention-list) {
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    list-style: none;
+    padding: 0;
+    overflow: hidden;
+}
+
+:deep(.ql-mention-list-item:not(:last-of-type)) {
+    border-bottom: 1px solid black;
+}
+
+:deep(.ql-mention-list-item) {
+    padding: 5px;
+}
+
+:deep(.ql-mention-list-item.selected) {
+    background-color: #ddd;
+}
+
+:deep(.mention) {
+    background-color: #ddd;
+    padding: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+:deep(.mention a) {
+    color: black;
+}
+
+:deep(.ql-container) {
     /* hack to allow space for the quill toolbar */
     height: calc(100% - 42px);
 }
 
-div.ql-editor {
+:deep(.ql-editor) {
     padding-bottom: 100px;
 }
 </style>
