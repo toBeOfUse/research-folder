@@ -8,7 +8,12 @@ import { CookieJar } from "tough-cookie";
 
 import { remultExpress } from "remult/remult-express";
 import { Notes, Paper, TagOrder } from "../data/entities";
-import { mentionsGraph, referencesGraph } from "./graphs";
+import {
+  makeReferenceGraph,
+  mentionsGraph,
+  reducedReferencesGraph,
+  referencesGraph,
+} from "./graphs";
 
 const db = remultExpress({
   entities: [Paper, TagOrder, Notes],
@@ -16,18 +21,7 @@ const db = remultExpress({
     for await (const note of remult.repo(Notes).query()) {
       mentionsGraph[note.paperID] = note.getMentions();
     }
-    const S2IDsToPaperIDs: Record<string, string> = {};
-    for await (const paper of remult.repo(Paper).query()) {
-      referencesGraph[paper.id] = paper.references || [];
-      if (paper.semanticScholarID) {
-        S2IDsToPaperIDs[paper.semanticScholarID] = paper.id;
-      }
-    }
-    for (const id in referencesGraph) {
-      referencesGraph[id] = referencesGraph[id]
-        .filter((i) => S2IDsToPaperIDs[i])
-        .map((i) => S2IDsToPaperIDs[i]);
-    }
+    makeReferenceGraph();
   },
 });
 
@@ -88,6 +82,9 @@ const db = remultExpress({
   );
   app.get("/mentionsgraph", (_, res) => res.json(mentionsGraph));
   app.get("/referencesgraph", (_, res) => res.json(referencesGraph));
+  app.get("/reducedreferencesgraph", (_, res) =>
+    res.json(reducedReferencesGraph)
+  );
   app.use(viteServer.middlewares);
   app.listen(3000, () => {
     console.log("listening at http://localhost:3000");

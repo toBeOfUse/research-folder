@@ -9,6 +9,7 @@
                 <h2>Graph of <select v-model="whichGraph">
                         <option value="/mentionsgraph">Mentions in Notes</option>
                         <option value="/referencesgraph">Citations</option>
+                        <option value="/reducedreferencesgraph">Transitive Citations</option>
                     </select></h2>
                 <h2 @click="showGraph = false" style="cursor: pointer;margin-left: auto;">✖</h2>
             </div>

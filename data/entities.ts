@@ -1,6 +1,6 @@
 import { Entity, Fields, Validators } from "remult";
 import { Op } from "quill-delta";
-import { mentionsGraph } from "../server/graphs";
+import { makeReferenceGraph, mentionsGraph } from "../server/graphs";
 
 export interface AuthorName {
   // first name and maybe middle name or initial; not always displayed
@@ -11,7 +11,14 @@ export interface AuthorName {
   suffix: string;
 }
 
-@Entity<Paper>("papers", { allowApiCrud: true })
+@Entity<Paper>("papers", {
+  allowApiCrud: true,
+  saved() {
+    if (typeof window === "undefined") {
+      makeReferenceGraph();
+    }
+  },
+})
 export class Paper {
   @Fields.uuid()
   id!: string;
