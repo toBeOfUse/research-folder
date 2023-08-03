@@ -33,8 +33,11 @@ onMounted(async () => {
         savedNotes.value = notes.value;
     }
     await papersLoaded;
-    if (!notes.value?.ops.length) {
-        notes.value.ops = [{
+    if (!notes.value?.ops.length ||
+        (notes.value?.ops.length == 1 &&
+            typeof notes.value.ops[0].insert == "string" &&
+            !notes.value.ops[0].insert.trim())) {
+        notes.value = new Delta([{
             attributes: {
                 header: 1
             },
@@ -55,7 +58,7 @@ onMounted(async () => {
             insert: `Published: ${getPublicationDate(paper.value)}\n`
         },
         { insert: "\n\n" }
-        ];
+        ]);
     }
 });
 

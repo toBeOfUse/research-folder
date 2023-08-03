@@ -82,7 +82,6 @@ export async function makeReferenceGraph() {
     reducedReferencesGraph[papers[i].id] = [];
     for (let j = 0; j < papers.length; ++j) {
       if (transitiveReduction[i][j] && i != j) {
-        console.log(papers[i].title, "links to", papers[j].title);
         reducedReferencesGraph[papers[i].id].push(papers[j].id);
       }
     }
