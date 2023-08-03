@@ -85,7 +85,6 @@ const style = computed(() => {
 cytoscape.use(coseBilkent);
 
 onMounted(async () => {
-    console.log("fetching", props.src);
     const graph: Record<string, string[]> = await (await fetch(props.src)).json();
     await papersLoaded;
     const instance = cytoscape({
@@ -137,7 +136,7 @@ onMounted(async () => {
 <style lang="scss" scoped>
 #cy {
     width: 70vw;
-    height: 80vh;
+    height: 75vh;
     display: block;
 }
 </style>

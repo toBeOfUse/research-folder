@@ -193,6 +193,7 @@ onUnmounted(() => {
             </div>
         </div>
         <div id="buttons">
+            <p style="margin-right: auto">Take notes. If you type "ref: " you will be able to reference other papers.</p>
             <button @click="back">Back</button>
             <button @click="save" :disabled="saved || saving">Save{{ saved ? "d" : "" }}</button>
         </div>

@@ -17,8 +17,8 @@ const save = () => {
 
 <template>
     <div class="tag-order-container">
-        <span style="display: inline-block; width: 125px">
-            Tag {{ type == TagOrderType.ordering ? "order" : "precedence" }}:
+        <span style="display: inline-block; width: 215px">
+            {{ type == TagOrderType.ordering ? "Tag ordering across rows" : "Tag ordering within rows" }}:
         </span>
         <draggable class="tag-order-container" v-model="local.tags.value" handle=".tactile"
             :item-key="(tag: string) => local.tags.value.indexOf(tag)">

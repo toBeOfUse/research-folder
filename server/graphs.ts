@@ -68,15 +68,8 @@ export async function makeReferenceGraph() {
   for (let j = 0; j < papers.length; ++j) {
     for (let i = 0; i < papers.length; ++i) {
       if (transitiveReduction[i][j]) {
-        console.log(papers[i].title, "links to", papers[j].title);
         for (let k = 0; k < papers.length; ++k) {
           if (transitiveReduction[j][k]) {
-            console.log(
-              "eliminating link from",
-              papers[j].title,
-              "to",
-              papers[k].title
-            );
             transitiveReduction[i][k] = false;
           }
         }
