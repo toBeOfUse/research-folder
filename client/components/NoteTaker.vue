@@ -6,6 +6,7 @@ import ImageUploader from "quill-image-uploader";
 import 'quill-image-uploader/dist/quill.imageUploader.min.css';
 import Mention from "quill-mention";
 import "./paper-ref";
+import equal from "deep-equal";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import { Notes } from '../../data/entities';
 import { getPublicationDate } from '../code/dataUtilities';
@@ -20,8 +21,7 @@ const paper = computed(() => papers.value.find(p => p.id == paperID)!);
 const repo = remult.repo(Notes);
 const notes = ref(new Delta());
 const savedNotes = ref(new Delta());
-// TODO: this comparison won't work by default :(
-const saved = computed(() => notes.value == savedNotes.value);
+const saved = computed(() => equal(notes.value, savedNotes.value));
 const saving = ref(false);
 let inDB = false;
 
