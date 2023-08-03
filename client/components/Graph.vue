@@ -100,8 +100,11 @@ onMounted(async () => {
         ],
         layout: ({
             name: "cose-bilkent",
-            idealEdgeLength: 300,
-            nodeRepulsion: 8000,
+            idealEdgeLength: 100,
+            nodeRepulsion: 10000,
+            edgeElasticity: 0.01,
+            gravity: 10,
+            nodeDimensionsIncludeLabels: true,
         } as unknown) as CoseLayoutOptions,
         pixelRatio: Math.max(window.devicePixelRatio, 1.5),
         style: style.value
@@ -120,6 +123,10 @@ onMounted(async () => {
     instance.on('mouseout', 'node', function (e) {
         instance.elements().removeClass('semitransp highlight');
     });
+
+    function transitiveReduction(instance: cytoscape.Core) {
+
+    }
 
     watch(style, (current) => {
         instance.style(current);
