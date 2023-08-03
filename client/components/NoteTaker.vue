@@ -12,7 +12,7 @@ import { Notes } from '../../data/entities';
 import { getPublicationDate } from '../code/dataUtilities';
 import { remult } from 'remult';
 import { useRoute, useRouter } from "vue-router";
-import { papers, papersLoaded } from "../code/tableData";
+import { papers, papersLoaded, notesCache } from "../code/tableData";
 
 const route = useRoute();
 const router = useRouter();
@@ -26,7 +26,7 @@ const saving = ref(false);
 let inDB = false;
 
 onMounted(async () => {
-    const fromDB = (await repo.findFirst({ paperID }))?.notesDeltaOps;
+    const fromDB = notesCache[paperID] || (await repo.findFirst({ paperID }))?.notesDeltaOps;
     inDB = !!fromDB;
     if (inDB) {
         notes.value = new Delta(fromDB);
@@ -88,6 +88,7 @@ const save = async () => {
     savedNotes.value = notes.value;
     inDB = true;
     saving.value = false;
+    notesCache[paperID] = savedNotes.value.ops;
 };
 
 const keys = (e: KeyboardEvent) => {
