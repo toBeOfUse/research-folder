@@ -31,7 +31,7 @@ export const lookupPaperID = async (
   const resp = await fetch(
     "https://api.semanticscholar.org/graph/v1/paper/" +
       identifier +
-      "?fields=title,citationCount,authors,openAccessPdf,publicationDate"
+      "?fields=title,citationCount,authors,openAccessPdf,publicationDate,references.paperId"
   );
   if (!resp.ok) {
     throw (
@@ -70,6 +70,7 @@ export const lookupPaperID = async (
       ? info.authors.map((a: { name: string }) => sliceName(a.name))
       : [],
     semanticScholarID: identifier,
+    references: info.references.map((r: any) => r.paperId),
   };
 };
 

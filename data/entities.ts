@@ -1,6 +1,6 @@
 import { Entity, Fields, Validators } from "remult";
 import { Op } from "quill-delta";
-import { mentionsGraph } from "../server/graph";
+import { mentionsGraph } from "../server/graphs";
 
 export interface AuthorName {
   // first name and maybe middle name or initial; not always displayed
@@ -39,6 +39,9 @@ export class Paper {
 
   @Fields.date()
   citationsUpdated? = new Date();
+
+  @Fields.json()
+  references: string[] = [];
 }
 
 @Entity<Notes>("notes", {
