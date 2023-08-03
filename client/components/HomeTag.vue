@@ -6,10 +6,13 @@
     <div v-if="showGraph" @click="showGraph = false" id="backdrop">
         <div @click.stop id="graph">
             <div style="display: flex; padding: 0 20px;">
-                <h2>Graph of mentions in notes</h2>
+                <h2>Graph of <select v-model="whichGraph">
+                        <option value="/mentionsgraph">Mentions in Notes</option>
+                        <option value="/referencesgraph">Citations</option>
+                    </select></h2>
                 <h2 @click="showGraph = false" style="cursor: pointer;margin-left: auto;">✖</h2>
             </div>
-            <graph />
+            <graph :src="whichGraph" :key="whichGraph" />
         </div>
     </div>
 </template>
@@ -18,6 +21,7 @@
 import { ref, defineAsyncComponent } from 'vue';
 const Graph = defineAsyncComponent(() => import('./Graph.vue'));
 const showGraph = ref(false);
+const whichGraph = ref("/mentionsgraph");
 </script>
 
 <style lang="scss" scoped>
