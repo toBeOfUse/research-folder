@@ -104,8 +104,21 @@ const keys = (e: KeyboardEvent) => {
     }
 };
 
-onMounted(() => document.addEventListener("keydown", keys));
-onUnmounted(() => document.removeEventListener("keydown", keys));
+const leavingPage = (event: Event) => {
+    if (!saved.value) {
+        event.preventDefault();
+        return "Your notes are not saved. Leave the page?";
+    }
+}
+
+onMounted(() => {
+    document.addEventListener("keydown", keys);
+    window.addEventListener("beforeunload", leavingPage, { capture: true });
+});
+onUnmounted(() => {
+    document.removeEventListener("keydown", keys);
+    window.removeEventListener("beforeunload", leavingPage, { capture: true });
+});
 
 const toolbar = [
     [{ header: [false, 1, 2, 3] }],
