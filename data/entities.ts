@@ -47,7 +47,11 @@ export class Paper {
   @Fields.date()
   citationsUpdated? = new Date();
 
-  @Fields.json()
+  @Fields.json({
+    saving(entity, fieldRef) {
+      fieldRef.value = fieldRef.value.filter((r: string | null) => r);
+    },
+  })
   references: string[] = [];
 }
 
