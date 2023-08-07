@@ -10,7 +10,7 @@ const sleep = (seconds: number) =>
 
 app.use(
   remultExpress({
-    entities: [Paper, TagOrder],
+    entities: [Paper],
     async initApi(remult) {
       const failures: string[] = [];
       const papersRepo = remult.repo(Paper);

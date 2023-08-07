@@ -95,7 +95,7 @@ graphFunctions.makeReferenceGraph = async () => {
 graphFunctions.updateEmbeddingCoords = async () => {
   const repo = remult.repo(Paper);
   const papers = (await repo.find()).filter((p) => p.embedding?.length);
-  const coords = await tsneWorker.run(papers.map((p) => p.embedding));
+  const [coords] = await tsneWorker.run([papers.map((p) => p.embedding)]);
   const saving: Promise<Paper>[] = [];
   for (let i = 0; i < papers.length; ++i) {
     saving.push(

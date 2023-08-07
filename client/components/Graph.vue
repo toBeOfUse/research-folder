@@ -119,8 +119,14 @@ const style = computed(() => {
 
 const positions = computed(() => {
     const posMap: Record<string, { x: number, y: number }> = {};
+    let atCorner = 0
     for (const paper of papers.value) {
-        posMap[paper.id] = { x: paper.projectedX * 1000, y: paper.projectedY * 1000 };
+        if (paper.projectedX == 0 && paper.projectedY == 0) {
+            posMap[paper.id] = { x: 1000 - atCorner * 100, y: 1000 };
+            ++atCorner;
+        } else {
+            posMap[paper.id] = { x: paper.projectedX * 1000, y: paper.projectedY * 1000 };
+        }
     }
     console.log(posMap)
     return posMap;
