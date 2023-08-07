@@ -1,6 +1,6 @@
 import { remultExpress } from "remult/remult-express";
 import { Paper, TagOrder } from "../data/entities";
-import { lookupPaperID, searchPapers } from "../client/code/dataUtilities";
+import { searchPapers } from "../client/code/dataUtilities";
 import express from "express";
 import { exit } from "process";
 
@@ -24,7 +24,7 @@ app.use(
             if (!paper.semanticScholarID) {
               id = await searchPapers(paper.title);
             }
-            const data = await lookupPaperID(id);
+            const data = await Paper.lookupPaperID(id);
             if (data.citationCount !== undefined) {
               if (paper.title.toLowerCase() != data.title?.toLowerCase()) {
                 approx.push([paper.title, data.title || ""]);

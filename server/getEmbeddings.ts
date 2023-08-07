@@ -1,6 +1,5 @@
 import { remultExpress } from "remult/remult-express";
 import { Paper, TagOrder } from "../data/entities";
-import { lookupPaperID } from "../client/code/dataUtilities";
 import express from "express";
 import { exit } from "process";
 
@@ -19,7 +18,7 @@ app.use(
         let done = false;
         while (!done && paper.semanticScholarID) {
           try {
-            const info = await lookupPaperID(paper.semanticScholarID);
+            const info = await Paper.lookupPaperID(paper.semanticScholarID);
             if (
               !(
                 info.embedding &&
