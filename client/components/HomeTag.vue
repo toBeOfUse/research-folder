@@ -4,33 +4,14 @@
         <a title="Graphs" @click="showGraph = true">🌎</a>
     </div>
     <div v-if="showGraph" @click="showGraph = false" id="backdrop">
-        <div @click.stop id="graph">
-            <div style="display: flex; align-items: center; gap: 10px; padding: 0 20px;">
-                <h2>Graph of <select v-model="whichGraph">
-                        <option value="/mentionsgraph">Mentions in Notes</option>
-                        <option value="/referencesgraph">Citations</option>
-                        <option value="/reducedreferencesgraph">Transitive Citations</option>
-                    </select></h2>
-                <h2 @click="showGraph = false" style="cursor: pointer;margin-left: auto;">✖</h2>
-            </div>
-            <graph :src="whichGraph" :key="whichGraph" />
-            <p style="text-align: center">
-                Hover over a paper to highlight its links. If you click on a
-                paper, it will open in the background.
-            </p>
-            <p style="text-align: center" v-if="whichGraph == '/reducedreferencesgraph'">
-                This is the transitive reduction of the citations graph; it
-                removes paths that connect the same nodes more than once.
-            </p>
-        </div>
+        <Graph @close="showGraph = false" />
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineAsyncComponent, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, defineAsyncComponent, onMounted, onUnmounted } from 'vue';
 const Graph = defineAsyncComponent(() => import('./Graph.vue'));
 const showGraph = ref(false);
-const whichGraph = ref("/mentionsgraph");
 const showTag = ref(false);
 const keys = (e: KeyboardEvent) => {
     if (e.key == "Escape") {

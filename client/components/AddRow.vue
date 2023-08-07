@@ -3,27 +3,14 @@ import { reactive, ref } from 'vue';
 import { Paper } from '../../data/entities';
 import EditableRow from './EditableRow.vue';
 import contenteditable from 'vue-contenteditable';
-import { lookupPaperID, searchPapers } from '../code/dataUtilities';
+import { searchPapers } from '../code/dataUtilities';
 
 defineEmits<{ (event: 'addRow', row: Paper): void }>();
 const editorOpen = ref(false);
 const DOI = ref("");
 const search = ref("");
-const getBlankRow: () => Paper = () => ({
-    authors: [],
-    id: "new",
-    link: "",
-    notes: "",
-    published: new Date(1990, 0, 1),
-    read: false,
-    tags: [],
-    title: "",
-    citationCount: 0,
-    citationsUpdated: undefined,
-    semanticScholarID: ""
-});
 
-const rowInProgress = reactive<Paper>(getBlankRow());
+const rowInProgress = reactive(new Paper());
 
 const loadingPaper = ref(false);
 
@@ -37,7 +24,7 @@ const initRow = async () => {
             } else {
                 idToUse = await searchPapers(search.value.trim());
             }
-            const info = await lookupPaperID(idToUse);
+            const info = await Paper.lookupPaperID(idToUse);
             rowInProgress.semanticScholarID = idToUse;
             Object.assign(rowInProgress, info);
             rowInProgress.citationsUpdated = new Date();
@@ -55,7 +42,7 @@ const initRow = async () => {
 };
 
 const reset = () => {
-    Object.assign(rowInProgress, getBlankRow());
+    Object.assign(rowInProgress, new Paper());
     editorOpen.value = false;
 }
 </script>

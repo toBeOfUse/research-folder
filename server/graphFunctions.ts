@@ -1,15 +1,19 @@
-// these objects map outgoing references from papers to other papers. the keys
-// are IDs of papers from the local database. the values are arrays of paper IDs
-// from the local database.
-
 import { remult } from "remult";
-import { Paper } from "../data/entities";
+import {
+  Notes,
+  Paper,
+  RecordGraph,
+  graphFunctions,
+  mentionsGraph,
+  reducedReferencesGraph,
+  referencesGraph,
+} from "../data/entities";
+import Piscina from "piscina";
+import path from "path";
 
-export type RecordGraph = Record<string, string[]>;
-
-export const mentionsGraph: RecordGraph = {};
-export const referencesGraph: RecordGraph = {};
-export const reducedReferencesGraph: RecordGraph = {};
+const tsneWorker = new Piscina({
+  filename: path.resolve(__dirname, "tsneWorker.js"),
+});
 
 function depthFirstSearch(
   nodeID: string,
@@ -22,7 +26,7 @@ function depthFirstSearch(
   }
 }
 
-export async function makeReferenceGraph() {
+graphFunctions.makeReferenceGraph = async () => {
   const S2IDsToPaperIDs: Record<string, string> = {};
   const dates: Record<string, Date> = {};
   const indexLookup: Record<string, number> = {};
@@ -86,4 +90,27 @@ export async function makeReferenceGraph() {
       }
     }
   }
-}
+};
+
+graphFunctions.updateEmbeddingCoords = async () => {
+  const repo = remult.repo(Paper);
+  const papers = (await repo.find()).filter((p) => p.embedding?.length);
+  const coords = await tsneWorker.run(papers.map((p) => p.embedding));
+  const saving: Promise<Paper>[] = [];
+  for (let i = 0; i < papers.length; ++i) {
+    saving.push(
+      repo.save({
+        ...papers[i],
+        projectedX: coords[i][0],
+        projectedY: coords[i][1],
+      })
+    );
+  }
+  await Promise.all(saving);
+};
+
+graphFunctions.makeMentionsGraph = async () => {
+  for await (const note of remult.repo(Notes).query()) {
+    mentionsGraph[note.paperID] = note.getMentions();
+  }
+};
