@@ -126,21 +126,23 @@ export class Paper {
   projectedY = 0;
 
   @BackendMethod({ allowed: true })
-  static async lookupPaperID(identifier: string): Promise<Partial<Paper>> {
-    const resp = await fetch(
+  static async lookupPaperID(identifier: string, includeEmbedding: boolean = false): Promise<Partial<Paper>> {
+    const got = (await import("got")).default;
+    const resp = await got<any>(
       "https://api.semanticscholar.org/graph/v1/paper/" +
         identifier +
-        "?fields=title,citationCount,authors,openAccessPdf,publicationDate,references.paperId,embedding"
+        "?fields=title,citationCount,authors,openAccessPdf,publicationDate,references.paperId,embedding",
+        {responseType: "json"}
     );
-    if (!resp.ok) {
+    if (resp.errored) {
       throw (
         "Request to Semantic Scholar API failed with status " +
-        resp.status +
+        resp.statusCode +
         " " +
-        resp.statusText
+        resp.statusMessage
       );
     }
-    const info = await resp.json();
+    const info = resp.body;
     const date = info.publicationDate;
     const dateParts = date ? (date as string).split("-").map(Number) : null;
     const sliceName = (name: string) => {
@@ -177,6 +179,7 @@ export class Paper {
       semanticScholarID: identifier,
       references: info.references.map((r: any) => r.paperId),
       embeddingModel: info.embedding?.model || "",
+      embedding: includeEmbedding ? info.embedding?.vector : undefined
     };
   }
 

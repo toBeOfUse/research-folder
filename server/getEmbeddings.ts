@@ -18,7 +18,7 @@ app.use(
         let done = false;
         while (!done && paper.semanticScholarID) {
           try {
-            const info = await Paper.lookupPaperID(paper.semanticScholarID);
+            const info = await Paper.lookupPaperID(paper.semanticScholarID, true);
             if (
               !(
                 info.embedding &&
