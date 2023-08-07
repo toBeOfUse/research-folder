@@ -8,7 +8,7 @@
                     <option :value="GraphSource.reducedReferences">Transitive Citations</option>
                 </select>
                 <label id="positions">
-                    <input type="checkbox" :checked="useEmbeddingPos" />
+                    <input type="checkbox" v-model="useEmbeddingPos" />
                     Use Positions from Embeddings
                 </label>
             </h2>
@@ -117,9 +117,29 @@ const style = computed(() => {
     return result;
 });
 
+const positions = computed(() => {
+    const posMap: Record<string, { x: number, y: number }> = {};
+    for (const paper of papers.value) {
+        posMap[paper.id] = { x: paper.projectedX * 1000, y: paper.projectedY * 1000 };
+    }
+    console.log(posMap)
+    return posMap;
+});
+
+const elements = computed(() => [
+    ...papers.value.map(k => ({
+        data: { id: k.id, label: k.title },
+    })),  // nodes
+    ...Object.keys(graph.value).flatMap(  // edges
+        k => graph.value[k].map(
+            l => ({ data: { id: k + l, source: k, target: l } })
+        )
+    )
+]);
+
 const layout = computed<cytoscape.LayoutOptions>(() => {
     if (useEmbeddingPos.value) {
-        return { name: "preset", fit: true };
+        return { name: "preset", fit: true, positions: positions.value };
     } else {
         return {
             name: "cose-bilkent",
@@ -132,18 +152,6 @@ const layout = computed<cytoscape.LayoutOptions>(() => {
         } as any;
     }
 });
-
-const elements = computed(() => [
-    ...papers.value.map(k => ({
-        data: { id: k.id, label: k.title },
-        position: { x: k.projectedX * 1000, y: k.projectedY * 1000 }
-    })),  // nodes
-    ...Object.keys(graph.value).flatMap(  // edges
-        k => graph.value[k].map(
-            l => ({ data: { id: k + l, source: k, target: l } })
-        )
-    )
-]);
 
 cytoscape.use(coseBilkent);
 
@@ -159,6 +167,7 @@ async function makeCytoscapeGraph() {
         elements: elements.value,
         pixelRatio: Math.max(window.devicePixelRatio, 1.5),
         style: style.value,
+        layout: layout.value
     });
     instance.on("click", "node", (event) => {
         router.push("/notes/" + event.target.id());
@@ -197,6 +206,7 @@ watch(elements, (current) => {
     if (instance) {
         instance.elements().remove();
         instance.add(current);
+        instance.layout(layout.value).run();
     }
 });
 
