@@ -70,9 +70,6 @@ export class Notes {
   @Fields.string({ validate: Validators.uniqueOnBackend })
   paperID!: string;
 
-  @Fields.string()
-  notesHTML = "";
-
   @Fields.json()
   notesDeltaOps: Op[] = [];
 
