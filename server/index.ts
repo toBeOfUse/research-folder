@@ -7,21 +7,15 @@ import got from "got";
 import { CookieJar } from "tough-cookie";
 
 import { remultExpress } from "remult/remult-express";
-import { Notes, Paper, TagOrder } from "../data/entities";
-import {
-  makeReferenceGraph,
-  mentionsGraph,
-  reducedReferencesGraph,
-  referencesGraph,
-} from "./graphs";
+import { Notes, Paper, TagOrder, graphFunctions } from "../data/entities";
+import "./graphFunctions";
 
 const db = remultExpress({
   entities: [Paper, TagOrder, Notes],
-  async initApi(remult) {
-    for await (const note of remult.repo(Notes).query()) {
-      mentionsGraph[note.paperID] = note.getMentions();
-    }
-    makeReferenceGraph();
+  async initApi() {
+    await graphFunctions.makeMentionsGraph();
+    await graphFunctions.makeReferenceGraph();
+    await graphFunctions.updateEmbeddingCoords();
   },
 });
 
@@ -79,11 +73,6 @@ const db = remultExpress({
         res.sendStatus(500);
       }
     }
-  );
-  app.get("/mentionsgraph", (_, res) => res.json(mentionsGraph));
-  app.get("/referencesgraph", (_, res) => res.json(referencesGraph));
-  app.get("/reducedreferencesgraph", (_, res) =>
-    res.json(reducedReferencesGraph)
   );
   app.use(viteServer.middlewares);
   app.listen(3000, () => {

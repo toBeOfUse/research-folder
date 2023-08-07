@@ -7,7 +7,34 @@ import {
   isBackend,
 } from "remult";
 import { Op } from "quill-delta";
-import { makeReferenceGraph, mentionsGraph } from "../server/graphs";
+
+export type RecordGraph = Record<string, string[]>;
+
+// these objects map outgoing references from papers to other papers. the keys
+// are IDs of papers from the local database. the values are arrays of paper IDs
+// from the local database. to avoid the need to recreate them on the frontend
+// every time the site loads, they are updated and stored semi-persistently in
+// memory on the backend and need to be retrieved by the frontend through
+// @BackendMethods.
+export const mentionsGraph: RecordGraph = {};
+export const referencesGraph: RecordGraph = {};
+// this is the transitive reduction of the references graph, in which there is
+// at most one path between any two nodes.
+export const reducedReferencesGraph: RecordGraph = {};
+
+export enum GraphSource {
+  references,
+  reducedReferences,
+  mentions,
+}
+
+// these functions don't need definitions on the frontend. they are given
+// definitions by graphFunctions.ts, which is only imported on the backend
+export const graphFunctions = {
+  makeMentionsGraph: async () => {},
+  makeReferenceGraph: async () => {},
+  updateEmbeddingCoords: async () => {},
+};
 
 export interface AuthorName {
   // first name and maybe middle name or initial; not always displayed
@@ -33,9 +60,10 @@ export interface AuthorName {
       }
     }
   },
-  saved() {
-    if (isBackend()) {
-      makeReferenceGraph();
+  saved(row) {
+    if (isBackend() && getEntityRef(row).isNew()) {
+      graphFunctions.makeReferenceGraph();
+      graphFunctions.updateEmbeddingCoords();
     }
   },
 })
@@ -151,13 +179,24 @@ export class Paper {
       embeddingModel: info.embedding?.model || "",
     };
   }
+
+  @BackendMethod({ allowed: true })
+  static async getGraph(type: GraphSource) {
+    switch (type) {
+      case GraphSource.references:
+        return referencesGraph;
+      case GraphSource.reducedReferences:
+        return reducedReferencesGraph;
+      case GraphSource.mentions:
+        return mentionsGraph;
+    }
+  }
 }
 
 @Entity<Notes>("notes", {
   allowApiCrud: true,
   id: (e) => e.paperID,
   saved(row) {
-    // hack to only do the work of maintaining the mentions graph on the backend
     if (isBackend()) {
       mentionsGraph[row.paperID] = row.getMentions();
     }
