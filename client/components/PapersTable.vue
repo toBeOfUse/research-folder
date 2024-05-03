@@ -128,7 +128,7 @@ const filters: Filters = reactive({
 
 <template>
   <div id="page-container">
-    <h1 id="table-header">Mitch's Research Paper Index</h1>
+    <h1 id="table-header">Research Paper Index</h1>
     <VTable :filters="filters" :data="papers" sortHeaderClass="spaced-header" id="the-table">
       <template #head>
         <VTh :sortKey="({ published }: Paper) => published.toISOString()">Published</VTh>
@@ -149,14 +149,14 @@ const filters: Filters = reactive({
             style="font-weight:normal" @click="(e: MouseEvent) => e.stopPropagation()" />
         </VTh>
         <VTh sortKey="citationCount">Citations</VTh>
-        <th />
+        <th>Edit</th>
       </template>
       <template #body="{ rows }">
         <AddRow @add-row="(row: Paper) => save(row, true)" />
         <component :is="editing(row) ? EditableRow : StaticRow" v-for="row, rowIndex in rows" :key="row.id" :row="row"
           @edit="edit(row)" @save="row => save(row)" @cancel="cancel(row)" @delete="del(row)"
           :sortedTags="[...row.tags].sort(tagSorter)"
-          :bg="row.id == lastSavedPaperID ? '#e6fae7' : rowIndex % 2 == 1 ? 'white' : '#d7ebf5'"
+          :bg="row.id == lastSavedPaperID ? '#c1d4ff' : rowIndex % 2 == 1 ? '#f5f8ff' : 'white'"
           :highlighted="row.id == lastSavedPaperID" />
       </template>
     </VTable>

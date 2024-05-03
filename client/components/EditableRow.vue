@@ -141,7 +141,7 @@ const cancel = () => {
         <td class="parent" ref="leftPosReference">
             <table style="width: 165px">
                 <tr v-for="r in rowsNeeded" :key="r">
-                    <td style="padding: 0">
+                    <td>
                         <DatePicker v-if="r == 1" v-model:value="workingCopy.published" type="month" format="MMMM YYYY"
                             :clearable="false" />
                     </td>
@@ -160,7 +160,8 @@ const cancel = () => {
                     </tr>
                     <tr v-else-if="r == 2">
                         <td>
-                            <input style="width:100%" v-model="workingCopy.link" type="text" placeholder="Link to PDF..." />
+                            <input style="width:100%" v-model="workingCopy.link" type="text"
+                                placeholder="Link to PDF..." />
                         </td>
                     </tr>
                     <tr v-else>
@@ -185,7 +186,8 @@ const cancel = () => {
                                 <ContentEditable data-ph="jr/sr" tag="span" v-model="element.suffix" v-bind="CEOpts"
                                     @keypress.enter="addAuthor" />
                                 <div style="margin-left: auto; display: flex">
-                                    <button :style="{ display: addAuthorVisibility(index) }" @click="addAuthor">➕</button>
+                                    <button :style="{ display: addAuthorVisibility(index) }"
+                                        @click="addAuthor">➕</button>
                                     <button @click="removeAuthor(index)">❌</button>
                                     <button class="handle" style="cursor:grab">⇳</button>
                                 </div>
@@ -209,14 +211,14 @@ const cancel = () => {
         </td>
         <td class="parent">
             <table>
-                <draggable tag="tbody" v-model="workingCopy.tags" @start="drag = true" @end="drag = false" handle=".handle"
-                    :item-key="(tag: string) => workingCopy.tags.indexOf(tag)">
+                <draggable tag="tbody" v-model="workingCopy.tags" @start="drag = true" @end="drag = false"
+                    handle=".handle" :item-key="(tag: string) => workingCopy.tags.indexOf(tag)">
                     <template #item="{ element, index }">
                         <tr>
                             <td>
                                 <ContentEditable @keypress="handleTagPress"
-                                    :ref="el => index == workingCopy.tags.length - 1 && (lastTag = el)" data-ph="new tag"
-                                    tag="span" v-model="workingCopy.tags[index]" v-bind="CEOpts" />
+                                    :ref="el => index == workingCopy.tags.length - 1 && (lastTag = el)"
+                                    data-ph="new tag" tag="span" v-model="workingCopy.tags[index]" v-bind="CEOpts" />
                                 <div style="margin-left: auto; display: flex">
                                     <button :style="{ visibility: addTagVisibility(index) }" @click="addTag">➕</button>
                                     <button @click="removeTag(index)">❌</button>
@@ -255,7 +257,7 @@ const cancel = () => {
     </tr>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 @import "../styles/tables.scss";
 
 .row-container-bg {
@@ -271,10 +273,6 @@ td:not(:empty, .parent) {
 
 td:empty {
     background: transparent;
-    border: none;
-}
-
-td.parent {
     border: none;
 }
 
@@ -336,6 +334,7 @@ input[type=number] {
     background-color: transparent;
     color: black;
     border: none;
+    box-shadow: none;
     border-radius: 0;
     text-decoration: underline;
     text-decoration-style: dashed;

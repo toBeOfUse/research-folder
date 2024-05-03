@@ -49,7 +49,7 @@ const reset = () => {
 
 <template>
     <template v-if="editorOpen">
-        <EditableRow bg="#e6fae7" :row="rowInProgress" @cancel="reset" @delete="reset"
+        <EditableRow bg="#f0f4fc" :row="rowInProgress" @cancel="reset" @delete="reset"
             @save="row => { $emit('addRow', row); reset() }" />
     </template>
     <template v-else>
@@ -58,9 +58,9 @@ const reset = () => {
             <td>
                 <contenteditable id="title-input" v-model="search" tag="span" data-ph="Add from title..."
                     @keypress.enter="initRow" no-html no-nl />
-                <contenteditable style="margin-top: 4px;flex-shrink: 0;" v-model="DOI" tag="span" data-ph="Add from DOI..."
-                    @keypress.enter="initRow" no-html no-nl />
-                <button class="wide-button" style="margin-left:auto; min-width:125px" @click="initRow">
+                <contenteditable style="margin-top: 4px;flex-shrink: 0;" v-model="DOI" tag="span"
+                    data-ph="Add from DOI..." @keypress.enter="initRow" no-html no-nl />
+                <button class="wide-button" style="margin-left: 20px; min-width: 125px" @click="initRow">
                     <span :class="{ spinning: loadingPaper }">➕</span>
                     Add Paper
                 </button>
@@ -70,11 +70,11 @@ const reset = () => {
     </template>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 @import "../styles/tables.scss";
 
 td {
-    background-color: #e6fae7
+    background-color: #f0f4fc
 }
 
 #title-input {
