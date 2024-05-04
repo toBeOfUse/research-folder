@@ -62,6 +62,11 @@ button:not(.wide-button) {
   cursor: pointer;
   width: 25px;
 }
+button.wide-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 .notes-container {
   margin: 10px auto;
   display: flex;

@@ -4,6 +4,7 @@ import { Paper } from '../../data/entities';
 import EditableRow from './EditableRow.vue';
 import contenteditable from 'vue-contenteditable';
 import { searchPapers } from '../code/dataUtilities';
+import { PhListPlus as AddIcon } from "@phosphor-icons/vue";
 
 defineEmits<{ (event: 'addRow', row: Paper): void }>();
 const editorOpen = ref(false);
@@ -60,8 +61,10 @@ const reset = () => {
                     @keypress.enter="initRow" no-html no-nl />
                 <contenteditable style="margin-top: 4px;flex-shrink: 0;" v-model="DOI" tag="span"
                     data-ph="Add from DOI..." @keypress.enter="initRow" no-html no-nl />
-                <button class="wide-button" style="margin-left: 20px; min-width: 125px" @click="initRow">
-                    <span :class="{ spinning: loadingPaper }">➕</span>
+                <button class="wide-button" style="margin-left: 20px" @click="initRow">
+                    <span :class="{ spinning: loadingPaper }" style="display: flex;">
+                        <AddIcon />
+                    </span>
                     Add Paper
                 </button>
             </td>

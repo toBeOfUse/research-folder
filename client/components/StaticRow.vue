@@ -2,6 +2,7 @@
 import { computed, nextTick, onMounted, ref } from 'vue';
 import { AuthorName, Paper } from '../../data/entities';
 import { getPublicationDate } from '../code/dataUtilities';
+import { PhPenNib as EditIcon } from "@phosphor-icons/vue";
 
 const fullName = (author: AuthorName) =>
     [author.prefix, author.lastName, author.suffix].filter(a => a).join(' ');
@@ -42,7 +43,11 @@ defineEmits(['edit', 'save', 'cancel', 'delete']);
         </td>
         <td>{{ sortedTags.join(", ") }}</td>
         <td :title="citationsUpdated">{{ row.citationCount || "-" }}</td>
-        <td class="button"><button title="edit row" @click="$emit('edit')">📝</button></td>
+        <td class="button">
+            <button title="edit row" @click="$emit('edit')">
+                <EditIcon weight="duotone" color="#6146BD" />
+            </button>
+        </td>
     </tr>
 </template>
 

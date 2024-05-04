@@ -10,6 +10,14 @@ import 'vue-datepicker-next/index.css';
 import draggable from 'vuedraggable'
 import { cleanAuthors } from '../code/dataUtilities';
 
+import {
+    PhPlus as AddIcon,
+    PhTrash as DeleteIcon,
+    PhArrowsOutLineVertical as MoveIcon,
+    PhFloppyDisk as SaveIcon,
+    PhArrowUDownLeft as CancelIcon
+} from "@phosphor-icons/vue";
+
 const props = defineProps<{ row: Paper, bg: string }>();
 
 function getWorkingCopy(paper: Paper) {
@@ -160,7 +168,7 @@ const cancel = () => {
                     </tr>
                     <tr v-else-if="r == 2">
                         <td>
-                            <input style="width:100%" v-model="workingCopy.link" type="text"
+                            <input style="width: 100%" v-model="workingCopy.link" type="text"
                                 placeholder="Link to PDF..." />
                         </td>
                     </tr>
@@ -186,10 +194,15 @@ const cancel = () => {
                                 <ContentEditable data-ph="jr/sr" tag="span" v-model="element.suffix" v-bind="CEOpts"
                                     @keypress.enter="addAuthor" />
                                 <div style="margin-left: auto; display: flex">
-                                    <button :style="{ display: addAuthorVisibility(index) }"
-                                        @click="addAuthor">➕</button>
-                                    <button @click="removeAuthor(index)">❌</button>
-                                    <button class="handle" style="cursor:grab">⇳</button>
+                                    <button :style="{ display: addAuthorVisibility(index) }" @click="addAuthor">
+                                        <AddIcon />
+                                    </button>
+                                    <button @click="removeAuthor(index)">
+                                        <DeleteIcon />
+                                    </button>
+                                    <button class="handle" style="cursor: grab">
+                                        <MoveIcon />
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -220,9 +233,15 @@ const cancel = () => {
                                     :ref="el => index == workingCopy.tags.length - 1 && (lastTag = el)"
                                     data-ph="new tag" tag="span" v-model="workingCopy.tags[index]" v-bind="CEOpts" />
                                 <div style="margin-left: auto; display: flex">
-                                    <button :style="{ visibility: addTagVisibility(index) }" @click="addTag">➕</button>
-                                    <button @click="removeTag(index)">❌</button>
-                                    <button class="handle" style="cursor:grab">⇳</button>
+                                    <button :style="{ visibility: addTagVisibility(index) }" @click="addTag">
+                                        <AddIcon />
+                                    </button>
+                                    <button @click="removeTag(index)">
+                                        <DeleteIcon />
+                                    </button>
+                                    <button class="handle" style="cursor: grab">
+                                        <MoveIcon />
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -247,9 +266,15 @@ const cancel = () => {
             <table>
                 <tr v-for="i in rowsNeeded">
                     <td class="button">
-                        <button title="save changes" v-if="i == 1" @click="save">💾</button>
-                        <button title="cancel changes" v-if="i == 2" @click="cancel">↩</button>
-                        <button title="delete row" v-if="i == 3" @click="$emit('delete')">❌</button>
+                        <button title="save changes" v-if="i == 1" @click="save">
+                            <SaveIcon />
+                        </button>
+                        <button title="cancel changes" v-if="i == 2" @click="cancel">
+                            <CancelIcon />
+                        </button>
+                        <button title="delete row" v-if="i == 3" @click="$emit('delete')">
+                            <DeleteIcon />
+                        </button>
                     </td>
                 </tr>
             </table>
