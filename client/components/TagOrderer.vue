@@ -37,7 +37,7 @@ const save = () => {
 </template>
 
 <style scoped lang="scss">
-@import "../styles/tables.scss";
+@import "~/styles/tables.scss";
 
 .tag-order-container {
     display: flex;

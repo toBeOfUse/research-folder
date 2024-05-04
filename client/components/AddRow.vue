@@ -71,7 +71,7 @@ const reset = () => {
 </template>
 
 <style scoped lang="scss">
-@import "../styles/tables.scss";
+@import "~/styles/tables.scss";
 
 td {
     background-color: #f0f4fc

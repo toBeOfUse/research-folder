@@ -12,8 +12,14 @@ import HomeTag from "./components/HomeTag.vue";
   <home-tag />
 </template>
 
-<style>
+<style lang="scss">
+@import "~/styles/fonts.scss";
+
 #app {
   width: 100%;
+}
+
+* {
+  font-family: "Almarai", sans-serif;
 }
 </style>

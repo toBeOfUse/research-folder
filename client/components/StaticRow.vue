@@ -47,7 +47,7 @@ defineEmits(['edit', 'save', 'cancel', 'delete']);
 </template>
 
 <style scoped lang="scss">
-@import "../styles/tables.scss";
+@import "~/styles/tables.scss";
 
 td {
     background-color: v-bind("props.bg");

@@ -149,7 +149,7 @@ const filters: Filters = reactive({
             style="font-weight:normal" @click="(e: MouseEvent) => e.stopPropagation()" />
         </VTh>
         <VTh sortKey="citationCount">Citations</VTh>
-        <th>Edit</th>
+        <th style="text-align: center">Edit</th>
       </template>
       <template #body="{ rows }">
         <AddRow @add-row="(row: Paper) => save(row, true)" />
@@ -166,17 +166,6 @@ const filters: Filters = reactive({
 </template>
 
 <style lang="scss">
-* {
-  font-family: sans-serif;
-}
-
-a.link,
-a.link:visited,
-button.link {
-  color: blue;
-  text-decoration: underline;
-}
-
 .spaced-header {
   cursor: pointer;
   display: flex;
@@ -193,7 +182,7 @@ button.link {
 </style>
 
 <style scoped lang="scss">
-@import "../styles/tables.scss";
+@import "~/styles/tables.scss";
 
 #page-container {
   display: flex;

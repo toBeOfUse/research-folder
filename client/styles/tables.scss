@@ -28,7 +28,7 @@ td:not(.parent) {
   align-items: center;
   height: 40px;
 }
-$editorAreaBorder: 2px dashed rgb(23, 65, 214);
+$editorAreaBorder: 1px solid rgb(23, 65, 214);
 td.parent {
   padding: 0;
   background-color: transparent;

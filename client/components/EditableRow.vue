@@ -137,7 +137,7 @@ const cancel = () => {
 
 <template>
     <tr class="row-container" :class="{ opening: opening, closing: closing }">
-        <div class="row-container-bg" :style="bgPos" />
+        <!-- <div class="row-container-bg" :style="bgPos" /> -->
         <td class="parent" ref="leftPosReference">
             <table style="width: 165px">
                 <tr v-for="r in rowsNeeded" :key="r">
@@ -258,14 +258,15 @@ const cancel = () => {
 </template>
 
 <style scoped lang="scss">
-@import "../styles/tables.scss";
+@import "~/styles/tables.scss";
 
-.row-container-bg {
-    background-image: linear-gradient(to bottom right, white 0%, white 45%, lightgray 45%, lightgray 55%, white 55%, white 100%);
-    background-size: 10px 10px;
-    position: absolute;
-    z-index: -1;
-}
+// .row-container-bg {
+// background-image: linear-gradient(to bottom right, white 0%, white 45%, lightgray 45%, lightgray 55%, white 55%, white 100%);
+// background-size: 10px 10px;
+//     background-color: #efefef;
+//     position: absolute;
+//     z-index: -1;
+// }
 
 td:not(:empty, .parent) {
     background-color: v-bind("props.bg");
